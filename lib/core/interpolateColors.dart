@@ -18,7 +18,7 @@ List<double> _getOpacity(List<Color> colors) {
 }
 
 Color interpolateColors(value,
-    {List<Color> outputColorRange, List<num> inputRange}) {
+    {required List<Color> outputColorRange, required List<num> inputRange}) {
   var r = round(
     interpolate(
       value,
@@ -51,9 +51,9 @@ Color interpolateColors(value,
     outputRange: _getOpacity(
       (outputColorRange),
     ),
-  );
+  )!;
 
   // assddfd
 
-  return Color.fromRGBO(r, g, b, a);
+  return Color.fromRGBO(r, g, b, a as double);
 }

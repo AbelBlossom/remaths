@@ -1,9 +1,9 @@
 import 'dart:math' as Math;
 
-var add = (num a, num b) => a + b;
+var add = (num? a, num b) => a! + b;
 var multiply = (num a, num b) => a * b;
 var divide = (num a, num b) => a / b;
-var sub = (num a, num b) => a - b;
+var sub = (num? a, num? b) => a! - b!;
 var pow = (num a, num b) => Math.pow(a, b);
 var sqrt = (num a) => Math.sqrt(a);
 var modulo = (num a, num b) => ((a % b) + b) % b;
@@ -12,7 +12,7 @@ var sin = (num a) => Math.sin(a);
 var tan = (num a) => Math.tan(a);
 var asin = (num a, num b) => Math.asin(a);
 var exp = (num a) => Math.exp(a);
-var round = (num a) => a.round();
+var round = (num? a) => a!.round();
 var floor = (num a) => a.floor();
 var ceil = (num a) => a.ceil();
 var atan = (num a) => Math.atan(a);

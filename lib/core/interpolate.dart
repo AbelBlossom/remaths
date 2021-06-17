@@ -53,13 +53,13 @@ _checkMinElements(name, arr) {
   _throwError(arr.length >= 2, "$name must have at least 2 elements.");
 }
 
-num interpolate(
+num? interpolate(
   value, {
-  List inputRange,
-  List outputRange,
+  required List inputRange,
+  required List outputRange,
   Extrapolate extrapolate = Extrapolate.EXTEND,
-  Extrapolate extrapolateLeft,
-  Extrapolate extrapolateRight,
+  Extrapolate? extrapolateLeft,
+  Extrapolate? extrapolateRight,
 }) {
   _checkMinElements('inputRange', inputRange);
   _checkMinElements('outputRange', outputRange);
