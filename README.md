@@ -19,13 +19,13 @@ Hi, this is **reMath**, a flutter package that provide handy functions to help i
 ## conditional operation
 
 ```dart
-    cond(condition, ifNode,  [elseNode]);
+    cond(condition, ifBlock,  [elseBlock]);
 ```
-If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and returns its value, otherwise it evaluates `elseNode` and returns its value. `elseNode` is optional.
+If `condition` evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value, otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
 
 ## interpolations
 ```dart
-    interpolate(node,  {
+    interpolate(value,  {
     // Input range for the interpolation. Should be monotonically increasing.
     inputRange:  [value...],
     // Output range for the interpolation, should be the same length as the input range.
@@ -45,11 +45,11 @@ If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and 
 **Usage**
 
 ```dart
-    var value = interpolate(0.4,{ inputRange: [0,  1], outputRange: [0,  360] }),
+    var value = interpolate(0.5,{ inputRange: [0,  1], outputRange: [10,  0] }), // returns 5
 ```
 ## interlation of colors
 ```dart
-    interpolateColors(node,  {
+    interpolateColors(value,  {
     // Input range for the interpolation. Should be monotonically increasing.
     inputRange:  [value,  ...],
     // Output colors range for the interpolation.
@@ -68,3 +68,11 @@ If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and 
 	    outputColorRange:  [Colors.red,  Colors.blue],
     });
 ```
+
+## License
+
+Remaths library is licensed under [The MIT License](LICENSE).
+
+## Credits
+
+This project has been build and is maintained thanks to the support from the Ormanel Community

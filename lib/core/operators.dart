@@ -18,11 +18,16 @@ var ceil = (num a) => a.ceil();
 var atan = (num a) => Math.atan(a);
 var min = (num a, num b) => Math.min(a, b);
 var max = (num a, num b) => Math.max(a, b);
-
 var defined = (a) => a != null;
+bool truthy(dynamic val) {
+  if (val is bool) return true;
+
+  if (defined(val)) return true;
+  return false;
+}
 
 dynamic cond = (dynamic condition, dynamic ifBlock, [dynamic elseBlock]) {
-  if (condition) {
+  if (truthy(condition)) {
     return ifBlock;
   } else {
     if (defined(elseBlock)) {
