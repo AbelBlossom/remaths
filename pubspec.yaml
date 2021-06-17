@@ -1,8 +1,8 @@
 name: remaths
-description: A new Flutter package project.
+description: A new Flutter package that provide handy function to help in gesture animations and other calculations.
 version: 0.0.1
-author:
-homepage:
+author: Abel Dzanado and Kulewoshie Nathan
+homepage: https://github.com/AbelBlossom/remaths
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
