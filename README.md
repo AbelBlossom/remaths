@@ -6,7 +6,7 @@ Hi, this is **reMath**, a flutter package that provide handy function to help in
 
 
 ## Operators and helpers
-
+```dart
     abs(node); //Evaluates the given node and returns an absolute value of the node's value.
     add(num1, num2) // Takes two or more animated nodes or values, and when evaluated, returns their sum.
     ceil(num); //Returns a node that rounds a number up to its nearest integer. If the passed argument is an integer, the value will not be rounded.
@@ -15,14 +15,16 @@ Hi, this is **reMath**, a flutter package that provide handy function to help in
     floor(node); // Returns a node that rounds a number down to its nearest integer. If the passed argument is an integer, the value will not be rounded.
     max(num1, num2); // Takes two nodes as an input and returns a maximum of all the node's values.
     multiply(num1, num2) // Takes two or more animated nodes or values, and when evaluated, returns the result of multiplying their values in the exact order.
-    
+```
 ## conditional operation
 
+```dart
     cond(condition, ifNode,  [elseNode]);
+```
 If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and returns its value, otherwise it evaluates `elseNode` and returns its value. `elseNode` is optional.
 
 ## interpolations
-
+```dart
     interpolate(node,  {
     // Input range for the interpolation. Should be monotonically increasing.
     inputRange:  [value...],
@@ -38,13 +40,15 @@ If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and 
     Extrapolate.EXTEND;  // Will extend the range linearly.
     Extrapolate.CLAMP;  // Will clamp the input value to the range.
     Extrapolate.IDENTITY;  // Will return the input value if the input value is out of range.
+```
 
 **Usage**
 
+```dart
     var value = interpolate(0.4,{ inputRange: [0,  1], outputRange: [0,  360] }),
-
+```
 ## interlation of colors
-
+```dart
     interpolateColors(node,  {
     // Input range for the interpolation. Should be monotonically increasing.
     inputRange:  [value,  ...],
@@ -55,11 +59,12 @@ If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and 
     // or a number like Colors.red or Color(0xff112233).
     outputColorRange:  [Color,  ...],
     })
+```
 
 **example**
-
+ ```dart   
     const color =  Animated.interpolateColors(0.3,  {
 	    inputRange:  [0,  1],
 	    outputColorRange:  [Colors.red,  Colors.blue],
     });
-
+```
