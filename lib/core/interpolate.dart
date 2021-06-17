@@ -34,6 +34,25 @@ enum Extrapolate {
 }
 typedef Map Name(params);
 
+void _throwError(bool condition, String text) {
+  if (!condition) {
+    throw (text);
+  }
+}
+
+_checkNonDecreasing(name, arr) {
+  for (var i = 1; i < arr.length; ++i) {
+    _throwError(
+      arr[i] >= arr[i - 1],
+      "$name must be monotonically non-decreasing.",
+    );
+  }
+}
+
+_checkMinElements(name, arr) {
+  _throwError(arr.length >= 2, "$name must have at least 2 elements.");
+}
+
 num interpolate(
   value, {
   List inputRange,
@@ -42,9 +61,15 @@ num interpolate(
   Extrapolate extrapolateLeft,
   Extrapolate extrapolateRight,
 }) {
-  if (inputRange.length != outputRange.length) {
-    throw Error();
-  }
+  _checkMinElements('inputRange', inputRange);
+  _checkMinElements('outputRange', outputRange);
+  _checkNonDecreasing('inputRange', inputRange);
+
+  _throwError(
+    inputRange.length == outputRange.length,
+    "inputRange and outputRange must be the same length.",
+  );
+
   var left = defined(extrapolateLeft) ? extrapolateLeft : extrapolate;
   var right = defined(extrapolateRight) ? extrapolateRight : extrapolate;
   var output = _interpolateInternal(value, inputRange, outputRange);
