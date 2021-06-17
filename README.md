@@ -2,7 +2,7 @@
 
 ![enter image description here](https://user-images.githubusercontent.com/37389491/122314594-f9f16680-cf07-11eb-95e8-1548c2705c1f.png)
 
-Hi, this is **reMath**, a flutter package that provide handy function to help in gesture animations and other calculations. *inspired by the react-native reanimated package* thanks to software mansion for [react-native reanimated](https://github.com/software-mansion/react-native-reanimated) 
+Hi, this is **reMath**, a flutter package that provide handy functions to help in gesture animations and other calculations. *this is inspired by the react-native reanimated package*. Thanks to software mansion for [react-native reanimated](https://github.com/software-mansion/react-native-reanimated) 
 
 
 ## Operators and helpers
@@ -63,7 +63,7 @@ If `condition` evaluates to "truthy" value the node evaluates `ifNode` node and 
 
 **example**
  ```dart   
-    const color =  Animated.interpolateColors(0.3,  {
+    const color =  interpolateColors(0.3,  {
 	    inputRange:  [0,  1],
 	    outputColorRange:  [Colors.red,  Colors.blue],
     });
