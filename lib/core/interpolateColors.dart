@@ -17,6 +17,14 @@ List<double> _getOpacity(List<Color> colors) {
   return colors.map((e) => e.opacity).toList();
 }
 
+/// Maps an input value within a range to an output value within a color range.
+/// Example:
+/// ```dart
+/// interpolateColors(value,  {
+///    inputRange:  [0, 1],
+///    outputColorRange:  [Colors.ref, Colors.green],
+/// })
+/// ```
 Color interpolateColors(value,
     {required List<Color> outputColorRange, required List<num> inputRange}) {
   var r = round(
@@ -24,7 +32,7 @@ Color interpolateColors(value,
       value,
       inputRange: inputRange,
       outputRange: _getRed(outputColorRange),
-    ),
+    )!,
   );
 
   var g = round(
@@ -32,7 +40,7 @@ Color interpolateColors(value,
       value,
       inputRange: inputRange,
       outputRange: _getGreen(outputColorRange),
-    ),
+    )!,
   );
 
   var b = round(
@@ -42,7 +50,7 @@ Color interpolateColors(value,
       outputRange: _getBlue(
         (outputColorRange),
       ),
-    ),
+    )!,
   );
 
   var a = interpolate(

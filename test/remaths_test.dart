@@ -13,6 +13,6 @@ void main() {
     );
     print("${color.red} ${color.green} ${color.blue}");
 
-    expect(interpolate(5, inputRange: [0, 2.5, 5], outputRange: [0, 1, 2]), 2);
+    expect(interpolate(4, inputRange: [0, 2.5, 5], outputRange: [0, 1, 2]), 2);
   });
 }

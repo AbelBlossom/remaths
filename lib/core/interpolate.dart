@@ -53,6 +53,12 @@ _checkMinElements(name, arr) {
   _throwError(arr.length >= 2, "$name must have at least 2 elements.");
 }
 
+/// Maps an input value within a range to an output value within a range.
+/// Also supports different types of extrapolation for when the value falls outside the range and mapping to strings.
+/// For example, if you wanted to animate a rotation you could do:
+/// ```dart
+/// interpolate(value, { inputRange: [0, 1], outputRange: [0, 360] }),
+/// ```
 num? interpolate(
   value, {
   required List inputRange,
