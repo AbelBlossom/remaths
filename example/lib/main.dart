@@ -1,3 +1,6 @@
+import 'package:example/pages/carousel.dart';
+import 'package:example/pages/spring.dart';
+import 'package:example/pages/timing.dart';
 import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
 
@@ -14,79 +17,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Carousel(),
+      home: HomePage(),
+      routes: {
+        "/carousel": (_) => Carousel(),
+        "/spring": (_) => SpringAnimation(),
+        "/timing": (_) => TimingAnimation(),
+      },
     );
   }
 }
 
-class Carousel extends StatefulWidget {
-  const Carousel({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  _CarouselState createState() => _CarouselState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _CarouselState extends State<Carousel>
-    with SingleTickerProviderStateMixin {
-  late PageController _controller;
-  double? page = 2;
-  List<Color> colors = [
-    Colors.teal,
-    Colors.green,
-    Colors.orangeAccent,
-    Colors.blue,
-    Colors.brown,
-    Colors.amber,
-  ];
-  @override
-  void initState() {
-    _controller = PageController(initialPage: 2, viewportFraction: 0.7)
-      ..addListener(() {
-        setState(() {
-          page = _controller.page;
-        });
-      });
-    super.initState();
-  }
-
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var screens = [
+      ["Carousel", "/carousel"],
+      ["Spring Animation", "/spring"],
+      ["Timing Animation", "/timing"]
+    ];
     return Scaffold(
-      appBar: AppBar(title: Text("Carousel made-with Remaths")),
+      appBar: AppBar(
+        title: Text("Remaths Example"),
+      ),
       body: Container(
-        height: 500,
-        margin: EdgeInsets.only(top: 30),
-        child: PageView.builder(
-          controller: _controller,
-          itemCount: colors.length,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, position) {
-            double diff = position - page!;
-            var rotation = interpolate(diff,
-                inputRange: [-1, 0, 1], outputRange: [-15, 0, 15]);
-            var scale = interpolate(diff,
-                inputRange: [-1, 0, 1], outputRange: [0.9, 1, 0.9]);
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-              child: Transform.scale(
-                scale: scale!.toDouble(),
-                child: Transform.rotate(
-                  origin: Offset(00, 0),
-                  angle: toRad(rotation!.toDouble()),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: colors[position],
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "$position",
-                        style: TextStyle(color: Colors.white, fontSize: 50),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+        child: ListView.builder(
+          itemCount: screens.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                Navigator.of(context).pushNamed(screens[index][1]);
+              },
+              title: Text(screens[index][0]),
             );
           },
         ),
