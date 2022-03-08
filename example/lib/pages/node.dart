@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
+import 'dart:math';
 
 class NodeTesting extends StatefulWidget {
   const NodeTesting({Key? key}) : super(key: key);
@@ -11,46 +12,46 @@ class NodeTesting extends StatefulWidget {
 class _NodeTestingState extends State<NodeTesting>
     with TickerProviderStateMixin {
   late Node x;
-  late Node y;
   _NodeTestingState() {
     x = Node(50, vsync: this);
-    y = Node(50, vsync: this);
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Node API')),
-      body: Stack(
-        children: [
-          AnimatedBuilder(
-            animation: y.notifier,
-            builder: (_, child) {
-              return Positioned(
-                top: y.value.toDouble(),
-                left: x.value.toDouble(),
-                child: child!,
-              );
-            },
-            child: GestureDetector(
-              onPanUpdate: (details) {
-                y.value += details.delta.dy;
-                x.value += details.delta.dx;
-              },
-              onPanEnd: (details) {
-                // withTiming(x, 50);
-                // withTiming(y, 50);
-                x.value = withSpring(50);
-                y.value = withSpring(50);
-              },
-              child: Container(
-                  width: 50,
-                  height: 50,
-                  color: Colors.red,
-                  child: const Icon(Icons.move_to_inbox)),
-            ),
-          )
-        ],
+      body: SizedBox(
+        height: 300,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedBuilder(
+                animation: x.notifier,
+                builder: (context, child) {
+                  return Container(
+                    height: 100,
+                    width: x.value,
+                    color: Colors.red,
+                    child: child,
+                  );
+                }),
+            TextButton(
+                onPressed: () => {
+                      x.value = withSpring(
+                        Random().nextDouble() * 200,
+                        // damping: 8,
+                        duration: 500,
+                      )
+                    },
+                child: Text("RUN"))
+          ],
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    x.dispose();
   }
 }
