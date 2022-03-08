@@ -1,10 +1,11 @@
 import 'dart:math' as Math;
 
-// Takes two values, and when evaluated, returns their sum.
+/// Takes two values, and when evaluated, returns their sum.
 var add = (num? a, num b) => a! + b;
-// Takes two values, and when evaluated, returns their product.
+//. Takes two values, and when evaluated, returns their product.
 var multiply = (num a, num b) => a * b;
-// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
+
+/// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
 var divide = (num a, num b) => a / b;
 
 /// Takes two values, and when evaluated, returns the result of substracting their values
@@ -58,7 +59,12 @@ var toRad = (num a) => a * Math.pi / 180;
 
 /// Returns true if the given node evaluates to a "defined" value (that is to something that is non-null, non-undefined and non-NaN).
 /// Returns false otherwise
-var defined = (a) => a != null;
+var defined = (a) {
+  if (a is num) {
+    return a != 0;
+  }
+  return a != null;
+};
 
 /// the if the value is valid
 bool truthy(dynamic val) {

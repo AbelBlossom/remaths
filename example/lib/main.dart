@@ -1,8 +1,8 @@
 import 'package:example/pages/carousel.dart';
+import 'package:example/pages/node.dart';
 import 'package:example/pages/spring.dart';
 import 'package:example/pages/timing.dart';
 import 'package:flutter/material.dart';
-import 'package:remaths/remaths.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,18 +17,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
       routes: {
-        "/carousel": (_) => Carousel(),
+        "/carousel": (_) => const Carousel(),
         "/spring": (_) => SpringAnimation(),
         "/timing": (_) => TimingAnimation(),
+        "/node": (_) => const NodeTesting(),
       },
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -40,24 +41,23 @@ class _HomePageState extends State<HomePage> {
     var screens = [
       ["Carousel", "/carousel"],
       ["Spring Animation", "/spring"],
-      ["Timing Animation", "/timing"]
+      ["Timing Animation", "/timing"],
+      ['New Node API', '/node']
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text("Remaths Example"),
+        title: const Text("Remaths Example"),
       ),
-      body: Container(
-        child: ListView.builder(
-          itemCount: screens.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () {
-                Navigator.of(context).pushNamed(screens[index][1]);
-              },
-              title: Text(screens[index][0]),
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: screens.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(screens[index][1]);
+            },
+            title: Text(screens[index][0]),
+          );
+        },
       ),
     );
   }
