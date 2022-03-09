@@ -1,4 +1,5 @@
 import 'package:example/pages/carousel.dart';
+import 'package:example/pages/measure_test.dart';
 import 'package:example/pages/node.dart';
 import 'package:example/pages/spring.dart';
 import 'package:example/pages/timing.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         "/spring": (_) => SpringAnimation(),
         "/timing": (_) => TimingAnimation(),
         "/node": (_) => const NodeTesting(),
+        "/measure": (_) => const MeasureTest()
       },
     );
   }
@@ -42,7 +44,8 @@ class _HomePageState extends State<HomePage> {
       ["Carousel", "/carousel"],
       ["Spring Animation", "/spring"],
       ["Timing Animation", "/timing"],
-      ['New Node API', '/node']
+      ['New Node API', '/node'],
+      ["Measurement", '/measure']
     ];
     return Scaffold(
       appBar: AppBar(

@@ -6,3 +6,4 @@ export 'core/interpolateColors.dart';
 export "core/animations/animations.dart";
 export "core/animations/widget.dart";
 export "core/node.dart";
+export 'core/measure.dart';
