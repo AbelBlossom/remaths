@@ -1,4 +1,4 @@
-import 'package:remaths/core/operators.dart';
+part of remaths;
 
 dynamic _interpolateInternalSingleProc(value, inS, inE, outS, outE) {
   ///asd

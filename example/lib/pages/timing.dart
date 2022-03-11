@@ -10,14 +10,14 @@ class TimingAnimation extends StatefulWidget {
 
 class _TimingAnimationState extends State<TimingAnimation>
     with TickerProviderStateMixin {
-  late AnimatedValue x;
-  late AnimatedValue y;
+  late SharedValue x;
+  late SharedValue y;
 
   @override
   void initState() {
     super.initState();
-    x = AnimatedValue(100, vsyc: this);
-    y = AnimatedValue(30, vsyc: this);
+    x = SharedValue(100, vsync: this);
+    y = SharedValue(30, vsync: this);
   }
 
   @override
@@ -41,9 +41,10 @@ class _TimingAnimationState extends State<TimingAnimation>
                 onPanEnd: (details) {
                   // x.withTiming(200.0, curve: Curves.easeInCubic);
                   // y.withTiming(30.0, curve: Curves.easeInCubic);
-                  animateAll(
+                  runAllWithTiming(
                     [x, y],
                     [100, 30],
+                    curve: Curves.linear,
                   );
                 },
                 child: child,

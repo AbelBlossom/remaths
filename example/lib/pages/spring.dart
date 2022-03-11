@@ -10,14 +10,14 @@ class SpringAnimation extends StatefulWidget {
 
 class _SpringAnimationState extends State<SpringAnimation>
     with TickerProviderStateMixin {
-  late AnimatedValue x;
-  late AnimatedValue y;
+  late SharedValue x;
+  late SharedValue y;
 
   @override
   void initState() {
     super.initState();
-    x = AnimatedValue(100, vsyc: this);
-    y = AnimatedValue(30, vsyc: this);
+    x = SharedValue(100, vsync: this);
+    y = SharedValue(30, vsync: this);
   }
 
   @override
@@ -41,7 +41,7 @@ class _SpringAnimationState extends State<SpringAnimation>
                 onPanEnd: (details) {
                   // x.withTiming(200.0, curve: Curves.easeInCubic);
                   // y.withTiming(30.0, curve: Curves.easeInCubic);
-                  springAll(
+                  runAllWithSpring(
                     [x, y],
                     [100, 30],
                   );

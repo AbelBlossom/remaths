@@ -1,4 +1,4 @@
-import 'dart:math' as Math;
+part of remaths;
 
 /// Takes two values, and when evaluated, returns their sum.
 var add = (num? a, num b) => a! + b;
@@ -55,7 +55,12 @@ var max = (num a, num b) => Math.max(a, b);
 
 /// returns the aboslute value
 var abs = (num a) => a.abs();
+
+/// convert [a] in Degress to Radian
 var toRad = (num a) => a * Math.pi / 180;
+
+/// convert [a] in Radian to Degrees
+var toDeg = (num a) => a * 180 / Math.pi;
 
 /// Returns true if the given node evaluates to a "defined" value (that is to something that is non-null, non-undefined and non-NaN).
 /// Returns false otherwise
@@ -76,7 +81,7 @@ bool truthy(dynamic val) {
 
 /// If conditionNode evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value,
 /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
-dynamic cond = (dynamic condition, dynamic ifBlock, [dynamic elseBlock]) {
+var cond = (bool condition, dynamic ifBlock, [dynamic elseBlock]) {
   if (condition) {
     return ifBlock;
   } else {
@@ -103,3 +108,12 @@ var lessOrEq = (a, b) => a <= b;
 
 /// graater than or equal to `>=` comparism
 var greaterOrEq = (a, b) => a >= b;
+
+/// Evaluates [SharedValue] and returns a difference between value returned
+///  at the last time it was evaluated and its value at the current time.
+///
+/// When evaluating for the first time it returns the [SharedValue] value
+double Function(SharedValue) diff = (SharedValue sharedValue) {
+  return cond(defined(sharedValue._prev),
+      sub(sharedValue.value, sharedValue._prev), sharedValue.value);
+};

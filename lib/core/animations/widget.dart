@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:remaths/core/animations/animations.dart';
+part of remaths;
 
 /// A widget to listen to values of `AnimatedValue` and render the animation smoothly
 class AnimatedValueBuilder extends StatelessWidget {
-  final List<AnimatedValue> values;
+  final List<SharedValue> values;
   final Widget? child;
   final Widget Function(BuildContext, Widget?) builder;
   const AnimatedValueBuilder(
@@ -13,7 +12,7 @@ class AnimatedValueBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: Listenable.merge(values.map((e) => e.listenable).toList()),
+      animation: Listenable.merge(values.map((e) => e.notifier).toList()),
       builder: builder,
       child: child,
     );

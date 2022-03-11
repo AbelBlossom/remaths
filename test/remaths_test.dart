@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:remaths/core/interpolate.dart';
 
 import 'package:remaths/remaths.dart';
 

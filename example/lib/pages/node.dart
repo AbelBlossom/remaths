@@ -11,9 +11,9 @@ class NodeTesting extends StatefulWidget {
 
 class _NodeTestingState extends State<NodeTesting>
     with TickerProviderStateMixin {
-  late Node x;
+  late SharedValue x;
   _NodeTestingState() {
-    x = Node(50, vsync: this);
+    x = SharedValue(50, vsync: this);
   }
   @override
   Widget build(BuildContext context) {

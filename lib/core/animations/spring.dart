@@ -1,5 +1,4 @@
-import "package:flutter/physics.dart";
-import "package:flutter/widgets.dart";
+part of remaths;
 
 /// Use [Spring] in place of any curve.
 ///
