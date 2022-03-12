@@ -52,6 +52,22 @@ class SharedValue {
     return _val;
   }
 
+  double operator +(dynamic other) =>
+      value + cond(other is SharedValue, other.value, other);
+
+  double operator -(dynamic other) =>
+      value - cond(other is SharedValue, other.value, other);
+
+  double operator /(dynamic other) =>
+      value / cond(other is SharedValue, other.value, other);
+
+  double operator *(dynamic other) =>
+      value * cond(other is SharedValue, other.value, other);
+
+  call(dynamic _value) {
+    value = _value;
+  }
+
   set status(AnimationStatus? status) {
     _status.value = status;
   }

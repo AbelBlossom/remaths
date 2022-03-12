@@ -1,75 +1,80 @@
 part of remaths;
 
+num _get(dynamic data) {
+  assert(or(data is SharedValue, data is num));
+  return cond(data is SharedValue, (data as SharedValue).value, data);
+}
+
 /// Takes two values, and when evaluated, returns their sum.
-var add = (num? a, num b) => a! + b;
+double add(dynamic a, dynamic b) => (_get(a) + _get(b)).toDouble();
 //. Takes two values, and when evaluated, returns their product.
-var multiply = (num a, num b) => a * b;
+double multiply(dynamic a, dynamic b) => (_get(a) * _get(b)).toDouble();
 
 /// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
-var divide = (num a, num b) => a / b;
+double divide(dynamic a, dynamic b) => (_get(a) / _get(b)).toDouble();
 
 /// Takes two values, and when evaluated, returns the result of substracting their values
-var sub = (num? a, num? b) => a! - b!;
+double sub(dynamic a, dynamic b) => (_get(a) - _get(b)).toDouble();
 
 /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
-var pow = (num a, num b) => Math.pow(a, b);
+double pow(dynamic a, dynamic b) => (Math.pow(_get(a), _get(b))).toDouble();
 
 /// returns the squre root of the number
-var sqrt = (num a) => Math.sqrt(a);
+double sqrt(dynamic a) => Math.sqrt(a);
 
 /// Remainder after division of the first argument by the second one. modulo(a,0) will throw an error.
-var modulo = (num a, num b) => ((a % b) + b) % b;
+double modulo(dynamic a, dynamic b) =>
+    (((_get(a) % _get(b)) + _get(b)) % _get(b)).toDouble();
 
 /// The same function as `Math.log`
-var log = (num a) => Math.log(a);
+double log(dynamic a) => Math.log(_get(a));
 
 /// The same function as `Math.sin`
-var sin = (num a) => Math.sin(a);
+double sin(dynamic a) => Math.sin(_get(a));
 
 /// The same function as `Math.tan`
-var tan = (num a) => Math.tan(a);
+double tan(dynamic a) => Math.tan(_get(a));
 
 /// The same function as `Math.asin`
-var asin = (num a, num b) => Math.asin(a);
+double asin(dynamic a) => Math.asin(_get(a));
 
 /// The same function as `Math.exp`
-var exp = (num a) => Math.exp(a);
+double exp(dynamic a) => Math.exp(_get(a));
 
 /// The same function as `num.round`
-var round = (num a) => a.round();
+int round(dynamic a) => _get(a).round();
 
 /// The same function as `num.floor`
-var floor = (num a) => a.floor();
+int floor(dynamic a) => _get(a).floor();
 
 /// The same function as `num.ceil`
-var ceil = (num a) => a.ceil();
+int ceil(dynamic a) => _get(a).ceil();
 
 /// The same function as `Math.atan`
-var atan = (num a) => Math.atan(a);
+double atan(dynamic a) => Math.atan(_get(a));
 
 /// returns the minimum value
-var min = (num a, num b) => Math.min(a, b);
+min<T extends num>(T a, T b) => Math.min(_get(a) as T, _get(b) as T);
 
 /// returns the maximum value
-var max = (num a, num b) => Math.max(a, b);
+T max<T extends num>(T a, T b) => Math.max<T>(_get(a) as T, _get(b) as T);
 
 /// returns the aboslute value
-var abs = (num a) => a.abs();
+num abs(dynamic a) => _get(a).abs();
 
 /// convert [a] in Degress to Radian
-var toRad = (num a) => a * Math.pi / 180;
+double toRad(dynamic a) => _get(a) * Math.pi / 180;
 
 /// convert [a] in Radian to Degrees
-var toDeg = (num a) => a * 180 / Math.pi;
+double toDeg(dynamic a) => _get(a) * 180 / Math.pi;
 
 /// Returns true if the given node evaluates to a "defined" value (that is to something that is non-null, non-undefined and non-NaN).
 /// Returns false otherwise
-var defined = (a) {
-  if (a is num) {
-    return a != 0;
-  }
+bool defined(a) {
   return a != null;
-};
+}
+
+bool or(bool a, bool b) => a || b;
 
 /// the if the value is valid
 bool truthy(dynamic val) {
@@ -81,39 +86,49 @@ bool truthy(dynamic val) {
 
 /// If conditionNode evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value,
 /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
-var cond = (bool condition, dynamic ifBlock, [dynamic elseBlock]) {
+cond<T>(bool condition, T ifBlock, [T? elseBlock]) {
   if (condition) {
+    if (ifBlock is Function) {
+      ifBlock();
+    }
     return ifBlock;
   } else {
     if (defined(elseBlock)) {
+      if (elseBlock is Function) {
+        elseBlock();
+      }
       return elseBlock;
+    } else {
+      return null;
     }
   }
-};
+}
 
 /// less than `<` comparism
-var lessThan = (a, b) => a < b;
+bool lessThan(a, b) => _get(a) < _get(b);
 
 /// greater than `>` comparism
-var greaterThan = (a, b) => a > b;
+bool greaterThan(a, b) => _get(a) > _get(b);
 
 /// checks if the two values are equal `==`
-var eq = (a, b) => a == b;
+bool eq(a, b) => _get(a) == _get(b);
 
 /// checks if the two values are `not` equal `!=`
-var neq = (a, b) => a != b;
+bool neq(a, b) => _get(a) != _get(a);
 
 /// less than or equal to `<=` comparism
-var lessOrEq = (a, b) => a <= b;
+bool lessOrEq(a, b) => _get(a) <= _get(a);
 
 /// graater than or equal to `>=` comparism
-var greaterOrEq = (a, b) => a >= b;
+bool greaterOrEq(a, b) => _get(a) >= _get(a);
 
 /// Evaluates [SharedValue] and returns a difference between value returned
 ///  at the last time it was evaluated and its value at the current time.
 ///
 /// When evaluating for the first time it returns the [SharedValue] value
-double Function(SharedValue) diff = (SharedValue sharedValue) {
-  return cond(defined(sharedValue._prev),
-      sub(sharedValue.value, sharedValue._prev), sharedValue.value);
-};
+double diff(SharedValue sharedValue, [double initial = 0.0]) {
+  return cond<double>(
+      defined(sharedValue._prev),
+      sub(sharedValue.value, sharedValue._prev!),
+      cond(defined(initial), initial, sharedValue.value)) as double;
+}
