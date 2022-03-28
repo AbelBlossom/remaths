@@ -4,15 +4,15 @@
 
 remaths is a flutter package that makes animations and other calculations easier to use. This package is heavily **inspired** by the react-native reanimated package.
 
-## `Animatable`
+## `Tweeenable`
 
-`Animatables` are one of the fundamentals of the `remaths` package. `Animatable` carries `animatable` data. This data can be animated with timing or spring. `Animatable` uses the default flutter `AnimationController` under the hood to render animations performantly. Before we start animating with `Animatable` lets look at Animatable Functions
+`Tweeenables` are one of the fundamentals of the `remaths` package. `Tweeenable` carries `Tweeenable` data. This data can be animated with timing or spring. `Tweeenable` uses the default flutter `AnimationController` under the hood to render animations performantly. Before we start animating with `Tweeenable` lets look at Tweeenable Functions
 
-### Animatable Functions
-Animatable functions are used to animate `Animatable` values. 
+### Tweeenable Functions
+Tweeenable functions are used to animate `Tweeenable` values. 
 #### withSpring
 
-Starts a spring animation on the `Animatable` value.
+Starts a spring animation on the `Tweeenable` value.
  ```dart
     x = withSpring(toValue, {
     int  duration,
@@ -36,7 +36,7 @@ Starts a spring animation on the `Animatable` value.
 | onComplere| null     | function called after the animation is complete |
 
 #### withTiming
-Start a timing animation in the `Animatable` value
+Start a timing animation in the `Tweeenable` value
 
 ```dart
 x = withTiming(double toValue, {
@@ -60,13 +60,13 @@ Run list of animations sequentially.
 ```dart
  x = withSequence([withTiming(...),6.0,withSpring(...),])
 ```
-`wihSequence` takes a list of Animatable Functions or a `double` and run them sequencially.
+`wihSequence` takes a list of Tweeenable Functions or a `double` and run them sequencially.
 When a `double` is provided, the value is set to that destination without any animation.
 
-## Working with Animatables
-Lets take `Animatable` as a double value that can be animated with Animatable Functions.
+## Working with Tweeenables
+Lets take `Tweeenable` as a double value that can be animated with Tweeenable Functions.
 ```dart
-var x = Animatable(double value, vsync: this);
+var x = Tweeenable(double value, vsync: this);
 ```
 
 | Params   | default  | description |
@@ -76,7 +76,7 @@ var x = Animatable(double value, vsync: this);
 
 You have to use your stateful object as the `vsync` by adding `SingleTickerProviderStateMixin` or `TickerProviderStateMixin` to the class definition
 
-Animations can be done on `Animatable` by seting the `Animatable` value to an animated function
+Animations can be done on `Tweeenable` by seting the `Tweeenable` value to an animated function
 
 Example
 ```dart
@@ -86,6 +86,6 @@ x = withSequence(...)
 x = 45.0 // no animations done here
 
 ```
-**Note**: if a `double` value to seted with the `Animatable`, no animation is triggered. The value is just jumped the destination.
+**Note**: if a `double` value to seted with the `Tweeenable`, no animation is triggered. The value is just jumped the destination.
 
 

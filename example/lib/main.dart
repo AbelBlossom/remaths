@@ -1,4 +1,3 @@
-import 'package:example/pages/carousel.dart';
 import 'package:example/pages/measure_test.dart';
 import 'package:example/pages/node.dart';
 import 'package:example/pages/spring.dart';
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        "/carousel": (_) => const Carousel(),
         "/spring": (_) => SpringAnimation(),
         "/timing": (_) => TimingAnimation(),
         "/node": (_) => const NodeTesting(),

@@ -1,12 +1,12 @@
 part of remaths;
 
-/// Use [Spring] in place of any curve.
+/// Use [_Spring] in place of any curve.
 ///
-/// Opinionated curves are [Spring.underDamped], [Spring.criticallyDamped], [Spring.overDamped].
-/// This is the most common way to use [Spring].
+/// Opinionated curves are [_Spring.underDamped], [_Spring.criticallyDamped], [_Spring.overDamped].
+/// This is the most common way to use [_Spring].
 ///
 /// If you wish to fine tune the damping action, use `Sprung()` which defaults to `Sprung(20)` and
-/// is the same as [Spring.criticallyDamped]. Changing the value will fine tune the damping action.
+/// is the same as [_Spring.criticallyDamped]. Changing the value will fine tune the damping action.
 ///
 /// If you want full control over making custom spring curves, [Spring.custom] allows you to adjust
 /// damping, stiffness, mass, and velocity.
@@ -19,26 +19,26 @@ part of remaths;
 ///   velocity: 0.0,
 /// )
 /// ```
-class Spring extends Curve {
+class _Spring extends Curve {
   /// A Curve that uses the Flutter Physics engine to drive realistic animations.
   ///
   /// Provides a critically damped spring by default, with an easily overrideable damping value.
   ///
-  /// See also: [Sprung.custom], [Spring.underDamped], [Spring.criticallyDamped], [Spring.overDamped]
-  factory Spring([double damping = 20]) => Spring.custom(damping: damping);
+  /// See also: [Sprung.custom], [_Spring.underDamped], [_Spring.criticallyDamped], [_Spring.overDamped]
+  factory _Spring([double damping = 20]) => _Spring.custom(damping: damping);
 
   /// Provides an **under damped** spring, which wobbles loosely at the end.
-  static final underDamped = Spring(12);
+  static final underDamped = _Spring(12);
 
   /// Provides a **critically damped** spring, which overshoots once very slightly.
-  static final criticallyDamped = Spring(20);
+  static final criticallyDamped = _Spring(20);
 
   /// Provides an **over damped** spring, which smoothly glides into place.
-  static final overDamped = Spring(28);
+  static final overDamped = _Spring(28);
 
   /// Provides a critically damped spring by default, with an easily overrideable damping, stiffness,
   /// mass, and initial velocity value.
-  Spring.custom({
+  _Spring.custom({
     double damping = 20,
     double stiffness = 180,
     double mass = 1.0,

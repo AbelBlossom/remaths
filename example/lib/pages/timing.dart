@@ -10,26 +10,26 @@ class TimingAnimation extends StatefulWidget {
 
 class _TimingAnimationState extends State<TimingAnimation>
     with TickerProviderStateMixin {
-  late SharedValue x;
-  late SharedValue y;
+  late Tweenable x;
+  late Tweenable y;
 
   @override
   void initState() {
     super.initState();
-    x = SharedValue(100, vsync: this);
-    y = SharedValue(30, vsync: this);
+    x = Tweenable(100, vsync: this);
+    y = Tweenable(30, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Timing Animation"),
+        title: const Text("Timing Animation"),
       ),
       body: Stack(
         children: [
-          SharedValueBuilder(
-            values: [x, y],
+          AnimatedBuilder(
+            animation: mergeTweenables([x, y]),
             builder: (context, child) => Positioned(
               top: y.value,
               left: x.value,

@@ -1,42 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:remaths/remaths.dart';
-
-class Measurement {
-  double pageX;
-  double pageY;
-  double width;
-  double height;
-  double x;
-  double y;
-
-  Measurement({
-    this.height = 0,
-    this.width = 0,
-    this.x = 0,
-    this.y = 0,
-    this.pageX = 0,
-    this.pageY = 0,
-  });
-
-  @override
-  String toString() {
-    return "(width: $width, height $height, x: $x, y: $y)";
-  }
-}
-
-typedef void OnSized(Measurement measurement);
-
-Measurement getMeasurement(RenderBox box, Offset offset) {
-  var _m = Measurement();
-  var size = box.size;
-  _m.width = size.width;
-  _m.height = size.height;
-  var offset = box.localToGlobal(Offset(0, -92));
-  _m.x = offset.dx;
-  _m.y = offset.dy;
-  return _m;
-}
+part of remaths;
 
 class MeasureListener extends StatefulWidget {
   final OnSized onSizeChanged;
@@ -67,7 +29,8 @@ class _MeasureListenerState extends State<MeasureListener> {
       var context = _key.currentContext;
       if (context != null) {
         var box = context.findRenderObject() as RenderBox;
-        widget.onSizeChanged.call(getMeasurement(box, widget.offset));
+        widget.onSizeChanged
+            .call(Measurement._getMeasurement(box, widget.offset));
       }
     });
   }
@@ -123,19 +86,5 @@ class _MeasureOnceState extends State<MeasureOnce> {
       key: _key,
       child: widget.child,
     );
-  }
-}
-
-class MeasureLister extends StatefulWidget {
-  MeasureLister({Key? key}) : super(key: key);
-
-  @override
-  State<MeasureLister> createState() => _MeasureListerState();
-}
-
-class _MeasureListerState extends State<MeasureLister> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

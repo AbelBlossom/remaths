@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/core/measure.dart';
+import 'package:remaths/remaths.dart';
 
 class MeasureTest extends StatefulWidget {
   const MeasureTest({Key? key}) : super(key: key);
