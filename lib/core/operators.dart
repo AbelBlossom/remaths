@@ -2,7 +2,8 @@ part of remaths;
 
 num _get(dynamic data) {
   assert(or(data is SharedValue, data is num));
-  return cond(data is SharedValue, (data as SharedValue).value, data);
+  // print(data is num);
+  return data is SharedValue ? data.value : data;
 }
 
 /// Takes two values, and when evaluated, returns their sum.
@@ -86,16 +87,16 @@ bool truthy(dynamic val) {
 
 /// If conditionNode evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value,
 /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
-cond<T>(bool condition, T ifBlock, [T? elseBlock]) {
+cond(bool condition, ifBlock, [elseBlock]) {
   if (condition) {
     if (ifBlock is Function) {
-      ifBlock();
+      return ifBlock();
     }
     return ifBlock;
   } else {
     if (defined(elseBlock)) {
       if (elseBlock is Function) {
-        elseBlock();
+        return elseBlock();
       }
       return elseBlock;
     } else {
@@ -127,8 +128,8 @@ bool greaterOrEq(a, b) => _get(a) >= _get(a);
 ///
 /// When evaluating for the first time it returns the [SharedValue] value
 double diff(SharedValue sharedValue, [double initial = 0.0]) {
-  return cond<double>(
+  return cond(
       defined(sharedValue._prev),
-      sub(sharedValue.value, sharedValue._prev!),
+      sub(sharedValue.value, sharedValue._prev ?? 0),
       cond(defined(initial), initial, sharedValue.value)) as double;
 }
