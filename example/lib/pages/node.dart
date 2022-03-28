@@ -11,9 +11,9 @@ class NodeTesting extends StatefulWidget {
 
 class _NodeTestingState extends State<NodeTesting>
     with TickerProviderStateMixin {
-  late SharedValue x;
+  late Tweenable x;
   _NodeTestingState() {
-    x = SharedValue(50, vsync: this);
+    x = Tweenable(50, vsync: this);
   }
   @override
   Widget build(BuildContext context) {
@@ -41,9 +41,12 @@ class _NodeTestingState extends State<NodeTesting>
                     // damping: 8,
                     duration: 500,
                   );
-                  print(random());
+                  print(interpolate(4,
+                      inputRange: [1, 2, 1],
+                      outputRange: [0, 1, 4],
+                      extrapolate: Extrapolate.EXTEND));
                 },
-                child: Text("RUN"))
+                child: const Text("RUN"))
           ],
         ),
       ),

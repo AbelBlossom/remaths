@@ -34,15 +34,15 @@ enum Extrapolate {
 }
 typedef Map Name(params);
 
-void _throwError(bool condition, String text) {
-  if (!condition) {
-    throw (text);
-  }
-}
+// void _throwError(bool condition, String text) {
+//   if (!condition) {
+//     throw (text);
+//   }
+// }
 
 _checkNonDecreasing(name, arr) {
   for (var i = 1; i < arr.length; ++i) {
-    _throwError(
+    assert(
       arr[i] >= arr[i - 1],
       "$name must be monotonically non-decreasing.",
     );
@@ -50,16 +50,10 @@ _checkNonDecreasing(name, arr) {
 }
 
 _checkMinElements(name, arr) {
-  _throwError(arr.length >= 2, "$name must have at least 2 elements.");
+  assert(arr.length >= 2, "$name must have at least 2 elements.");
 }
 
-/// Maps an input value within a range to an output value within a range.
-/// Also supports different types of extrapolation for when the value falls outside the range and mapping to strings.
-/// For example, if you wanted to animate a rotation you could do:
-/// ```dart
-/// interpolate(value, { inputRange: [0, 1], outputRange: [0, 360] }),
-/// ```
-num? interpolate(
+num? _internalInterpolate(
   value, {
   required List inputRange,
   required List outputRange,
@@ -71,24 +65,22 @@ num? interpolate(
   _checkMinElements('outputRange', outputRange);
   _checkNonDecreasing('inputRange', inputRange);
 
-  _throwError(
+  assert(
     inputRange.length == outputRange.length,
     "inputRange and outputRange must be the same length.",
   );
 
   var left = defined(extrapolateLeft) ? extrapolateLeft : extrapolate;
   var right = defined(extrapolateRight) ? extrapolateRight : extrapolate;
-  var output = _interpolateInternal(value, inputRange, outputRange);
+  var output = _interpolateInternal(_get(value), inputRange, outputRange);
 
-  if (left == Extrapolate.EXTEND) {
-  } else if (left == Extrapolate.CLAMP) {
+  if (left == Extrapolate.CLAMP) {
     output = cond(lessThan(value, inputRange[0]), outputRange[0], output);
   } else if (left == Extrapolate.IDENTITY) {
     output = cond(lessThan(value, inputRange[0]), value, output);
   }
 
-  if (right == Extrapolate.EXTEND) {
-  } else if (right == Extrapolate.CLAMP) {
+  if (right == Extrapolate.CLAMP) {
     output = cond(greaterThan(value, inputRange[inputRange.length - 1]),
         outputRange[outputRange.length - 1], output);
   } else if (right == Extrapolate.IDENTITY) {

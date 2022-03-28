@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:remaths/remaths.dart';
+part of remaths;
 
 List<int> _getRed(List<Color> colors) {
   return colors.map((e) => e.red).toList();
@@ -17,18 +16,10 @@ List<double> _getOpacity(List<Color> colors) {
   return colors.map((e) => e.opacity).toList();
 }
 
-/// Maps an input value within a range to an output value within a color range.
-/// Example:
-/// ```dart
-/// interpolateColors(value,  {
-///    inputRange:  [0, 1],
-///    outputColorRange:  [Colors.ref, Colors.green],
-/// })
-/// ```
-Color interpolateColors(value,
+Color _internalInterpolateColors(value,
     {required List<Color> outputColorRange, required List<num> inputRange}) {
   var r = round(
-    interpolate(
+    _internalInterpolate(
       value,
       inputRange: inputRange,
       outputRange: _getRed(outputColorRange),
@@ -36,7 +27,7 @@ Color interpolateColors(value,
   );
 
   var g = round(
-    interpolate(
+    _internalInterpolate(
       value,
       inputRange: inputRange,
       outputRange: _getGreen(outputColorRange),
@@ -44,7 +35,7 @@ Color interpolateColors(value,
   );
 
   var b = round(
-    interpolate(
+    _internalInterpolate(
       value,
       inputRange: inputRange,
       outputRange: _getBlue(
@@ -53,7 +44,7 @@ Color interpolateColors(value,
     )!,
   );
 
-  var a = interpolate(
+  var a = _internalInterpolate(
     value,
     inputRange: inputRange,
     outputRange: _getOpacity(

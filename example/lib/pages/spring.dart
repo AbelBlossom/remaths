@@ -10,15 +10,15 @@ class SpringAnimation extends StatefulWidget {
 
 class _SpringAnimationState extends State<SpringAnimation>
     with TickerProviderStateMixin {
-  late SharedValue x;
-  late SharedValue y;
+  late Tweenable x;
+  late Tweenable y;
   double dif = 0;
 
   @override
   void initState() {
     super.initState();
-    x = SharedValue(100, vsync: this);
-    y = SharedValue(30, vsync: this);
+    x = 100.asSharable(this);
+    y = 30.asSharable(this);
   }
 
   @override
@@ -29,8 +29,8 @@ class _SpringAnimationState extends State<SpringAnimation>
       ),
       body: Stack(
         children: [
-          SharedValueBuilder(
-            values: [x, y],
+          AnimatedBuilder(
+            animation: mergeTweenables([x, y]),
             builder: (context, child) {
               dif = diff(x);
               return Positioned(
