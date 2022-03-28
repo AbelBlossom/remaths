@@ -28,7 +28,7 @@ class _TimingAnimationState extends State<TimingAnimation>
       ),
       body: Stack(
         children: [
-          AnimatedValueBuilder(
+          SharedValueBuilder(
             values: [x, y],
             builder: (context, child) => Positioned(
               top: y.value,

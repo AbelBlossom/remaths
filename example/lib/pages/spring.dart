@@ -29,7 +29,7 @@ class _SpringAnimationState extends State<SpringAnimation>
       ),
       body: Stack(
         children: [
-          AnimatedValueBuilder(
+          SharedValueBuilder(
             values: [x, y],
             builder: (context, child) {
               dif = diff(x);
