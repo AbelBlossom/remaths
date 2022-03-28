@@ -35,13 +35,14 @@ class _NodeTestingState extends State<NodeTesting>
                   );
                 }),
             TextButton(
-                onPressed: () => {
-                      x.value = withSpring(
-                        Random().nextDouble() * 200,
-                        // damping: 8,
-                        duration: 500,
-                      )
-                    },
+                onPressed: () {
+                  x.value = withSpring(
+                    random(100, 200),
+                    // damping: 8,
+                    duration: 500,
+                  );
+                  print(random());
+                },
                 child: Text("RUN"))
           ],
         ),

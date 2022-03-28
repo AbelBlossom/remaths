@@ -1,11 +1,11 @@
 part of remaths;
 
 /// A widget to listen to values of `AnimatedValue` and render the animation smoothly
-class AnimatedValueBuilder extends StatelessWidget {
+class SharedValueBuilder extends StatelessWidget {
   final List<SharedValue> values;
   final Widget? child;
   final Widget Function(BuildContext, Widget?) builder;
-  const AnimatedValueBuilder(
+  const SharedValueBuilder(
       {Key? key, required this.values, this.child, required this.builder})
       : super(key: key);
 

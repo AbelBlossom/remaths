@@ -2,7 +2,7 @@ library remaths;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'package:async/async.dart';
 
 export 'core/interpolateColors.dart';
