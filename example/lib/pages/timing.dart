@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
 
 class TimingAnimation extends StatefulWidget {
-  TimingAnimation({Key? key}) : super(key: key);
+  const TimingAnimation({Key? key}) : super(key: key);
 
   @override
   _TimingAnimationState createState() => _TimingAnimationState();

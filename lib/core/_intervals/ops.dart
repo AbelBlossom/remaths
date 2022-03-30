@@ -9,13 +9,13 @@ class _Ops extends _InterOps {
   /// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
   double divide(dynamic a, dynamic b);
 
-  /// Takes two values, and when evaluated, returns the result of substracting their values
+  /// Takes two values, and when evaluated, returns the result of subtracting their values
   double sub(dynamic a, dynamic b);
 
   /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
   double pow(dynamic a, dynamic b);
 
-  /// returns the squre root of the number
+  /// returns the square root of the number
   double sqrt(dynamic a);
 
   /// Remainder after division of the first argument by the second one. modulo(a,0) will throw an error.
@@ -54,10 +54,10 @@ class _Ops extends _InterOps {
   /// returns the maximum value
   T max<T extends num>(T a, T b);
 
-  /// returns the aboslute value
+  /// returns the absolute value
   num abs(dynamic a);
 
-  /// convert [a] in Degress to Radian
+  /// convert [a] in Degrees to Radian
   double toRad(dynamic a);
 
   /// convert [a] in Radian to Degrees
@@ -76,10 +76,10 @@ class _Ops extends _InterOps {
   /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
   cond(bool condition, ifBlock, [elseBlock]);
 
-  /// less than `<` comparism
+  /// less than `<` comparison
   bool lessThan(a, b);
 
-  /// greater than `>` comparism
+  /// greater than `>` comparison
   bool greaterThan(a, b);
 
   /// checks if the two values are equal `==`
@@ -88,10 +88,10 @@ class _Ops extends _InterOps {
   /// checks if the two values are `not` equal `!=`
   bool neq(a, b);
 
-  /// less than or equal to `<=` comparism
+  /// less than or equal to `<=` comparison
   bool lessOrEq(a, b);
 
-  /// graater than or equal to `>=` comparism
+  /// greater than or equal to `>=` comparison
   bool greaterOrEq(a, b);
 
   /// Evaluates [Tweenable] and returns a difference between value returned
@@ -100,9 +100,22 @@ class _Ops extends _InterOps {
   /// When evaluating for the first time it returns the [Tweenable] value
   double diff(_InternalShared tweenable, [double initial = 0.0]);
 
-//
-  double decimalround(dynamic a, dynamic dec);
+  /// round a number [dec] (decimal)  specified
+  /// ```dart
+  /// decimalRound(1.34343, 2) // 1.34
+  /// ````
+  double decimalRound(dynamic a, dynamic dec);
 
+  /// generate a random number from [start] to [end]
+  ///
+  /// If [decimal] is is specified, a random number is generated
+  /// to the [decimal] specified
+  /// ```dart
+  /// random() // returns number from 0-1
+  /// random(5) // returns random number from 0 - 5
+  /// random(5,9) // returns random number from 5 to 9
+  /// random(5,10,2) //returns a random decimal from 5 to 10 to 2 decimal places
+  /// ```
   double random([int start = 0, int end = 1, int decimal = 1]);
 
   List<int> range(int start, [int end = 0]);

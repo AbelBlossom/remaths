@@ -104,7 +104,7 @@ var greaterOrEq = _ops.greaterOrEq;
 var diff = _ops.diff;
 
 //
-var decimalround = _ops.decimalround;
+var decimalround = _ops.decimalRound;
 
 var random = _ops.random;
 

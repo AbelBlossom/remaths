@@ -22,21 +22,21 @@ part of remaths;
 class _Spring extends Curve {
   /// A Curve that uses the Flutter Physics engine to drive realistic animations.
   ///
-  /// Provides a critically damped spring by default, with an easily overrideable damping value.
+  /// Provides a critically damped spring by default, with an easily override damping value.
   ///
   /// See also: [Sprung.custom], [_Spring.underDamped], [_Spring.criticallyDamped], [_Spring.overDamped]
   factory _Spring([double damping = 20]) => _Spring.custom(damping: damping);
 
   /// Provides an **under damped** spring, which wobbles loosely at the end.
-  static final underDamped = _Spring(12);
+  // static final underDamped = _Spring(12);
 
   /// Provides a **critically damped** spring, which overshoots once very slightly.
-  static final criticallyDamped = _Spring(20);
+  // static final criticallyDamped = _Spring(20);
 
   /// Provides an **over damped** spring, which smoothly glides into place.
-  static final overDamped = _Spring(28);
+  // static final overDamped = _Spring(28);
 
-  /// Provides a critically damped spring by default, with an easily overrideable damping, stiffness,
+  /// Provides a critically damped spring by default, with an easily override damping, stiffness,
   /// mass, and initial velocity value.
   _Spring.custom({
     double damping = 20,

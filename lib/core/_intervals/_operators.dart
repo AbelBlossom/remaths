@@ -137,7 +137,7 @@ abstract class _InterOps {
   }
 
 //
-  double decimalround(dynamic a, dynamic dec) {
+  double decimalRound(dynamic a, dynamic dec) {
     assert(greaterOrEq(dec, 0), "decimal must be 0 or greater");
     if (_get(dec) == 0) return round(dec).toDouble();
     var r = multiply(10, pow(10, _get(dec) - 1));
@@ -148,7 +148,7 @@ abstract class _InterOps {
     var _rnd = math.Random();
     var min = cond(lessThan(start, end), start, end);
     var max = cond(lessThan(start, end), end, start);
-    return decimalround(
+    return decimalRound(
             add(
                 cond(
                     min == 0, 0, add(min, _rnd.nextInt(sub(max, min).toInt()))),

@@ -1,15 +1,15 @@
 part of remaths;
 
-/// Creates an `animatable` value which can be animated with helper functions
-/// like [withTiming], [withSpring], [withSeqence] ...
+/// Creates an [Tweenable] value which can be animated with helper functions
+/// like [withTiming], [withSpring], [withSequence] ...
 ///
-/// You need [TickerProvider] in order to anitialize [Tweenable] just like in
+/// You need [TickerProvider] in order to initialize [Tweenable] just like in
 /// [AnimationController].
 ///
 /// Example
 /// ```dart
 /// ....
-/// Tweeenable x = Tweeenable(0.0, vsync: this)
+/// Tweenable x = Tweenable(0.0, vsync: this)
 /// ...
 /// x = withTiming(...)
 /// x.value = withSpring(...)
@@ -47,10 +47,10 @@ class Tweenable extends _InternalShared {
 /// ```dart
 /// x = withTiming(double toValue, {
 ///     double toValue, {
-///   int duration, // duration of the animation in millisecons
+///   int duration, // duration of the animation in milliseconds
 ///   Curve curve // default [Curves.easeIn],
 ///   int? delay,
-///   void Function()? onComplete, // calback after the animation is complete
+///   void Function()? onComplete, // callback after the animation is complete
 /// })
 /// ```
 const withTiming = _AnimationFunctions._withTiming;
@@ -71,7 +71,7 @@ const withTiming = _AnimationFunctions._withTiming;
 /// ```
 const withSpring = _AnimationFunctions._withSpring;
 
-/// Starts theprovided animations sequencially, i.e The next animation starts
+/// Starts the provided animations sequentially, i.e The next animation starts
 /// immediately after the other stops. This animations can be [withTiming],
 /// [withSpring], or a [double]. if a [double] is provided, there is no
 /// animation in the values the value just jumps to the position.
@@ -80,10 +80,10 @@ const withSpring = _AnimationFunctions._withSpring;
 /// ```dart
 ///  x = withSequence([withTiming(...),6.0,withSpring(...),])
 /// ```
-CallWith withSeqence(List<dynamic> animations) =>
-    _AnimationFunctions._runSeqence(animations);
+CallWith withSequence(List<dynamic> animations) =>
+    _AnimationFunctions._runSequence(animations);
 
-/// Starts all the [animatables] with the [withSpring] animation to the
+/// Starts all the [Tweenable] with the [withSpring] animation to the
 /// corresponding [destinations].
 ///
 /// Examples
@@ -92,10 +92,10 @@ CallWith withSeqence(List<dynamic> animations) =>
 /// ```
 /// This code will animate `x` to `40` and `y` to `50` with spring stimulation.
 /// Other parameters of the [withSpring] function can be passed as
-/// named aguments
+/// named augments
 const runAllWithSpring = _AnimationFunctions._runAllWithSpring;
 
-/// Starts all the [animatables] with the [withTiming] animation to the
+/// Starts all the [Tweenable] with the [withTiming] animation to the
 /// corresponding [destinations].
 ///
 /// Examples
@@ -108,8 +108,8 @@ const runAllWithTiming = _AnimationFunctions._runAllWithTiming;
 
 abstract class N {}
 
-extension TweenableExtention on num {
-  asSharable(TickerProvider vsync) {
+extension TweenableExtension on num {
+  asTweenable(TickerProvider vsync) {
     return Tweenable(this.toDouble(), vsync: vsync);
   }
 }
