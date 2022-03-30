@@ -2,21 +2,21 @@ part of remaths;
 
 abstract class _AnimationFunctions {
   static _runAllWithTiming(
-    List<_InternalShared> animatables,
+    List<_InternalShared> tweenable,
     List<double> destinations, {
     int? duration,
     Curve? curve,
     int? delay,
     void Function()? onComplete,
   }) {
-    for (var i = 0; i < animatables.length; i++) {
-      animatables[i].value = _AnimationFunctions._withTiming(
+    for (var i = 0; i < tweenable.length; i++) {
+      tweenable[i].value = _AnimationFunctions._withTiming(
         destinations[i],
         duration: duration,
         curve: curve,
         delay: delay,
         onComplete: () {
-          if (i == animatables.length - 1) {
+          if (i == tweenable.length - 1) {
             onComplete?.call();
           }
         },
@@ -25,7 +25,7 @@ abstract class _AnimationFunctions {
   }
 
   static _runAllWithSpring(
-    List<_InternalShared> animatables,
+    List<_InternalShared> tweenables,
     List<double> destinations, {
     int? duration,
     double? damping,
@@ -35,11 +35,11 @@ abstract class _AnimationFunctions {
     int? delay,
     void Function()? onComplete,
   }) async {
-    assert(animatables.length == destinations.length, '');
+    assert(tweenables.length == destinations.length, '');
     print("here");
 
-    for (var i = 0; i < animatables.length; i++) {
-      animatables[i].value = _AnimationFunctions._withSpring(
+    for (var i = 0; i < tweenables.length; i++) {
+      tweenables[i].value = _AnimationFunctions._withSpring(
         destinations[i],
         duration: duration,
         damping: damping,
@@ -48,7 +48,7 @@ abstract class _AnimationFunctions {
         mass: mass,
         delay: delay,
         onComplete: () {
-          if (i == animatables.length - 1) {
+          if (i == tweenables.length - 1) {
             onComplete?.call();
           }
         },
@@ -140,7 +140,7 @@ abstract class _AnimationFunctions {
     }
   }
 
-  static CallWith _runSeqence(List<dynamic> animations) {
+  static CallWith _runSequence(List<dynamic> animations) {
     return (_InternalShared node) {
       var len = animations.length - 1;
       print(animations.map((e) {
@@ -158,7 +158,7 @@ abstract class _AnimationFunctions {
             }
           });
         } else {
-          print('finised $index');
+          // print('finished $index');
           node.value = val;
           return runAnimation(index + 1);
         }

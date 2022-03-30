@@ -21,10 +21,10 @@ class _MeasureListenerState extends State<MeasureListener> {
   @override
   void initState() {
     super.initState();
-    _getMesaurements();
+    _getMeasurements();
   }
 
-  _getMesaurements() {
+  _getMeasurements() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       var context = _key.currentContext;
       if (context != null) {
@@ -37,7 +37,7 @@ class _MeasureListenerState extends State<MeasureListener> {
 
   @override
   Widget build(BuildContext context) {
-    _getMesaurements();
+    _getMeasurements();
     return Container(
       key: _key,
       child: widget.child,
@@ -76,8 +76,6 @@ class _MeasureOnceState extends State<MeasureOnce> {
     var obj = _key.currentContext?.findRenderObject() as RenderBox;
     var size = obj.size;
     print("size: ${size.height} ${size.width}");
-    var offset = obj.localToGlobal(Offset.zero);
-    print("ofset: ${offset}");
   }
 
   @override

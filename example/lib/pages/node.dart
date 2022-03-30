@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
-import 'dart:math';
 
 class NodeTesting extends StatefulWidget {
   const NodeTesting({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class _NodeTestingState extends State<NodeTesting>
     with TickerProviderStateMixin {
   late Tweenable x;
   _NodeTestingState() {
-    x = Tweenable(50, vsync: this);
+    x = 50.asTweenable(this);
   }
   @override
   Widget build(BuildContext context) {
@@ -41,10 +40,10 @@ class _NodeTestingState extends State<NodeTesting>
                     // damping: 8,
                     duration: 500,
                   );
-                  print(interpolate(4,
-                      inputRange: [1, 2, 1],
-                      outputRange: [0, 1, 4],
-                      extrapolate: Extrapolate.EXTEND));
+                  // print(interpolate(4,
+                  //     inputRange: [1, 2, 1],
+                  //     outputRange: [0, 1, 4],
+                  //     extrapolate: Extrapolate.EXTEND));
                 },
                 child: const Text("RUN"))
           ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
 
 class SpringAnimation extends StatefulWidget {
-  SpringAnimation({Key? key}) : super(key: key);
+  const SpringAnimation({Key? key}) : super(key: key);
 
   @override
   _SpringAnimationState createState() => _SpringAnimationState();
@@ -17,15 +17,15 @@ class _SpringAnimationState extends State<SpringAnimation>
   @override
   void initState() {
     super.initState();
-    x = 100.asSharable(this);
-    y = 30.asSharable(this);
+    x = 100.asTweenable(this);
+    y = 30.asTweenable(this);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Spring Animation"),
+        title: const Text("Spring Animation"),
       ),
       body: Stack(
         children: [
