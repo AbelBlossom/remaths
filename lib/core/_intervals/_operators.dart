@@ -22,7 +22,7 @@ abstract class _InterOps {
   /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
   double pow(dynamic a, dynamic b) => (math.pow(_get(a), _get(b))).toDouble();
 
-  /// returns the squre root of the number
+  /// returns the square root of the number
   double sqrt(dynamic a) => math.sqrt(a);
 
   /// Remainder after division of the first argument by the second one. modulo(a,0) will throw an error.
@@ -107,10 +107,10 @@ abstract class _InterOps {
     }
   }
 
-  /// less than `<` comparism
+  /// less than `<` comparison
   bool lessThan(a, b) => _get(a) < _get(b);
 
-  /// greater than `>` comparism
+  /// greater than `>` comparison
   bool greaterThan(a, b) => _get(a) > _get(b);
 
   /// checks if the two values are equal `==`
@@ -119,10 +119,10 @@ abstract class _InterOps {
   /// checks if the two values are `not` equal `!=`
   bool neq(a, b) => _get(a) != _get(b);
 
-  /// less than or equal to `<=` comparism
+  /// less than or equal to `<=` comparison
   bool lessOrEq(a, b) => _get(a) <= _get(b);
 
-  /// graater than or equal to `>=` comparism
+  /// greater than or equal to `>=` comparison
   bool greaterOrEq(a, b) => _get(a) >= _get(b);
 
   /// Evaluates [Tweenable] and returns a difference between value returned
@@ -157,17 +157,17 @@ abstract class _InterOps {
         .toDouble();
   }
 
-  Iterable<int> get _positiveIntegers sync* {
-    int i = 0;
-    while (true) yield i++;
-  }
+  // Iterable<int> get _positiveIntegers sync* {
+  //   int i = 0;
+  //   while (true) yield i++;
+  // }
 
-  List<int> range(int start, [int end = 0]) {
-    var _s = add(cond(neq(end, 0), sub(start, 1), 0), 1).toInt();
-    var _e = cond(eq(end, 0), abs(sub(end, start)), add(start, 1));
-    return _positiveIntegers
-        .skip(_s) // don't use 0
-        .take(_e) // take 10 numbers
-        .toList();
+  range(int stop, {int start: 0, int step: 1}) {
+    if (step == 0) throw Exception("Step cannot be 0");
+
+    return start < stop == step > 0
+        ? List<int>.generate(
+            ((start - stop) / step).abs().ceil(), (int i) => start + (i * step))
+        : [];
   }
 }

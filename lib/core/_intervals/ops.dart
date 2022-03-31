@@ -72,8 +72,8 @@ class _Ops extends _InterOps {
   /// the if the value is valid
   bool truthy(dynamic val);
 
-  /// If conditionNode evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value,
-  /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
+  /// If [condition] evaluates to "truthy" value the node evaluates [ifBlock] node and returns its value,
+  /// otherwise it evaluates [elseBlock] and returns its value. [elseBlock] is optional.
   cond(bool condition, ifBlock, [elseBlock]);
 
   /// less than `<` comparison
@@ -118,5 +118,11 @@ class _Ops extends _InterOps {
   /// ```
   double random([int start = 0, int end = 1, int decimal = 1]);
 
-  List<int> range(int start, [int end = 0]);
+  /// Generate a list integers
+  /// ```dart
+  /// range(3) // [0,1,2]
+  /// range(10, start: 5) // [5,6,7,8,9]
+  /// range(10, step: 2) // [0,2,4,6,8]
+  /// ```
+  range(int stop, {int start: 0, int step: 1});
 }
