@@ -18,41 +18,40 @@ List<double> _getOpacity(List<Color> colors) {
 
 Color _internalInterpolateColors(value,
     {required List<Color> outputColorRange, required List<num> inputRange}) {
+  var v = _get(value);
   var r = round(
     _internalInterpolate(
-      value,
+      v,
       inputRange: inputRange,
       outputRange: _getRed(outputColorRange),
-    )!,
+    ),
   );
 
   var g = round(
     _internalInterpolate(
-      value,
+      v,
       inputRange: inputRange,
       outputRange: _getGreen(outputColorRange),
-    )!,
+    ),
   );
 
   var b = round(
     _internalInterpolate(
-      value,
+      v,
       inputRange: inputRange,
       outputRange: _getBlue(
         (outputColorRange),
       ),
-    )!,
+    ),
   );
 
   var a = _internalInterpolate(
-    value,
+    v,
     inputRange: inputRange,
     outputRange: _getOpacity(
       (outputColorRange),
     ),
-  )!;
-
-  // assddfd
+  );
 
   return Color.fromRGBO(r, g, b, a as double);
 }
