@@ -54,7 +54,7 @@ abstract class _InternalShared {
     _status.value = status;
   }
 
-  /// return the status of the curently Runing Animation
+  /// return the status of the currently running Animation
   AnimationStatus? get status {
     return _status.value;
   }
