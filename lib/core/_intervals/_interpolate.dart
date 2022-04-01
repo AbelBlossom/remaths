@@ -17,7 +17,7 @@ _interpolateInternalSingle(value, inputRange, outputRange, offset) {
   return _interpolateInternalSingleProc(value, inS, inE, outS, outE);
 }
 
-_interpolateInternal(value, inputRange, outputRange, [offset = 0]) {
+double _interpolateInternal(value, inputRange, outputRange, [offset = 0]) {
   if (inputRange.length - offset == 2) {
     return _interpolateInternalSingle(value, inputRange, outputRange, offset);
   }
@@ -53,7 +53,7 @@ _checkMinElements(name, arr) {
   assert(arr.length >= 2, "$name must have at least 2 elements.");
 }
 
-num? _internalInterpolate(
+double _internalInterpolate(
   value, {
   required List inputRange,
   required List outputRange,
@@ -88,5 +88,5 @@ num? _internalInterpolate(
         greaterThan(value, inputRange[inputRange.length - 1]), value, output);
   }
 
-  return output;
+  return output.toDouble();
 }
