@@ -55,8 +55,8 @@ _checkMinElements(name, arr) {
 
 double _internalInterpolate(
   value, {
-  required List inputRange,
-  required List outputRange,
+  required List<num> inputRange,
+  required List<num> outputRange,
   Extrapolate extrapolate = Extrapolate.EXTEND,
   Extrapolate? extrapolateLeft,
   Extrapolate? extrapolateRight,
@@ -65,6 +65,8 @@ double _internalInterpolate(
   _checkMinElements('outputRange', outputRange);
   _checkNonDecreasing('inputRange', inputRange);
 
+  var _inputRange = inputRange.map((e) => e.toDouble()).toList();
+  var _outputRange = outputRange.map((e) => e.toDouble()).toList();
   assert(
     inputRange.length == outputRange.length,
     "inputRange and outputRange must be the same length.",
@@ -72,20 +74,20 @@ double _internalInterpolate(
 
   var left = defined(extrapolateLeft) ? extrapolateLeft : extrapolate;
   var right = defined(extrapolateRight) ? extrapolateRight : extrapolate;
-  var output = _interpolateInternal(_get(value), inputRange, outputRange);
+  var output = _interpolateInternal(_get(value), _inputRange, _outputRange);
 
   if (left == Extrapolate.CLAMP) {
-    output = cond(lessThan(value, inputRange[0]), outputRange[0], output);
+    output = cond(lessThan(value, _inputRange[0]), _outputRange[0], output);
   } else if (left == Extrapolate.IDENTITY) {
-    output = cond(lessThan(value, inputRange[0]), value, output);
+    output = cond(lessThan(value, _inputRange[0]), value, output);
   }
 
   if (right == Extrapolate.CLAMP) {
-    output = cond(greaterThan(value, inputRange[inputRange.length - 1]),
-        outputRange[outputRange.length - 1], output);
+    output = cond(greaterThan(value, _inputRange[_inputRange.length - 1]),
+        _outputRange[_outputRange.length - 1], output);
   } else if (right == Extrapolate.IDENTITY) {
     output = cond(
-        greaterThan(value, inputRange[inputRange.length - 1]), value, output);
+        greaterThan(value, _inputRange[_inputRange.length - 1]), value, output);
   }
 
   return output.toDouble();

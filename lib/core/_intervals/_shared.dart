@@ -105,7 +105,7 @@ abstract class _InternalShared {
   double interpolate(inputRange, outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
     return _internalInterpolate(
-      this,
+      _val,
       inputRange: inputRange,
       outputRange: outputRange,
       extrapolate: cond(right == null, extrapolate, null),
