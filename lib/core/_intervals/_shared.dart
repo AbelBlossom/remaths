@@ -101,4 +101,16 @@ abstract class _InternalShared {
       _currentController?.dispose();
     }
   }
+
+  double interpolate(inputRange, outputRange,
+      [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+    return _internalInterpolate(
+      this,
+      inputRange: inputRange,
+      outputRange: outputRange,
+      extrapolate: cond(right == null, extrapolate, null),
+      extrapolateLeft: cond(right == null, extrapolate, null),
+      extrapolateRight: cond(right == null, null, right),
+    );
+  }
 }

@@ -38,6 +38,9 @@ class Tweenable extends _InternalShared {
   /// the [ValueNotifier] of the animation value
   ValueNotifier<double> get notifier;
 
+  double interpolate(inputRange, outputRange,
+      [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]);
+
   dispose();
 }
 
