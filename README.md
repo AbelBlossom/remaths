@@ -193,7 +193,7 @@ the value can be a [Tweenable]
 
   /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
   double pow(dynamic a, dynamic b);
-
+  
   /// returns the square root of the number
   double sqrt(dynamic a);
 
@@ -305,5 +305,3 @@ the value can be a [Tweenable]
   /// ```
   range(int stop, {int start: 0, int step: 1});
 ```
-
-
