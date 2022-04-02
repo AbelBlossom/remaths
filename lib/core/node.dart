@@ -38,7 +38,7 @@ class Tweenable extends _InternalShared {
   /// the [ValueNotifier] of the animation value
   ValueNotifier<double> get notifier;
 
-  double interpolate(inputRange, outputRange,
+  T interpolate<T>(List<num> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]);
 
   dispose();

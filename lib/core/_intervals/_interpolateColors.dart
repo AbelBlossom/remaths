@@ -24,6 +24,7 @@ Color _internalInterpolateColors(value,
       v,
       inputRange: inputRange,
       outputRange: _getRed(outputColorRange),
+      extrapolate: Extrapolate.CLAMP,
     ),
   );
 
@@ -32,6 +33,7 @@ Color _internalInterpolateColors(value,
       v,
       inputRange: inputRange,
       outputRange: _getGreen(outputColorRange),
+      extrapolate: Extrapolate.CLAMP,
     ),
   );
 
@@ -42,6 +44,7 @@ Color _internalInterpolateColors(value,
       outputRange: _getBlue(
         (outputColorRange),
       ),
+      extrapolate: Extrapolate.CLAMP,
     ),
   );
 
@@ -51,6 +54,7 @@ Color _internalInterpolateColors(value,
     outputRange: _getOpacity(
       (outputColorRange),
     ),
+    extrapolate: Extrapolate.CLAMP,
   );
 
   return Color.fromRGBO(r, g, b, a as double);
