@@ -5,13 +5,13 @@ import 'package:remaths/remaths.dart';
 
 void main() {
   test('adds one to input values', () {
-    var color = interpolateColors(
-      30,
-      inputRange: [10, 20, 30],
-      outputColorRange: [Colors.red, Colors.yellow, Colors.green],
-    );
-    print("${color.red} ${color.green} ${color.blue}");
+    // var color = interpolateColors(
+    //   30,
+    //   inputRange: [10, 20, 30],
+    //   outputColorRange: [Colors.red, Colors.yellow, Colors.green],
+    // );
+    // print("${color.red} ${color.green} ${color.blue}");
 
-    expect(interpolate(4, inputRange: [0, 2.5, 5], outputRange: [0, 1, 2]), 2);
+    expect(4.interpolate([0, 2.5, 5], [0, 1, 2]), 2);
   });
 }

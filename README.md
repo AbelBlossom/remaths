@@ -1,5 +1,3 @@
-![Remaths banner](https://user-images.githubusercontent.com/37389491/122314594-f9f16680-cf07-11eb-95e8-1548c2705c1f.png)
-
 # Remaths
 
 remaths is a flutter package that makes animations and other calculations easier to use. This package is heavily **inspired** by the react-native reanimated package.
@@ -119,62 +117,29 @@ AnimatedBuilder(
 
 # Interpolation
 Maps an input value within a range to an output value within a range. Also supports different types of extrapolation for when the value falls outside the range and mapping to strings.
-The value can be a [Tweenable]
-
+Interpolation is made as an extension on `num` and `Tweenable`.
 ```dart
-interpolate(value,  {
-    // Input range for the interpolation. Should be monotonically increasing.
-    inputRange:  [value...],
-    // Output range for the interpolation, should be the same length as the input range.
-    outputRange:  [value...],
-    // Sets the left and right extrapolate modes.
-    extrapolate?:  Extrapolate.EXTEND  |  Extrapolate.CLAMP  |  Extrapolate.IDENTITY,
-    // Set the left extrapolate mode, the behavior if the input is less than the first value in inputRange.
-    extrapolateLeft?:  Extrapolate.EXTEND  |  Extrapolate.CLAMP  |  Extrapolate.IDENTITY,
-    // Set the right extrapolate mode, the behavior if the input is greater than the last value in inputRange.
-    extrapolateRight?:  Extrapolate.EXTEND  |  Extrapolate.CLAMP  |  Extrapolate.IDENTITY,
- })
+var val = 50;
+// or
+var val = 50.asTweenable(this);
+// usage
+var opacity = val.interpolate<double>(
+  [20, 100] // input range
+  [0,1] // output range
+  Extrapolate.EXTEND, // extrapolation
+  Extrapolate.EXTEND, // left Extrapolation
+);
+
+// COLOR INTERPOLATION
+var color = val.interpolate<Color>(
+  [20, 10],
+  [Colors.red, Colors.green],
+)
+// The extrapolation in Color interpolation is fixed to Extrapolate.CLAMP even if specified
 ```
+The third parameter is the is the `right` extrapolation and the last parameter is the `left` extrapolation. If the left extrapolation is the specified the right extrapolation is used for the left extrapolation, and if any of the extrapolations is not specified, the default `Extrapolate.EXTEND` is used for both the left and the right.
+In Color Interpolation the extrapolation is fixed to `Extrapolate.CLAMP` even if specified
 
-#### Extrapolate Enum
-
-```dart
-Extrapolate.EXTEND;  // Will extend the range linearly.
-Extrapolate.CLAMP;  // Will clamp the input value to the range.
-Extrapolate.IDENTITY;  // Will return the input value if the input value is out of range.
-```
-
-#### Usage
-
-```dart
-var value = interpolate(0.5,{ inputRange: [0,  1], outputRange: [10,  0] }), // returns 5
-```
-
-# Color Interpolation
-
-Maps an input value within a range to an output value within a color range.
-the value can be a [Tweenable]
-```dart
-    interpolateColors(value,  {
-    // Input range for the interpolation. Should be monotonically increasing.
-    inputRange:  [inputs,  ...],
-    // Output colors range for the interpolation.
-    // Should be the same length as the input range.
-    //
-    // Each color should be a of type Color
-    // or a number like Colors.red or Color(0xff112233).
-    outputColorRange:  [Color,  ...],
-    })
-```
-
-#### Usage
-
- ```dart   
- const color =  interpolateColors(0.3,  {
-   inputRange:  [0,  1],
-   outputColorRange:  [Colors.red,  Colors.blue],
- });
- ```
 
 
 # Helper nodes

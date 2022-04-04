@@ -27,7 +27,6 @@ class Tweenable extends _InternalShared {
   addEventListener(void Function(double value) callback);
 
   /// get the current animated Value
-  ///
   double get value;
 
   set value(dynamic val);
@@ -38,10 +37,40 @@ class Tweenable extends _InternalShared {
   /// the [ValueNotifier] of the animation value
   ValueNotifier<double> get notifier;
 
+  /// Maps an input value within a range to an output value within a range.
+  ///
+  /// Also supports different types of extrapolation for when the value falls
+  /// outside the range and mapping to strings.
+  /// Usage
+  /// ```dart
+  /// var opacity = val.interpolate(
+  ///   [1, 100], // input range
+  ///   [0, 1],  // output range
+  ///   Extrapolate.EXTEND, // right Extrapolation
+  ///   Extrapolate.EXTEND, // left Extrapolation
+  /// )
+  /// ```
+  /// The third parameter is the is the `right` extrapolation and the last parameter is the `left` extrapolation.
+  ///
+  /// If the left extrapolation is the specified the right extrapolation is used
+  /// for the left extrapolation, and if any of the extrapolations is not specified, the default `Extrapolate.EXTEND` is used for both the left and the right.
+  ///
+  /// In Color Interpolation the extrapolation is fixed to `Extrapolate.CLAMP` even if specified
+  ///
+  /// Color Interpolation Example
+  /// ```dart
+  /// var opacity = val.interpolate(
+  ///   [1, 100], // input range
+  ///   [Colors.red, Colors.green],  // output range
+  /// )
+  /// ```
   T interpolate<T>(List<num> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]);
 
   dispose();
+
+  static _init(double value, TickerProvider vsync) =>
+      Tweenable(value, vsync: vsync);
 }
 
 /// Starts a Curve animation on the [Tweenable] to the [toValue]
@@ -109,30 +138,45 @@ const runAllWithSpring = _AnimationFunctions._runAllWithSpring;
 /// The [Curve] and other parameters of the animation can provided as named arguments
 const runAllWithTiming = _AnimationFunctions._runAllWithTiming;
 
-abstract class N {}
-
 extension TweenableExtension on num {
+  /// Initialize a Tweenable with [TickerProvider]
   asTweenable(TickerProvider vsync) {
-    return Tweenable(this.toDouble(), vsync: vsync);
+    return Tweenable._init(this.toDouble(), vsync);
+  }
+
+  /// Maps an input value within a range to an output value within a range.
+  ///
+  /// Also supports different types of extrapolation for when the value falls
+  /// outside the range and mapping to strings.
+  /// Usage
+  /// ```dart
+  /// var opacity = val.interpolate(
+  ///   [1, 100], // input range
+  ///   [0, 1],  // output range
+  ///   Extrapolate.EXTEND, // right Extrapolation
+  ///   Extrapolate.EXTEND, // left Extrapolation
+  /// )
+  /// ```
+  /// The third parameter is the is the `right` extrapolation and the last parameter is the `left` extrapolation.
+  ///
+  /// If the left extrapolation is the specified the right extrapolation is used
+  /// for the left extrapolation, and if any of the extrapolations is not specified, the default `Extrapolate.EXTEND` is used for both the left and the right.
+  ///
+  /// In Color Interpolation the extrapolation is fixed to `Extrapolate.CLAMP` even if specified
+  ///
+  /// Color Interpolation Example
+  /// ```dart
+  /// var opacity = val.interpolate(
+  ///   [1, 100], // input range
+  ///   [Colors.red, Colors.green],  // output range
+  /// )
+  /// ```
+  T interpolate<T>(List<num> inputRange, List<T> outputRange,
+      [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+    return _interpolateAll(
+        this.toDouble(), inputRange, outputRange, extrapolate, right);
   }
 }
 
+/// Merge List of Tweenables into one [Listenable] that can be used as [AnimatedWidget] animation
 const mergeTweenables = _AnimationFunctions._mergeTweenables;
-
-/// Maps an input value within a range to an output value within a range.
-/// Also supports different types of extrapolation for when the value falls outside the range and mapping to strings.
-/// For example, if you wanted to animate a rotation you could do:
-/// ```dart
-/// interpolate(value, { inputRange: [0, 1], outputRange: [0, 360] }),
-/// ```
-const interpolate = _internalInterpolate;
-
-/// Maps an input value within a range to an output value within a color range.
-/// Example:
-/// ```dart
-/// interpolateColors(value,  {
-///    inputRange:  [0, 1],
-///    outputColorRange:  [Colors.red, Colors.green],
-/// })
-/// ```
-const interpolateColors = _internalInterpolateColors;
