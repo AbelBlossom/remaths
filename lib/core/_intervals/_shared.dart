@@ -104,23 +104,7 @@ abstract class _InternalShared {
 
   T interpolate<T>(List<num> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
-    assert(or(outputRange.first is Color, outputRange.first is num));
-
-    if (outputRange.first is Color) {
-      return _internalInterpolateColors(
-        _val,
-        inputRange: inputRange,
-        outputColorRange: outputRange as List<Color>,
-      ) as T;
-    } else {
-      return _internalInterpolate(
-        _val,
-        inputRange: inputRange,
-        outputRange: outputRange as List<num>,
-        extrapolate: cond(right == null, extrapolate, null),
-        extrapolateLeft: cond(right == null, extrapolate, null),
-        extrapolateRight: cond(right == null, null, right),
-      ) as T;
-    }
+    return _interpolateAll<T>(
+        _val, inputRange, outputRange, extrapolate, right);
   }
 }

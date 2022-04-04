@@ -92,3 +92,26 @@ double _internalInterpolate(
 
   return output.toDouble();
 }
+
+T _interpolateAll<T>(num value, List<num> inputRange, List<T> outputRange,
+    [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+  assert(or(outputRange.first is Color, outputRange.first is num),
+      'Only Numbers and Colors can be Interpolated');
+
+  if (outputRange.first is Color) {
+    return _internalInterpolateColors(
+      value,
+      inputRange: inputRange,
+      outputColorRange: outputRange as List<Color>,
+    ) as T;
+  } else {
+    return _internalInterpolate(
+      value,
+      inputRange: inputRange,
+      outputRange: outputRange as List<num>,
+      extrapolate: cond(right == null, extrapolate, null),
+      extrapolateLeft: cond(right == null, extrapolate, null),
+      extrapolateRight: cond(right == null, null, right),
+    ) as T;
+  }
+}
