@@ -157,13 +157,8 @@ abstract class _InterOps {
         .toDouble();
   }
 
-  // Iterable<int> get _positiveIntegers sync* {
-  //   int i = 0;
-  //   while (true) yield i++;
-  // }
-
-  range(int stop, {int start: 0, int step: 1}) {
-    if (step == 0) throw Exception("Step cannot be 0");
+  List<int> range(int stop, {int start: 0, int step: 1}) {
+    if (step <= 0) throw Exception("Step cannot be 0");
 
     return start < stop == step > 0
         ? List<int>.generate(

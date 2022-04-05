@@ -109,7 +109,7 @@ T _interpolateAll<T>(num value, List<num> inputRange, List<T> outputRange,
       value,
       inputRange: inputRange,
       outputRange: outputRange as List<num>,
-      extrapolate: cond(right == null, extrapolate, null),
+      extrapolate: extrapolate,
       extrapolateLeft: cond(right == null, extrapolate, null),
       extrapolateRight: cond(right == null, null, right),
     ) as T;

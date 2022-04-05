@@ -57,5 +57,5 @@ Color _internalInterpolateColors(value,
     extrapolate: Extrapolate.CLAMP,
   );
 
-  return Color.fromRGBO(r, g, b, a as double);
+  return Color.fromRGBO(r, g, b, a);
 }
