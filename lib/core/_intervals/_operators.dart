@@ -1,11 +1,11 @@
 part of remaths;
 
 abstract class _InterOps {
-  num _get(dynamic data) {
+  double _get(dynamic data) {
     assert(or(data is _InternalShared, data is num),
-        "Value Must be a Tweeenable or a number, got ${data.runtimeType}");
+        "Value Must be a Tweenable or a number, got ${data.runtimeType}");
     // print(data is num);
-    return data is _InternalShared ? data.value : data;
+    return data is _InternalShared ? data.value : (data as num).toDouble();
   }
 
   /// Takes two values, and when evaluated, returns their sum.
@@ -16,7 +16,7 @@ abstract class _InterOps {
   /// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
   double divide(dynamic a, dynamic b) => (_get(a) / _get(b)).toDouble();
 
-  /// Takes two values, and when evaluated, returns the result of substracting their values
+  /// Takes two values, and when evaluated, returns the result of subtracting their values
   double sub(dynamic a, dynamic b) => (_get(a) - _get(b)).toDouble();
 
   /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
@@ -30,6 +30,7 @@ abstract class _InterOps {
       (((_get(a) % _get(b)) + _get(b)) % _get(b)).toDouble();
 
   /// The same function as `math.log`
+  // TODO: This function conflicts with the log method from `dart:developer` package
   double log(dynamic a) => math.log(_get(a));
 
   /// The same function as `math.sin`
@@ -62,10 +63,10 @@ abstract class _InterOps {
   /// returns the maximum value
   T max<T extends num>(T a, T b) => math.max<T>(_get(a) as T, _get(b) as T);
 
-  /// returns the aboslute value
+  /// returns the absolute value
   num abs(dynamic a) => _get(a).abs();
 
-  /// convert [a] in Degress to Radian
+  /// convert [a] in Degrees to Radian
   double toRad(dynamic a) => _get(a) * math.pi / 180;
 
   /// convert [a] in Radian to Degrees
@@ -164,5 +165,9 @@ abstract class _InterOps {
         ? List<int>.generate(
             ((start - stop) / step).abs().ceil(), (int i) => start + (i * step))
         : [];
+  }
+
+  T call<T>(T Function() func) {
+    return func();
   }
 }

@@ -12,13 +12,13 @@ var multiply = _ops.multiply;
 /// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
 var divide = _ops.divide;
 
-/// Takes two values, and when evaluated, returns the result of substracting their values
+/// Takes two values, and when evaluated, returns the result of subtracting their values
 var sub = _ops.sub;
 
 /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
 var pow = _ops.pow;
 
-/// returns the squre root of the number
+/// returns the square root of the number
 var sqrt = _ops.sqrt;
 
 /// Remainder after division of the first argument by the second one. modulo(a,0) will throw an error.
@@ -57,10 +57,10 @@ var min = _ops.min;
 /// returns the maximum value
 var max = _ops.max;
 
-/// returns the aboslute value
+/// returns the absolute value
 var abs = _ops.abs;
 
-/// convert [a] in Degress to Radian
+/// convert [a] in Degrees to Radian
 var toRad = _ops.toRad;
 
 /// convert [a] in Radian to Degrees
@@ -79,10 +79,10 @@ var truthy = _ops.truthy;
 /// otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
 var cond = _ops.cond;
 
-/// less than `<` comparism
+/// less than `<` comparison
 var lessThan = _ops.lessThan;
 
-/// greater than `>` comparism
+/// greater than `>` comparison
 var greaterThan = _ops.greaterThan;
 
 /// checks if the two values are equal `==`
@@ -91,10 +91,10 @@ var eq = _ops.eq;
 /// checks if the two values are `not` equal `!=`
 var neq = _ops.neq;
 
-/// less than or equal to `<=` comparism
+/// less than or equal to `<=` comparison
 var lessOrEq = _ops.lessOrEq;
 
-/// graater than or equal to `>=` comparism
+/// greater than or equal to `>=` comparison
 var greaterOrEq = _ops.greaterOrEq;
 
 /// Evaluates [Tweenable] and returns a difference between value returned
@@ -104,8 +104,10 @@ var greaterOrEq = _ops.greaterOrEq;
 var diff = _ops.diff;
 
 //
-var decimalround = _ops.decimalRound;
+var decimalRound = _ops.decimalRound;
 
 var random = _ops.random;
 
 var range = _ops.range;
+
+var call = _ops.call;

@@ -29,7 +29,7 @@ class Measurement {
     var size = box.size;
     _m.width = size.width;
     _m.height = size.height;
-    var offset = box.localToGlobal(Offset(0, -92));
+    var offset = box.localToGlobal(Offset(0, 0));
     _m.x = offset.dx;
     _m.y = offset.dy;
     return _m;

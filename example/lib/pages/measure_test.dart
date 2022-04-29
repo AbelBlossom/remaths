@@ -12,6 +12,8 @@ class _MeasureTestState extends State<MeasureTest> {
   Measurement? _measurement;
   double x = 50;
   double y = 50;
+  double w = 60;
+  double h = 60;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +27,22 @@ class _MeasureTestState extends State<MeasureTest> {
                 setState(() {
                   x += det.delta.dx;
                   y += det.delta.dy;
+                  if (_measurement != null) {
+                    h = 10 + (0.5 * _measurement!.y);
+                    w = 10 + (0.5 * _measurement!.x);
+                  }
                 });
               },
-              child: MeasureListener(
+              child: Measure(
+                measureOnce: true,
                 onSizeChanged: (m) {
-                  setState(() {
-                    _measurement = m;
-                  });
+                  // setState(() {
+                  _measurement = m;
+                  // });
                 },
                 child: Container(
-                  width: 60,
-                  height: 60,
+                  width: w,
+                  height: h,
                   color: Colors.red,
                 ),
               ),
