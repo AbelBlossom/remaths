@@ -137,7 +137,7 @@ abstract class _InterOps {
         cond(defined(initial), initial, tweenable.value)) as double;
   }
 
-//
+  /// rounds the value to the nearest [dec] places
   double decimalRound(dynamic a, dynamic dec) {
     assert(greaterOrEq(dec, 0), "decimal must be 0 or greater");
     if (_get(dec) == 0) return round(dec).toDouble();
@@ -145,6 +145,7 @@ abstract class _InterOps {
     return divide(round(multiply(a, r)), r);
   }
 
+  /// returns a random number between between [min] and [max] in [decimal] decimal places
   double random([int start = 0, int end = 1, int decimal = 1]) {
     var _rnd = math.Random();
     var min = cond(lessThan(start, end), start, end);
@@ -158,6 +159,7 @@ abstract class _InterOps {
         .toDouble();
   }
 
+  /// Returns the range of the given value.
   List<int> range(int stop, {int start: 0, int step: 1}) {
     if (step <= 0) throw Exception("Step cannot be 0");
 
@@ -167,6 +169,7 @@ abstract class _InterOps {
         : [];
   }
 
+  /// call the function passed as argument
   T call<T>(T Function() func) {
     return func();
   }

@@ -1,3 +1,4 @@
+import 'package:example/pages/apple_bedtime.dart';
 import 'package:example/pages/measure_test.dart';
 import 'package:example/pages/node.dart';
 import 'package:example/pages/spring.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         "/spring": (_) => const SpringAnimation(),
         "/timing": (_) => const TimingAnimation(),
         "/node": (_) => const NodeTesting(),
-        "/measure": (_) => const MeasureTest()
+        "/measure": (_) => const MeasureTest(),
+        "/apple_bedtime": (_) => const AppleBedtime(),
       },
     );
   }
@@ -45,7 +47,8 @@ class _HomePageState extends State<HomePage> {
       ["Spring Animation", "/spring"],
       ["Timing Animation", "/timing"],
       ['New Node API', '/node'],
-      ["Measurement", '/measure']
+      ["Measurement", '/measure'],
+      ["Apple Bedtime", '/apple_bedtime'],
     ];
     return Scaffold(
       appBar: AppBar(
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemCount: screens.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (cont5ext, index) {
           return ListTile(
             onTap: () {
               Navigator.of(context).pushNamed(screens[index][1]);
