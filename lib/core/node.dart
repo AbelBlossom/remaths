@@ -64,7 +64,7 @@ class Tweenable extends _InternalShared {
   ///   [Colors.red, Colors.green],  // output range
   /// )
   /// ```
-  T interpolate<T>(List<num> inputRange, List<T> outputRange,
+  T interpolate<T>(List<double> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]);
 
   dispose();
@@ -171,12 +171,40 @@ extension TweenableExtension on num {
   ///   [Colors.red, Colors.green],  // output range
   /// )
   /// ```
-  T interpolate<T>(List<num> inputRange, List<T> outputRange,
+  T interpolate<T>(List<double> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
-    return _interpolateAll(
+    return _interpolateAll<T>(
         this.toDouble(), inputRange, outputRange, extrapolate, right);
+  }
+}
+
+extension OffsetExtension on Offset {
+  Offset interpolate(List<Offset> inputRange, List<Offset> outputRange,
+      [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+    return _interpolateOffset(
+        this, inputRange, outputRange, extrapolate, right);
   }
 }
 
 /// Merge List of Tweenables into one [Listenable] that can be used as [AnimatedWidget] animation
 const mergeTweenables = _AnimationFunctions._mergeTweenables;
+
+U interpolate<T, U>(T value, List<T> inputRange, List<U> outputRange,
+    [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+  assert(
+      outputRange.first is Offset ||
+          outputRange.first is Color ||
+          outputRange.first is double,
+      "outputRange must be a list of Offset, Color or double");
+  assert(value is double || value is Offset,
+      "value must be a double or an Offset");
+  assert(value is Offset && outputRange.first is Offset,
+      "if value is Offset the outputRange must be a list of Offset");
+
+  if (value is Offset) {
+    return _interpolateOffset(value, inputRange as List<Offset>,
+        outputRange as List<Offset>, extrapolate, right) as U;
+  }
+  return _interpolateAll<U>(
+      value as num, inputRange as List<num>, outputRange, extrapolate, right);
+}

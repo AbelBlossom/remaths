@@ -1,6 +1,7 @@
 import 'package:example/pages/apple_bedtime.dart';
 import 'package:example/pages/measure_test.dart';
 import 'package:example/pages/node.dart';
+import 'package:example/pages/offset_test.dart';
 import 'package:example/pages/spring.dart';
 import 'package:example/pages/timing.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         "/spring": (_) => const SpringAnimation(),
         "/timing": (_) => const TimingAnimation(),
         "/node": (_) => const NodeTesting(),
-        "/measure": (_) => const MeasureTest(),
+        "/offset": (_) => const OffsetTest(),
         "/apple_bedtime": (_) => const AppleBedtime(),
       },
     );
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       ["Spring Animation", "/spring"],
       ["Timing Animation", "/timing"],
       ['New Node API', '/node'],
-      ["Measurement", '/measure'],
+      ["Offset Text", '/offset'],
       ["Apple Bedtime", '/apple_bedtime'],
     ];
     return Scaffold(

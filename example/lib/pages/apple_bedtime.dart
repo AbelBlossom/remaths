@@ -101,7 +101,7 @@ class _CursorState extends State<Cursor> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _run(MediaQuery.of(context).size, true);
     });
     super.initState();

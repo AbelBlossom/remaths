@@ -32,6 +32,7 @@ enum Extrapolate {
   CLAMP,
   IDENTITY,
 }
+
 typedef Map Name(params);
 
 // void _throwError(bool condition, String text) {
@@ -114,4 +115,35 @@ T _interpolateAll<T>(num value, List<num> inputRange, List<T> outputRange,
       extrapolateRight: cond(right == null, null, right),
     ) as T;
   }
+}
+
+//TODO: add Color Interpolation support to _interpolateOffset
+Offset _interpolateOffset(
+    Offset value, List<Offset> inputRange, List<Offset> outputRange,
+    [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
+  getDx(List<Offset> values) {
+    return values.map((e) => e.dx).toList();
+  }
+
+  getDy(List<Offset> values) {
+    return values.map((e) => e.dy).toList();
+  }
+
+  var dx = _interpolateAll<double>(
+    value.dx,
+    getDx(inputRange),
+    getDx(outputRange),
+    extrapolate,
+    right,
+  );
+
+  var dy = _interpolateAll<double>(
+    value.dy,
+    getDy(inputRange),
+    getDy(outputRange),
+    extrapolate,
+    right,
+  );
+
+  return Offset(dx, dy);
 }

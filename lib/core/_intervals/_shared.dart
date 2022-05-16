@@ -102,7 +102,7 @@ abstract class _InternalShared {
     }
   }
 
-  T interpolate<T>(List<num> inputRange, List<T> outputRange,
+  T interpolate<T>(List<double> inputRange, List<T> outputRange,
       [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
     return _interpolateAll<T>(
         _val, inputRange, outputRange, extrapolate, right);

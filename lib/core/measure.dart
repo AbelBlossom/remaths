@@ -1,11 +1,11 @@
 part of remaths;
 
-class Measure extends StatefulWidget {
+class _Measure extends StatefulWidget {
   final OnSized onSizeChanged;
   final Widget child;
   final Offset offset;
   final bool measureOnce;
-  Measure({
+  _Measure({
     Key? key,
     required this.onSizeChanged,
     required this.child,
@@ -14,17 +14,17 @@ class Measure extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Measure> createState() => _MeasureState();
+  State<_Measure> createState() => _MeasureState();
 }
 
-class _MeasureState extends State<Measure> {
+class _MeasureState extends State<_Measure> {
   var _key = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     _getMeasurements(true);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _getMeasurements();
     });
   }
