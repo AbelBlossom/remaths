@@ -5,3 +5,4 @@
 ## [0.0.5] - Tweenables
 ## [0.0.6] - Refined Interpolations
 ## [0.0.7-beta] - fixed some bugs
+## [0.0.7] Interpolation support for Offsets and fix some bugs
