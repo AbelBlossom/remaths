@@ -1,9 +1,4 @@
 {
-    "cSpell.words": [
-        "Tweenables",
-        "Tweenable",
-        "vsync",
-        "remaths",
-        "cond"
-    ]
+  "cSpell.words": ["Tweenables", "Tweenable", "vsync", "remaths", "cond"],
+  "githubPullRequests.ignoredPullRequestBranches": ["master"]
 }

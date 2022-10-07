@@ -4,6 +4,7 @@ import 'package:example/pages/node.dart';
 import 'package:example/pages/offset_test.dart';
 import 'package:example/pages/spring.dart';
 import 'package:example/pages/timing.dart';
+import 'package:example/pages/v2/trial.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         "/node": (_) => const NodeTesting(),
         "/offset": (_) => const OffsetTest(),
         "/apple_bedtime": (_) => const AppleBedtime(),
+        "/test": (_) => const VersionTwoTrial(),
       },
     );
   }
@@ -50,6 +52,7 @@ class _HomePageState extends State<HomePage> {
       ['New Node API', '/node'],
       ["Offset Text", '/offset'],
       ["Apple Bedtime", '/apple_bedtime'],
+      ["Version 2 Test", "/test"]
     ];
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +60,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView.builder(
         itemCount: screens.length,
-        itemBuilder: (cont5ext, index) {
+        itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
               Navigator.of(context).pushNamed(screens[index][1]);
