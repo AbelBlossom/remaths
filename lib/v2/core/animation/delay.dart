@@ -1,6 +1,6 @@
 part of remaths;
 
-AnimationFunc withDelay(AnimationFunc func, int delay) {
+Node withDelay(Node func, int delay) {
   return (node) {
     Future.delayed(Duration(milliseconds: delay), () {
       func(node);

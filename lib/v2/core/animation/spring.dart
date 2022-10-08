@@ -1,6 +1,6 @@
 part of remaths;
 
-AnimationFunc withSpring2(
+Node withSpring2(
   double toValue, {
   int duration = _kDuration,
   double damping = _kDamping,

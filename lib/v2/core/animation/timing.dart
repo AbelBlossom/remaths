@@ -1,6 +1,6 @@
 part of remaths;
 
-AnimationFunc withTiming2(
+Node withTiming2(
   double toValue, {
   int duration = _kDuration,
   Curve curve = Curves.easeIn,

@@ -42,11 +42,39 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           ),
           TextButton(
             onPressed: () {
-              width.value = withDelay(
-                  withSpring2(
-                    size.width * random(),
-                  ),
-                  200);
+              // width.value = withTiming2(200);
+              width.value = withSequence2([
+                withTiming2(
+                  10.0,
+                  onComplete: () {
+                    print("finished 1");
+                  },
+                ),
+                withSpring2(
+                  100.0,
+                  duration: 1000,
+                  damping: 6.3,
+                  onComplete: () {
+                    // print("finished 2");
+                  },
+                ),
+                withTiming2(
+                  20.0,
+                  delay: 300,
+                  onComplete: () {
+                    // print("finished 3");
+                  },
+                ),
+                withSpring2(
+                  40.0,
+                  delay: 400,
+                  onComplete: () {
+                    // print("finished 4");
+                  },
+                ),
+              ], onComplete: () {
+                print("finished all");
+              });
             },
             child: const Text("Change"),
           ),

@@ -1,8 +1,6 @@
 part of remaths;
-// import 'package:flutter/widgets.dart';
-// import 'package:remaths/remaths.dart';
 
-typedef void AnimationFunc(SharedValue node);
+typedef void Node(SharedValue node);
 typedef void AnimationListener();
 // const double _kDamping = 20;
 // const double _kStiffness = 180;
@@ -20,6 +18,8 @@ class SharedValue {
   final TickerProvider vsync;
   Animation? _animation;
   AnimationListener? _listener;
+  AnimationListener? _completeLister;
+  bool _sequenceLocked = false;
 
   SharedValue(this._val, {required this.vsync}) {
     _notifier = ValueNotifier(_val);
@@ -29,8 +29,11 @@ class SharedValue {
   }
 
   resetController(int? duration) {
+    //FIXME: find a performant way then disposing contollers and creating them
+    print("resetting controller");
     _stopCurrent();
     _controller.dispose();
+    print("disposing");
     _controller = AnimationController(
       vsync: vsync,
       duration: Duration(
@@ -45,19 +48,22 @@ class SharedValue {
     }
     _animation = animation;
     _listener = () => _setValue(animation.value);
-    if (onComplete != null) {
-      _animation?.addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
+    _animation?.addStatusListener((status) {
+      // print("status ${status}");
+      if (status == AnimationStatus.completed) {
+        // print("animation complete");
+        if (onComplete != null) {
           onComplete();
         }
-      });
-    }
+        if (_completeLister != null) {
+          _completeLister!();
+        }
+      }
+    });
     animation.addListener(_listener!);
   }
 
-  double get value {
-    return _val;
-  }
+  double get value => _val;
 
   double operator +(dynamic other) =>
       value + cond(other is _InternalShared, other.value, other);
@@ -80,13 +86,14 @@ class SharedValue {
   }
 
   /// return the status of the currently running Animation
-  AnimationStatus? get status {
-    return _status.value;
-  }
+  AnimationStatus? get status => _status.value;
 
   set value(dynamic val) {
-    assert(val is AnimationFunc || num.tryParse(val.toString()) != null);
-    val is AnimationFunc ? val(this) : _setValue(val);
+    assert(val is Node || num.tryParse(val.toString()) != null);
+    if (_sequenceLocked) {}
+    _sequenceLocked = false;
+
+    val is Node ? val(this) : _setValue(val);
   }
 
   get diff {
@@ -102,9 +109,7 @@ class SharedValue {
     _notifier.value = _val;
   }
 
-  ValueNotifier<double> get notifier {
-    return _notifier;
-  }
+  ValueNotifier<double> get notifier => _notifier;
 
   dispose() {
     _stopCurrent();
@@ -114,7 +119,6 @@ class SharedValue {
 
   _stopCurrent() {
     _controller.stop();
-    _controller.resync(vsync);
   }
 
   T interpolate<T>(List<double> inputRange, List<T> outputRange,
