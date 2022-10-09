@@ -29,3 +29,4 @@ part 'v2/core/animation/delay.dart';
 part 'v2/core/animation/sequence.dart';
 part 'v2/core/animation/setValue.dart';
 part 'v2/core/animation/repeat.dart';
+part 'v2/core/shared/details.dart';

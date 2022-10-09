@@ -11,7 +11,7 @@ Node withSequence2(List<Node> animations, {void Function()? onComplete}) {
         return;
       }
       //TODO: add support for `withRepeat`
-      node._completeLister = () => animationLoop(index + 1);
+      node._details.completeListener = () => animationLoop(index + 1);
       print("looping $index");
       animations[index](node);
     }

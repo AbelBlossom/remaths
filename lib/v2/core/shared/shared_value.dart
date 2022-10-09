@@ -13,19 +13,20 @@ class SharedValue {
   double _val;
   late ValueNotifier<double> _notifier;
   late ValueNotifier<AnimationStatus?> _status;
-  // AnimationStatus? _status;
   late AnimationController _controller;
   final TickerProvider vsync;
-  Animation? _animation;
-  AnimationListener? _listener;
-  AnimationListener? _completeLister;
   bool _sequenceLocked = false;
+  late _AnimationDetails _details;
 
   SharedValue(this._val, {required this.vsync}) {
     _notifier = ValueNotifier(_val);
     _status = ValueNotifier(null);
     _controller = AnimationController(
-        vsync: vsync, duration: Duration(milliseconds: _kDuration));
+      vsync: vsync,
+      duration: Duration(milliseconds: _kDuration),
+    );
+    _details = _AnimationDetails(
+        curve: Curves.linear, duration: _kDuration, from: 0.0, to: 0.0);
   }
 
   resetController(int? duration) {
@@ -42,25 +43,23 @@ class SharedValue {
     );
   }
 
-  setAnimation(Animation animation, [void Function()? onComplete]) {
-    if (_animation != null && _listener != null) {
-      _animation?.removeListener(_listener!);
-    }
-    _animation = animation;
-    _listener = () => _setValue(animation.value);
-    _animation?.addStatusListener((status) {
+  setAnimation(Animation<double> animation, [void Function()? onComplete]) {
+    _details.removeListener();
+    _details.animation = animation;
+    _details.listener = () => _setValue(animation.value);
+    _details.animation?.addStatusListener((status) {
       // print("status ${status}");
       if (status == AnimationStatus.completed) {
         // print("animation complete");
         if (onComplete != null) {
           onComplete();
         }
-        if (_completeLister != null) {
-          _completeLister!();
+        if (_details.hasCompleteLister) {
+          _details.completeListener!();
         }
       }
     });
-    animation.addListener(_listener!);
+    _details.animation!.addListener(_details.listener!);
   }
 
   double get value => _val;

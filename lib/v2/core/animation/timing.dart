@@ -9,7 +9,10 @@ Node withTiming2(
 }) {
   return (SharedValue node) {
     if (toValue == node.value) return;
+    node._details.from = node._val;
+    node._details.to = toValue;
     node.resetController(duration);
+    node._details.curve = curve;
     node.setAnimation(
         Tween(begin: node.value, end: toValue).animate(
           CurvedAnimation(
