@@ -8,15 +8,16 @@ Node withTiming2(
   void Function()? onComplete,
 }) {
   return (SharedValue node) {
-    if (toValue == node.value) return;
-    node._details.from = node._val;
-    node._details.to = toValue;
+    // if (toValue == node.value) return;
+    node.meta.from = node._val;
+    node.meta.to = toValue;
+    node.meta.duration = duration;
     node.resetController(duration);
-    node._details.curve = curve;
+    node.meta.curve = curve;
     node.setAnimation(
         Tween(begin: node.value, end: toValue).animate(
           CurvedAnimation(
-            parent: node._controller,
+            parent: node.controller,
             curve: curve,
           ),
         ),
@@ -24,10 +25,10 @@ Node withTiming2(
 
     if (delay != null) {
       Future.delayed(Duration(milliseconds: delay), () {
-        node._controller.forward();
+        node.controller.forward();
       });
     } else {
-      node._controller.forward();
+      node.controller.forward();
     }
   };
 }

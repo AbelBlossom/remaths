@@ -48,7 +48,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           ),
           TextButton(
             onPressed: () {
-              width.value = withRepeat(withTiming2(100, duration: 60));
+              width.value = withRepeat(withTiming2(100), reverse: false);
               // width.value = withTiming2(200);
               // width.value = withSequence2([
               //   withTiming2(

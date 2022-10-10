@@ -1,6 +1,6 @@
 part of remaths;
 
-class _AnimationDetails {
+class _AnimationInfo {
   Curve curve;
   int duration;
   double from;
@@ -9,7 +9,7 @@ class _AnimationDetails {
   AnimationListener? listener;
   AnimationListener? completeListener;
 
-  _AnimationDetails({
+  _AnimationInfo({
     required this.curve,
     required this.duration,
     required this.from,

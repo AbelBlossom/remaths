@@ -13,29 +13,32 @@ class SharedValue {
   double _val;
   late ValueNotifier<double> _notifier;
   late ValueNotifier<AnimationStatus?> _status;
-  late AnimationController _controller;
+  late AnimationController controller;
   final TickerProvider vsync;
   bool _sequenceLocked = false;
-  late _AnimationDetails _details;
+
+  /// This value is used by sequence animation to know whether
+  /// the lock is free to run the next animation
+  bool _lock = false;
+
+  late _AnimationInfo meta;
 
   SharedValue(this._val, {required this.vsync}) {
     _notifier = ValueNotifier(_val);
     _status = ValueNotifier(null);
-    _controller = AnimationController(
+    controller = AnimationController(
       vsync: vsync,
       duration: Duration(milliseconds: _kDuration),
     );
-    _details = _AnimationDetails(
+    meta = _AnimationInfo(
         curve: Curves.linear, duration: _kDuration, from: 0.0, to: 0.0);
   }
 
   resetController(int? duration) {
     //FIXME: find a performant way then disposing contollers and creating them
-    print("resetting controller");
     _stopCurrent();
-    _controller.dispose();
-    print("disposing");
-    _controller = AnimationController(
+    controller.dispose();
+    controller = AnimationController(
       vsync: vsync,
       duration: Duration(
         milliseconds: duration ?? _kDuration,
@@ -44,22 +47,21 @@ class SharedValue {
   }
 
   setAnimation(Animation<double> animation, [void Function()? onComplete]) {
-    _details.removeListener();
-    _details.animation = animation;
-    _details.listener = () => _setValue(animation.value);
-    _details.animation?.addStatusListener((status) {
-      // print("status ${status}");
+    meta.removeListener();
+    meta.animation = animation;
+    meta.listener = () => _setValue(animation.value);
+    meta.animation?.addStatusListener((status) {
+      _status.value = status;
       if (status == AnimationStatus.completed) {
-        // print("animation complete");
         if (onComplete != null) {
           onComplete();
         }
-        if (_details.hasCompleteLister) {
-          _details.completeListener!();
+        if (meta.hasCompleteLister) {
+          meta.completeListener!();
         }
       }
     });
-    _details.animation!.addListener(_details.listener!);
+    meta.animation!.addListener(meta.listener!);
   }
 
   double get value => _val;
@@ -112,12 +114,12 @@ class SharedValue {
 
   dispose() {
     _stopCurrent();
-    _controller.dispose();
+    controller.dispose();
     _notifier.dispose();
   }
 
   _stopCurrent() {
-    _controller.stop();
+    controller.stop();
   }
 
   T interpolate<T>(List<double> inputRange, List<T> outputRange,
