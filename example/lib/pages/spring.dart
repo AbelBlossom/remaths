@@ -33,7 +33,7 @@ class _SpringAnimationState extends State<SpringAnimation>
           AnimatedBuilder(
             animation: mergeTweenables([x, y]),
             builder: (context, child) {
-              // dif = diff(x);
+              dif = diff(x);
               return Positioned(
                 top: y.value,
                 left: x.value,

@@ -14,7 +14,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
   late SharedValue width;
   @override
   void initState() {
-    width = useSharedValue(20.0, this);
+    width = 20.asSharedValue(this);
     super.initState();
   }
 
@@ -35,13 +35,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           AnimatedBuilder(
             animation: width.notifier,
             builder: (context, child) {
-              var inter = interpolate(
-                310,
-                [100, 110, 300, 400],
-                [0, 1, 2, 3],
-                extrapolate: Extrapolate.EXTEND,
-              );
-              print("inter is $inter");
+              print(diffClamp(width, 0, 10));
 
               return SizedBox(
                 width: clamp(width, 10, size.width - 50),

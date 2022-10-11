@@ -1,5 +1,5 @@
 part of remaths.v2;
 
-var useSharedValue = (double value, TickerProvider vsync) {
-  return SharedValue(value, vsync: vsync);
+var useSharedValue = (num value, TickerProvider vsync) {
+  return SharedValue(value.toDouble(), vsync: vsync);
 };
