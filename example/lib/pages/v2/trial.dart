@@ -35,9 +35,9 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           AnimatedBuilder(
             animation: width.notifier,
             builder: (context, child) {
-              var inter = interpolate2(
+              var inter = interpolate(
                 310,
-                [100, 200, 300, 400],
+                [100, 110, 300, 400],
                 [0, 1, 2, 3],
                 extrapolate: Extrapolate.EXTEND,
               );
@@ -48,47 +48,21 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
                 height: 30,
                 child: Container(
                   color: interpolateColor(
-                      width, [0, 100], [Colors.red, Colors.green]),
+                    width,
+                    [20, 65, 100],
+                    [Colors.red, Colors.blue, Colors.green],
+                  ),
                 ),
               );
             },
           ),
           TextButton(
             onPressed: () {
-              width.value = withRepeat(withSpring2(100), reverse: true);
-              // width.value = withTiming2(200);
-              // width.value = withSequence2([
-              //   withTiming2(
-              //     10.0,
-              //     onComplete: () {
-              //       print("finished 1");
-              //     },
-              //   ),
-              //   withSpring2(
-              //     100.0,
-              //     duration: 1000,
-              //     damping: 6.3,
-              //     onComplete: () {
-              //       // print("finished 2");
-              //     },
-              //   ),
-              //   withTiming2(
-              //     20.0,
-              //     delay: 300,
-              //     onComplete: () {
-              //       // print("finished 3");
-              //     },
-              //   ),
-              //   withSpring2(
-              //     40.0,
-              //     delay: 400,
-              //     onComplete: () {
-              //       // print("finished 4");
-              //     },
-              //   ),
-              // ], onComplete: () {
-              //   print("finished all");
-              // });
+              // width.value = withRepeat(withSpring2(100), reverse: true);
+
+              width.value = withSpring2(100, onComplete: () {
+                print("complete");
+              });
             },
             child: const Text("Change"),
           ),

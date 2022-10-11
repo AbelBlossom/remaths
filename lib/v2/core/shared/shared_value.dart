@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v2;
 
 typedef void Node(SharedValue node);
 typedef void AnimationListener();
@@ -102,7 +102,7 @@ class SharedValue {
 
   _setValue(double val) {
     _prev = _val;
-    _val = val.toDouble();
+    _val = val;
     _notifier.value = _val;
   }
 
@@ -116,16 +116,5 @@ class SharedValue {
 
   _stopCurrent() {
     controller.stop();
-  }
-
-  T interpolate<T>(List<double> inputRange, List<T> outputRange,
-      [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {
-    return _interpolateAll<T>(
-      _val,
-      inputRange,
-      outputRange,
-      extrapolate,
-      right,
-    );
   }
 }

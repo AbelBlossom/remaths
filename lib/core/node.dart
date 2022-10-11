@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 /// Creates an [Tweenable] value which can be animated with helper functions
 /// like [withTiming], [withSpring], [withSequence] ...

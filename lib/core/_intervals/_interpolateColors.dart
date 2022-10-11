@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 List<int> _getRed(List<Color> colors) {
   return colors.map((e) => e.red).toList();

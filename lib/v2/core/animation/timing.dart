@@ -1,6 +1,6 @@
-part of remaths;
+part of remaths.v2;
 
-Node withTiming2(
+Node withTiming(
   double toValue, {
   int duration = _kDuration,
   Curve curve = Curves.easeIn,
@@ -8,7 +8,6 @@ Node withTiming2(
   void Function()? onComplete,
 }) {
   return (SharedValue node) {
-    // if (toValue == node.value) return;
     node._meta.from = node._val;
     node._meta.to = toValue;
     node._meta.duration = duration;

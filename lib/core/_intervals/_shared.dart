@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 // import 'package:flutter/widgets.dart';
 // import 'package:remaths/remaths.dart';
 

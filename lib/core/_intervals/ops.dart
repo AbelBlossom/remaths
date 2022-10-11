@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 class _Ops extends _InterOps {
   /// Takes two values, and when evaluated, returns their sum.

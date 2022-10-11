@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 /// Use [_Spring] in place of any curve.
 ///

@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 class _Measure extends StatefulWidget {
   final OnSized onSizeChanged;

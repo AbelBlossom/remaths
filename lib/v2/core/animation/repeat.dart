@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v2;
 
 Node withRepeat(Node animation, {int numberOfReps = 2, bool reverse = false}) {
   return (node) {
@@ -9,7 +9,7 @@ Node withRepeat(Node animation, {int numberOfReps = 2, bool reverse = false}) {
         if (reverse) {
           if (index == 1) return;
           node._meta.completeListener = () => animationLoop(index - 1);
-          node.value = withTiming2(
+          node.value = withTiming(
             node._meta.from,
             duration: node._meta.duration,
             curve: node._meta.curve,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/remaths.dart';
+
+import 'package:remaths/_remaths.v1.dart';
 
 class OffsetTest extends StatefulWidget {
   const OffsetTest({Key? key}) : super(key: key);

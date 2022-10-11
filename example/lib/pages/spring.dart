@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/remaths.dart';
+
+import 'package:remaths/_remaths.v1.dart';
 
 class SpringAnimation extends StatefulWidget {
   const SpringAnimation({Key? key}) : super(key: key);

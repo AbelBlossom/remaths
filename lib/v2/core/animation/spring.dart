@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v2;
 
 Node withSpring2(
   double toValue, {
@@ -11,7 +11,7 @@ Node withSpring2(
   int? delay,
 }) {
   //TODO: implement using the Default Flutter Simulation
-  return withTiming2(
+  return withTiming(
     toValue,
     duration: duration,
     delay: delay,

@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 abstract class _InterOps {
   double _get(dynamic data) {

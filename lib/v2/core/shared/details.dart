@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v2;
 
 class _AnimationInfo {
   Curve curve;

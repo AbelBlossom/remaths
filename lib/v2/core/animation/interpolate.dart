@@ -1,6 +1,6 @@
-part of remaths;
+part of remaths.v2;
 
-double interpolate2(
+double interpolate(
   value,
   List<dynamic> inputRange,
   List<dynamic> outputRange, {
@@ -21,7 +21,7 @@ double interpolate2(
   );
   var sorted = [...input];
   sorted.sort((a, b) => a.compareTo(b));
-  _checkNonDecreasing("input", input);
+  assert(listEquals(sorted, input), "Increasing error");
 
   double _singleInterpolate(_val, _input, _output, offset) {
     var inS = _input[offset];
@@ -77,7 +77,7 @@ interpolateColor(
   var alpha = outputRange.map((e) => e.alpha).toList();
 
   getValue(List<dynamic> outputs, [List<dynamic>? input]) {
-    return interpolate2(
+    return interpolate(
       value,
       input ?? inputRange,
       outputs,

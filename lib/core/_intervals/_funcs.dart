@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 abstract class _AnimationFunctions {
   static _runAllWithTiming(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/remaths.dart';
+import 'package:remaths/_remaths.v1.dart';
 
 class TimingAnimation extends StatefulWidget {
   const TimingAnimation({Key? key}) : super(key: key);

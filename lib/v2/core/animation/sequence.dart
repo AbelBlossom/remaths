@@ -1,6 +1,6 @@
-part of remaths;
+part of remaths.v2;
 
-Node withSequence2(List<Node> animations, {void Function()? onComplete}) {
+Node withSequence(List<Node> animations, {void Function()? onComplete}) {
   return (node) {
     animationLoop(int index) {
       // node._completeLister = null;

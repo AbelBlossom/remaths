@@ -1,4 +1,4 @@
-part of remaths;
+part of remaths.v1;
 
 dynamic _interpolateInternalSingleProc(value, inS, inE, outS, outE) {
   ///asd
