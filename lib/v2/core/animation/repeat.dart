@@ -5,14 +5,14 @@ Node withRepeat(Node animation, {int numberOfReps = 2, bool reverse = false}) {
     var start = node.value;
     animationLoop(int index) {
       if (index <= 0) return;
-      node.meta.completeListener = () {
+      node._meta.completeListener = () {
         if (reverse) {
           if (index == 1) return;
-          node.meta.completeListener = () => animationLoop(index - 1);
+          node._meta.completeListener = () => animationLoop(index - 1);
           node.value = withTiming2(
-            node.meta.from,
-            duration: node.meta.duration,
-            curve: node.meta.curve.flipped,
+            node._meta.from,
+            duration: node._meta.duration,
+            curve: node._meta.curve,
           );
         } else {
           animationLoop(index - 1);

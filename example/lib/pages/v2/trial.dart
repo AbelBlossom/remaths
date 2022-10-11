@@ -27,6 +27,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+    print(range(10, start: 5, step: 1));
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -35,9 +36,12 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           AnimatedBuilder(
             animation: width.notifier,
             builder: (context, child) {
-              // print(width.diff);
+              print(cond(false, "yeah", () {
+                print("Hit");
+                return "nope";
+              }));
               return SizedBox(
-                width: min(max(width.value, 10), size.width - 50),
+                width: clamp(width, 10, size.width - 50),
                 height: 30,
                 child: child,
               );
@@ -48,7 +52,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           ),
           TextButton(
             onPressed: () {
-              width.value = withRepeat(withTiming2(100), reverse: false);
+              width.value = withRepeat(withSpring2(100), reverse: true);
               // width.value = withTiming2(200);
               // width.value = withSequence2([
               //   withTiming2(

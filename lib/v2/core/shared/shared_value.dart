@@ -21,7 +21,7 @@ class SharedValue {
   /// the lock is free to run the next animation
   bool _lock = false;
 
-  late _AnimationInfo meta;
+  late _AnimationInfo _meta;
 
   SharedValue(this._val, {required this.vsync}) {
     _notifier = ValueNotifier(_val);
@@ -30,7 +30,7 @@ class SharedValue {
       vsync: vsync,
       duration: Duration(milliseconds: _kDuration),
     );
-    meta = _AnimationInfo(
+    _meta = _AnimationInfo(
         curve: Curves.linear, duration: _kDuration, from: 0.0, to: 0.0);
   }
 
@@ -47,36 +47,32 @@ class SharedValue {
   }
 
   setAnimation(Animation<double> animation, [void Function()? onComplete]) {
-    meta.removeListener();
-    meta.animation = animation;
-    meta.listener = () => _setValue(animation.value);
-    meta.animation?.addStatusListener((status) {
+    _meta.removeListener();
+    _meta.animation = animation;
+    _meta.listener = () => _setValue(animation.value);
+    _meta.animation?.addStatusListener((status) {
       _status.value = status;
       if (status == AnimationStatus.completed) {
         if (onComplete != null) {
           onComplete();
         }
-        if (meta.hasCompleteLister) {
-          meta.completeListener!();
+        if (_meta.hasCompleteLister) {
+          _meta.completeListener!();
         }
       }
     });
-    meta.animation!.addListener(meta.listener!);
+    _meta.animation!.addListener(_meta.listener!);
   }
 
   double get value => _val;
 
-  double operator +(dynamic other) =>
-      value + cond(other is _InternalShared, other.value, other);
+  double operator +(dynamic other) => value + _get(other);
 
-  double operator -(dynamic other) =>
-      value - cond(other is _InternalShared, other.value, other);
+  double operator -(dynamic other) => value - _get(other);
 
-  double operator /(dynamic other) =>
-      value / cond(other is _InternalShared, other.value, other);
+  double operator /(dynamic other) => value / _get(other);
 
-  double operator *(dynamic other) =>
-      value * cond(other is _InternalShared, other.value, other);
+  double operator *(dynamic other) => value * _get(other);
 
   call(dynamic _value) {
     value = _value;

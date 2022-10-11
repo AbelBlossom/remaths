@@ -9,11 +9,11 @@ Node withTiming2(
 }) {
   return (SharedValue node) {
     // if (toValue == node.value) return;
-    node.meta.from = node._val;
-    node.meta.to = toValue;
-    node.meta.duration = duration;
+    node._meta.from = node._val;
+    node._meta.to = toValue;
+    node._meta.duration = duration;
     node.resetController(duration);
-    node.meta.curve = curve;
+    node._meta.curve = curve;
     node.setAnimation(
         Tween(begin: node.value, end: toValue).animate(
           CurvedAnimation(
