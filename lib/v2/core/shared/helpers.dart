@@ -131,3 +131,6 @@ double clamp(dynamic value, dynamic _min, dynamic _max) =>
     max(min(value, _max), _min);
 
 double diff(SharedValue value) => value.diff;
+
+double diffClamp(SharedValue value, num _min, num _max) =>
+    clamp(add(value, value.diff), _min, _max);
