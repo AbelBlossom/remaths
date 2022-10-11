@@ -27,3 +27,4 @@ part 'v2/core/animation/setValue.dart';
 part 'v2/core/animation/repeat.dart';
 part 'v2/core/shared/details.dart';
 part 'v2/core/shared/helpers.dart';
+part 'v2/core/animation/interpolate.dart';

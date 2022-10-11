@@ -27,7 +27,6 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-    print(range(10, start: 5, step: 1));
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -36,19 +35,23 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
           AnimatedBuilder(
             animation: width.notifier,
             builder: (context, child) {
-              print(cond(false, "yeah", () {
-                print("Hit");
-                return "nope";
-              }));
+              var inter = interpolate2(
+                310,
+                [100, 200, 300, 400],
+                [0, 1, 2, 3],
+                extrapolate: Extrapolate.EXTEND,
+              );
+              print("inter is $inter");
+
               return SizedBox(
                 width: clamp(width, 10, size.width - 50),
                 height: 30,
-                child: child,
+                child: Container(
+                  color: interpolateColor(
+                      width, [0, 100], [Colors.red, Colors.green]),
+                ),
               );
             },
-            child: Container(
-              color: Colors.red,
-            ),
           ),
           TextButton(
             onPressed: () {
