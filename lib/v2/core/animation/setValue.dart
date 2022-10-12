@@ -5,6 +5,7 @@ Node setValue(
   void Function()? onComplete,
 }) {
   return (node) {
-    return withTiming(value, duration: 0, onComplete: onComplete)(node);
+    node._val = value;
+    return;
   };
 }

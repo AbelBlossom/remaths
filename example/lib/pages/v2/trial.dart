@@ -11,16 +11,16 @@ class VersionTwoTrial extends StatefulWidget {
 class _VersionTwoTrialState extends State<VersionTwoTrial>
     with TickerProviderStateMixin {
   late Size size;
-  late SharedValue width;
+  late SharedValue offset;
   @override
   void initState() {
-    width = 20.asSharedValue(this);
+    offset = 20.asSharedValue(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    width.dispose();
+    offset.dispose();
     super.dispose();
   }
 
@@ -33,30 +33,60 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedBuilder(
-            animation: width.notifier,
+            animation: offset.notifier,
             builder: (context, child) {
-              print(diffClamp(width, 0, 10));
-
-              return SizedBox(
-                width: clamp(width, 10, size.width - 50),
-                height: 30,
-                child: Container(
-                  color: interpolateColor(
-                    width,
-                    [20, 65, 100],
-                    [Colors.red, Colors.blue, Colors.green],
-                  ),
-                ),
+              return Transform.translate(
+                offset: Offset(offset.value, 0.0),
+                child: child,
               );
             },
+            child: SizedBox(
+              width: 30,
+              height: 30,
+              child: Container(
+                color: Colors.blue,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () {
-              // width.value = withRepeat(withSpring2(100), reverse: true);
+              // offset.value = withRepeat(
+              //   withTiming(100, duration: 500, curve: Curves.linear),
+              //   numberOfReps: 4,
+              //   reverse: true,
+              //   from: 20.0,
+              // );
 
-              width.value = withSpring2(100, onComplete: () {
-                print("complete");
-              });
+              offset.value = withSequence([
+                // withSpring(300, onComplete: () {
+                //   print("Spring Ending");
+                // }),
+                withSpring(100),
+                withSpring(10),
+                withSpring(300),
+                withRepeat(
+                  withSpring(300, damping: 10),
+                  numberOfReps: 3,
+                  reverse: true,
+                  from: 200,
+                ),
+                withSpring(10),
+                withSpring(300),
+                withSpring(10),
+                withSpring(100),
+                withSpring(10),
+                withSpring(300),
+                withRepeat(
+                  withSpring(300, damping: 10),
+                  numberOfReps: 3,
+                  reverse: true,
+                  from: 200,
+                ),
+                withSpring(200),
+                withSpring(10),
+                withSpring(100),
+                withSpring(10),
+              ]);
             },
             child: const Text("Change"),
           ),

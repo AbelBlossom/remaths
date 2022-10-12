@@ -8,6 +8,7 @@ Node withTiming(
   void Function()? onComplete,
 }) {
   return (SharedValue node) {
+    print("creating new animation [${node.value} -> $toValue]");
     node._meta.from = node._val;
     node._meta.to = toValue;
     node._meta.duration = duration;

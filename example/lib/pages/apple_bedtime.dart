@@ -22,6 +22,7 @@ class _AppleBedtimeState extends State<AppleBedtime> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[900],
+      appBar: AppBar(),
       body: Center(
         child: Container(
           width: size.width,

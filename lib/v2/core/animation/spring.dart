@@ -1,6 +1,6 @@
 part of remaths.v2;
 
-Node withSpring2(
+Node withSpring(
   double toValue, {
   int duration = _kDuration,
   double damping = _kDamping,

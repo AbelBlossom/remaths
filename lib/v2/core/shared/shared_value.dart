@@ -2,11 +2,6 @@ part of remaths.v2;
 
 typedef void Node(SharedValue node);
 typedef void AnimationListener();
-// const double _kDamping = 20;
-// const double _kStiffness = 180;
-// const double _kMass = 1.0;
-// const double _kVelocity = 0.0;
-// const int _kDuration = 300;
 
 class SharedValue {
   double? _prev;
@@ -19,7 +14,7 @@ class SharedValue {
 
   /// This value is used by sequence animation to know whether
   /// the lock is free to run the next animation
-  bool _lock = false;
+  ValueNotifier<bool> _lock = ValueNotifier(false);
 
   late _AnimationInfo _meta;
 
@@ -35,7 +30,7 @@ class SharedValue {
   }
 
   resetController(int? duration) {
-    //FIXME: find a performant way then disposing contollers and creating them
+    //FIXME: find a performant way then disposing controllers and creating them
     _stopCurrent();
     controller.dispose();
     controller = AnimationController(
