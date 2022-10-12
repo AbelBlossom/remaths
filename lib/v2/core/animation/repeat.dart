@@ -13,7 +13,6 @@ Node withRepeat(
     animationLoop(int index) {
       if (index == 0) {
         node._lock.value = false;
-        // node._meta.completeListener = null;
         return;
       }
 

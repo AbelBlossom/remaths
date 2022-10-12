@@ -3,7 +3,6 @@ part of remaths.v2;
 Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
   var animations = _animations.reversed.toList();
   return (node) {
-    bool _repeated = false;
     animationLoop(int index) {
       print("index = $index");
       if (index < 0) {
@@ -14,7 +13,6 @@ Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
         late void Function() listener;
         listener = () {
           if (!node._lock.value) {
-            _repeated = true;
             animationLoop(--index);
             node._meta.completeListener = () => animationLoop(index - 1);
           }
@@ -24,12 +22,7 @@ Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
         node._lock.addListener(listener);
         return;
       } else {
-        if (_repeated) {
-          _repeated = false;
-          // animationLoop(index);
-        } else {
-          node._meta.completeListener = () => animationLoop(--index);
-        }
+        node._meta.completeListener = () => animationLoop(--index);
       }
     }
 
