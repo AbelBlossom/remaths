@@ -1,4 +1,4 @@
-part of remaths.v2;
+part of v2.core;
 
 Node withSequence(List<Node> animations, {void Function()? onComplete}) {
   var anim = animations.reversed.toList();

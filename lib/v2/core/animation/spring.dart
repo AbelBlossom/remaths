@@ -1,4 +1,4 @@
-part of remaths.v2;
+part of v2.core;
 
 Node withSpring(
   double toValue, {

@@ -1,4 +1,4 @@
-part of remaths.v2;
+part of v2.core;
 
 const double _kDamping = 20;
 const double _kStiffness = 180;

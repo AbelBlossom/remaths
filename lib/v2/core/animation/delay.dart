@@ -1,4 +1,4 @@
-part of remaths.v2;
+part of v2.core;
 
 Node withDelay(Node func, int delay) {
   return (node) {

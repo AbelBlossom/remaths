@@ -1,4 +1,4 @@
-part of remaths.v2;
+part of v2.core;
 
 Node withTiming(
   double toValue, {
@@ -8,13 +8,13 @@ Node withTiming(
   void Function()? onComplete,
   num? from,
 }) {
-  return (SharedValue node) {
-    node._meta.from = from != null ? from.toDouble() : node._val;
+  return (node) {
+    node._meta.from = (from ??= node._val).toDouble();
     node._meta.to = toValue;
     node._meta.duration = duration;
-    node.resetController(duration);
+    node._resetController(duration);
     node._meta.curve = curve;
-    node.setAnimation(
+    node._setAnimation(
         Tween(begin: node._meta.from, end: node._meta.to).animate(
           CurvedAnimation(
             parent: node.controller,

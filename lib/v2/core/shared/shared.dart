@@ -1,9 +1,9 @@
-part of remaths.v2;
+part of v2.core;
 
-typedef void Node(SharedValue node);
-typedef void AnimationListener();
+typedef Node = void Function(Shared node);
+typedef AnimationListener = void Function();
 
-class SharedValue {
+abstract class Shared {
   double? _prev;
   double _val;
   late ValueNotifier<double> _notifier;
@@ -12,13 +12,11 @@ class SharedValue {
   final TickerProvider vsync;
   bool _sequenceLocked = false;
 
-  /// This value is used by sequence animation to know whether
-  /// the lock is free to run the next animation
   final ValueNotifier<bool> _lock = ValueNotifier(false);
 
   late _AnimationInfo _meta;
 
-  SharedValue(this._val, {required this.vsync}) {
+  Shared(this._val, {required this.vsync}) {
     _notifier = ValueNotifier(_val);
     _status = ValueNotifier(null);
     controller = AnimationController(
@@ -29,8 +27,7 @@ class SharedValue {
         curve: Curves.linear, duration: _kDuration, from: 0.0, to: 0.0);
   }
 
-  resetController(int? duration) {
-    //FIXME: find a performant way then disposing controllers and creating them
+  _resetController(int? duration) {
     _stopCurrent();
     controller.dispose();
     controller = AnimationController(
@@ -41,7 +38,7 @@ class SharedValue {
     );
   }
 
-  setAnimation(Animation<double> animation, [void Function()? onComplete]) {
+  _setAnimation(Animation<double> animation, [void Function()? onComplete]) {
     _meta.removeListener();
     _meta.animation = animation;
     _meta.listener = () => _setValue(animation.value);
@@ -61,13 +58,13 @@ class SharedValue {
 
   double get value => _val;
 
-  double operator +(dynamic other) => value + _get(other);
+  double operator +(dynamic other) => value + getValue(other);
 
-  double operator -(dynamic other) => value - _get(other);
+  double operator -(dynamic other) => value - getValue(other);
 
-  double operator /(dynamic other) => value / _get(other);
+  double operator /(dynamic other) => value / getValue(other);
 
-  double operator *(dynamic other) => value * _get(other);
+  double operator *(dynamic other) => value * getValue(other);
 
   set status(AnimationStatus? status) {
     _status.value = status;
@@ -105,6 +102,7 @@ class SharedValue {
     _notifier.dispose();
   }
 
+  @protected
   _stopCurrent() {
     controller.stop();
   }

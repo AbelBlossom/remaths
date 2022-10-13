@@ -35,7 +35,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedBuilder(
-            animation: Listenable.merge([width.notifier, offset.notifier]),
+            animation: width.mergerWith([offset.animation]),
             builder: (context, child) {
               return Transform.translate(
                 offset: Offset(offset.value, 0.0),
