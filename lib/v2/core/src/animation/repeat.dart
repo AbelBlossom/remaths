@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node withRepeat(
+Node repeatAnimation(
   Node animation, {
   int numberOfReps = 2,
   bool reverse = false,
@@ -24,7 +24,7 @@ Node withRepeat(
           }
 
           node._meta.completeListener = () => animationLoop(index - 1);
-          node.value = withTiming(
+          node.value = timingAnimation(
             start,
             duration: node._meta.duration,
             curve: node._meta.curve,

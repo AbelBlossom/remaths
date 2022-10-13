@@ -1,5 +1,6 @@
 part of v2.core;
 
+///TODO: doc
 class SharedValue extends Shared {
   SharedValue(super.val, {required super.vsync});
 
@@ -34,3 +35,24 @@ class SharedValue extends Shared {
   /// returns `true` if the value is animating
   bool get isAnimating => controller.isAnimating;
 }
+
+///TODO: doc
+const withTiming = timingAnimation;
+
+///TODO: doc
+const withSpring = springAnimation;
+
+///TODO: doc
+const withSequence = sequenceAnimation;
+
+///TODO: doc
+const withRepeat = repeatAnimation;
+
+///TODO: doc
+const withDelay = delayAnimation;
+
+///TODO: doc
+const interpolate = _interpolate;
+
+///TODO: doc
+const interpolateColor = _interpolateColor;

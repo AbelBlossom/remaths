@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node withSpring(
+Node springAnimation(
   double toValue, {
   int duration = _kDuration,
   double damping = _kDamping,
@@ -11,12 +11,12 @@ Node withSpring(
   int? delay,
 }) {
   //TODO: implement using the Default Flutter Simulation
-  return withTiming(
+  return timingAnimation(
     toValue,
     duration: duration,
     delay: delay,
     onComplete: onComplete,
-    curve: _Spring.custom(
+    curve: SpringCurve.custom(
       damping: damping,
       mass: mass,
       stiffness: stiffness,

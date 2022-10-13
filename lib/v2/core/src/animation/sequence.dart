@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node withSequence(List<Node> animations, {void Function()? onComplete}) {
+Node sequenceAnimation(List<Node> animations, {void Function()? onComplete}) {
   var anim = animations.reversed.toList();
   return (node) {
     animationLoop(int index) {

@@ -77,8 +77,8 @@ cond(bool condition, ifBlock, [elseBlock]) {
     if (defined(elseBlock)) {
       if (elseBlock is Function) return elseBlock();
       return elseBlock;
-    } else
-      return null;
+    }
+    return;
   }
 }
 

@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node withTiming(
+Node timingAnimation(
   double toValue, {
   int duration = _kDuration,
   Curve curve = Curves.easeIn,

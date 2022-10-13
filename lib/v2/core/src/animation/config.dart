@@ -12,9 +12,10 @@ enum Extrapolate {
   identity,
 }
 
-class _Spring extends Curve {
-  factory _Spring([double damping = 20]) => _Spring.custom(damping: damping);
-  _Spring.custom({
+class SpringCurve extends Curve {
+  factory SpringCurve([double damping = 20]) =>
+      SpringCurve.custom(damping: damping);
+  SpringCurve.custom({
     double damping = 20,
     double stiffness = 180,
     double mass = 1.0,

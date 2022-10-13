@@ -1,6 +1,6 @@
 part of v2.core;
 
-double interpolate(
+double _interpolate(
   value,
   List<dynamic> inputRange,
   List<dynamic> outputRange, {
@@ -68,7 +68,7 @@ double interpolate(
   return res;
 }
 
-interpolateColor(
+_interpolateColor(
   dynamic value,
   List<dynamic> inputRange,
   List<Color> outputRange,
@@ -79,7 +79,7 @@ interpolateColor(
   var alpha = outputRange.map((e) => e.alpha).toList();
 
   getValue(List<dynamic> outputs, [List<dynamic>? input]) {
-    return interpolate(
+    return _interpolate(
       value,
       input ?? inputRange,
       outputs,
