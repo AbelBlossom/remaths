@@ -4,7 +4,6 @@ Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
   var animations = _animations.reversed.toList();
   return (node) {
     animationLoop(int index) {
-      print("index = $index");
       if (index < 0) {
         return;
       }

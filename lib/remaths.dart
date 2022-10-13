@@ -1,7 +1,5 @@
 library remaths.v2;
 
-import 'dart:ui';
-
 import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
@@ -19,3 +17,4 @@ part 'v2/core/shared/details.dart';
 part 'v2/core/shared/helpers.dart';
 part 'v2/core/animation/interpolate.dart';
 part 'v2/core/extension.dart';
+part 'v2/core/animation/stagger.dart';

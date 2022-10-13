@@ -12,9 +12,11 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
     with TickerProviderStateMixin {
   late Size size;
   late SharedValue offset;
+  late SharedValue width;
   @override
   void initState() {
     offset = 20.asSharedValue(this);
+    width = 30.asSharedValue(this);
     super.initState();
   }
 
@@ -33,34 +35,29 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedBuilder(
-            animation: offset.notifier,
+            animation: Listenable.merge([width.notifier, offset.notifier]),
             builder: (context, child) {
               return Transform.translate(
                 offset: Offset(offset.value, 0.0),
-                child: child,
+                child: SizedBox(
+                  width: width.value,
+                  height: 30,
+                  child: child,
+                ),
               );
             },
-            child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Container(
-                color: Colors.blue,
-              ),
+            child: Container(
+              color: Colors.blue,
             ),
           ),
           TextButton(
             onPressed: () {
-              // offset.value = withRepeat(
-              //   withTiming(100, duration: 500, curve: Curves.linear),
-              //   numberOfReps: 4,
-              //   reverse: true,
-              //   from: 20.0,
-              // );
+              // width.value = withTiming(100);
+              // stagger(00, {width: withTiming(100), offset: withTiming(200)});
+              // width.value = withSpring(200);
+              // offset.value = withSpring(200);
 
               offset.value = withSequence([
-                // withSpring(300, onComplete: () {
-                //   print("Spring Ending");
-                // }),
                 withSpring(100),
                 withSpring(10),
                 withSpring(300),
