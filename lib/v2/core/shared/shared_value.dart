@@ -14,7 +14,7 @@ class SharedValue {
 
   /// This value is used by sequence animation to know whether
   /// the lock is free to run the next animation
-  ValueNotifier<bool> _lock = ValueNotifier(false);
+  final ValueNotifier<bool> _lock = ValueNotifier(false);
 
   late _AnimationInfo _meta;
 
@@ -23,7 +23,7 @@ class SharedValue {
     _status = ValueNotifier(null);
     controller = AnimationController(
       vsync: vsync,
-      duration: Duration(milliseconds: _kDuration),
+      duration: const Duration(milliseconds: _kDuration),
     );
     _meta = _AnimationInfo(
         curve: Curves.linear, duration: _kDuration, from: 0.0, to: 0.0);
@@ -68,10 +68,6 @@ class SharedValue {
   double operator /(dynamic other) => value / _get(other);
 
   double operator *(dynamic other) => value * _get(other);
-
-  call(dynamic _value) {
-    value = _value;
-  }
 
   set status(AnimationStatus? status) {
     _status.value = status;

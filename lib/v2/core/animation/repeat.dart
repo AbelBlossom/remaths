@@ -18,7 +18,10 @@ Node withRepeat(
 
       node._meta.completeListener = () {
         if (reverse) {
-          if (index == 1) return animationLoop(index - 1);
+          if (index == 1) {
+            animationLoop(index - 1);
+            return;
+          }
 
           node._meta.completeListener = () => animationLoop(index - 1);
           node.value = withTiming(

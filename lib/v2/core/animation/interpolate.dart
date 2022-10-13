@@ -4,7 +4,7 @@ double interpolate(
   value,
   List<dynamic> inputRange,
   List<dynamic> outputRange, {
-  Extrapolate extrapolate = Extrapolate.EXTEND,
+  Extrapolate extrapolate = Extrapolate.extend,
   Extrapolate? extrapolateLeft,
   Extrapolate? extrapolateRight,
 }) {
@@ -50,18 +50,20 @@ double interpolate(
   }
   var res = _singleInterpolate(val, input, output, index);
 
-  if (left != Extrapolate.EXTEND)
-    res = left == Extrapolate.CLAMP
+  if (left != Extrapolate.extend) {
+    res = left == Extrapolate.clamp
         ? cond(val < input.first, output.first, res)
-        : left == Extrapolate.IDENTITY
+        : left == Extrapolate.identity
             ? res = cond(val < input.first, val, res)
             : res;
-  if (right != Extrapolate.EXTEND)
-    res = right == Extrapolate.CLAMP
+  }
+  if (right != Extrapolate.extend) {
+    res = right == Extrapolate.clamp
         ? cond(val > input.last, output.last, res)
-        : right == Extrapolate.IDENTITY
+        : right == Extrapolate.identity
             ? res = cond(val > input.last, val, res)
             : res;
+  }
 
   return res;
 }
@@ -81,7 +83,7 @@ interpolateColor(
       value,
       input ?? inputRange,
       outputs,
-      extrapolate: Extrapolate.CLAMP,
+      extrapolate: Extrapolate.clamp,
     ).round();
   }
 

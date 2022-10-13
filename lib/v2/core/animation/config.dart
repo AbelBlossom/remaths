@@ -7,9 +7,9 @@ const double _kVelocity = 0.0;
 const int _kDuration = 300;
 
 enum Extrapolate {
-  EXTEND,
-  CLAMP,
-  IDENTITY,
+  extend,
+  clamp,
+  identity,
 }
 
 class _Spring extends Curve {
@@ -19,7 +19,7 @@ class _Spring extends Curve {
     double stiffness = 180,
     double mass = 1.0,
     double velocity = 0.0,
-  }) : this._sim = SpringSimulation(
+  }) : _sim = SpringSimulation(
           SpringDescription(
             damping: damping,
             mass: mass,

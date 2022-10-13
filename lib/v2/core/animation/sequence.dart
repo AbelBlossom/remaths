@@ -1,13 +1,13 @@
 part of remaths.v2;
 
-Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
-  var animations = _animations.reversed.toList();
+Node withSequence(List<Node> animations, {void Function()? onComplete}) {
+  var anim = animations.reversed.toList();
   return (node) {
     animationLoop(int index) {
       if (index < 0) {
         return;
       }
-      animations[index](node);
+      anim[index](node);
       if (node._lock.value) {
         late void Function() listener;
         listener = () {
@@ -25,6 +25,6 @@ Node withSequence(List<Node> _animations, {void Function()? onComplete}) {
       }
     }
 
-    animationLoop(animations.length - 1);
+    animationLoop(anim.length - 1);
   };
 }
