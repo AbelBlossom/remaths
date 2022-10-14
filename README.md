@@ -1,272 +1,235 @@
-# Remaths
+**Table of Contents**
 
-remaths is a flutter package that makes animations and other calculations easier to use. This package is heavily **inspired** by the react-native reanimated package.
+- [Installation](#installation)
+- [Migrating from version 1.x.x](#migrating-from-v1)
+- [Basic USAGE](#basic-USAGE)
+- [SharedValues](#)
+- [Animation Functions](#animation-functions)
+  - [withTiming](#withtiming)
+  - [withSpring](#withsequence)
+  - [withRepeat](#withrepeat)
+- [Interpolation](#interpolation)
+  - [interpolate](#interpolate)
+  - [Color Interpolation](#interpolatecolors)
 
-## `Tweenable`
+## Installation
 
-`Tweenables` are one of the fundamentals of the `remaths` package. `Tweenable` carries `Tweenable` data. This data can be animated with timing or spring. `Tweenable` uses the default flutter `AnimationController` under the hood to render animations (performable). Before we start animating with `Tweenable` lets look at Tweenable Functions
+To install in flutter run
 
-# Tweenable Functions
-Tweenable functions are used to animate `Tweenable` values. 
-## withSpring
-
-Starts a spring animation on the `Tweenable` value.
- ```dart
-    x = withSpring(toValue, {
-    int  duration,
-    double  damping,
-    double  stiffness,
-    double  mass,
-    double  velocity,
-    int?  delay,
-    void  Function()?  onComplete,
-    })
+```bash
+flutter pub add remaths
 ```
-| Params   | default  | description |
-| --------  | -------  | ------------|
-| toValue * | required | the destination of the animation |
-| duration   | 300      | the duration in `milliseconds` |
-| damping   | 20       | spring damping|
-| stiffness | 180.0    | stiffness|
-| mass      | 1.0      | mass|
-| velocity  | 0.0      | velocity|
-| delay     | 0.0      | duration in `milliseconds` the animation will delay before starting |
-| onComplete| null     | function called after the animation is complete |
+
+or add `remaths` to your dependencies
+
+```yml
+dependencies:
+	remaths: ^2.0.0
+```
+
+## Migrating from v1
+
+- `Tweenable` are renamed to `SharedValues`
+  **OLD**
+  ```dart
+  opacity = Tweenable(0.0, this);
+  // OR
+  opacity = 0.asTweenable(this)
+  ```
+  **NOW**
+  ```dart
+  opacity = useSharedValue(0.0, this);
+  //OR
+  opacity = 0.asSharedValue(this);
+  ```
+
+## Basic USAGE
+
+To start using remaths in your widget, your widget must have be a `Stateful` widget which with `TickerStateProviderMixin`
+`SharedValue` s are initialized just like `AnimationControllers`
+
+```dart
+late SharedValue opacity;
+
+@override
+initState() {
+	opacity = SharedValue(0.0, this);
+	// OR
+	width = 0.0.asSharedValue(this);
+}
+```
+
+`SharedValue` can use animated with [Animation Functions](#animation-functions)
+
+[See all Animation Functions](#animation-functions)
+<br><br>
+
+# SharedValues
+
+### methods
+
+### `withTiming(double toValue)`
+
+animates the value with [timing function](#withtiming)
+
+### `withSpring(double toValue)`
+
+animates the value with [spring function](#withspring)
+
+### `withSequence([])`
+
+run a list of animations
+
+### `interpolate(inputRange,outPutRange ..)`
+
+maps the value from inputRange to outputRange see [interpolations](#interpolate)
+
+### `interpolate(inputRange,outPutRange ..)`
+
+see [color Interpolation](#interpolatecolors)
+
+# Animation Functions
+
+Animation functions are used to drive a `SharedValue` with a specific animation
 
 ## withTiming
-Start a timing animation in the `Tweenable` value
+
+This is used to run a timing animation on a `SharedValue`
+
+**USAGE**
 
 ```dart
-x = withTiming(double toValue, {
-    double toValue, {
-  int duration = _kDuration,
-  Curve curve = Curves.easeIn,
-  int? delay,
-  void Function()? onComplete,
-})
+opacity.value = withTiming(0.0, duration:100, curve:Curves.easeInOut);
 ```
 
-| Params   | default  | description |
-| --------  | -------  | ------------|
-| toValue * | required | the destination of the animation |
-| duration   | 300      | the duration in `milliseconds` |
-| curve     | Curves.easeIn| the curve of the animation |
-| delay     | 0.0      | duration in `milliseconds` the animation will delay before starting |
-| onComplete| null     | function called after the animation is complete |
-## withSequence
-Run list of animations sequentially.
-```dart
- x = withSequence([withTiming(...),6.0,withSpring(...),])
-```
-`wihSequence` takes a list of Tweenable Functions or a `double` and run them sequentially.
-When a `double` is provided, the value is set to that destination without any animation.
+### Arguments
 
-# Working with Tweenables
-Lets take `Tweenable` as a double value that can be animated with Tweenable Functions.
-```dart
-var x = Tweenable(double value, vsync: this);
-```
+| name                  | default                            | description                               |
+| --------------------- | ---------------------------------- | ----------------------------------------- |
+| `double` toValue\*    | required                           | animation destination                     |
+| `int` duration        | 300                                | duration of the animation in milliseconds |
+| `Curve` curve         | `Curves.ease`                      | The curve of the animations               |
+| `double` from         | current value of the `SharedValue` | the start of the animation                |
+| `Function` onComplete | null                               | calls when the animation is complete      |
 
-Tweenables can also be initialized with num extensions
+## withSpring
+
+This is used to animate `SharedValue` with `SpringSimulation`
+
+**USAGE**
+
 ```dart
-var x = 12.asTweenable(this);
-// In this case 12 is used as an initial value
+width.value = withSpring(1.0, duration: 500);
 ```
 
-| Params   | default  | description |
-| -------- | -------  | ------------|
-| value    | required | the animation position |
-| vsync    | required  | `TickerProvider` |
+### Arguments
 
-You have to use your stateful object as the `vsync` by adding `SingleTickerProviderStateMixin` or `TickerProviderStateMixin` to the class definition
+| name                  | default  | description                               |
+| --------------------- | -------- | ----------------------------------------- |
+| `double` toValue\*    | required | animation destination                     |
+| `int` duration        | 300      | duration of the animation in milliseconds |
+| `double` velocity     | 0.0      | spring velocity                           |
+| `double` mass         | 1.0      | spring mass                               |
+| `double` stiffness    | 180.0    | stiffness                                 |
+| `double` damping      | 20.0     | damping                                   |
+| `Function` onComplete | null     | calls when the animation is complete      |
 
-Animations can be done on `Tweenable` by setting the `Tweenable` value to an animated function
+## WithSequence
 
-When any animation does not end before initializing another animation, the previous animation is stopped and the current animation continues from where the old on stopped to bring a smooth animation experience
+This animation Function is used to run list of animations sequentially, i.e one after the other
 
-Example
+**USAGE**
+
 ```dart
-x = withTiming(...)
-x = withSpring(...)
-x = withSequence(...)
-x = 45.0 // no animations done here
 
-```
-**Note**: if a `double` value to set with the `Tweenable`, no animation is triggered. The value is just jumped the destination.
-
-# Using Tweenables
-[Tweenable] can be used with [AnimatedBuilder].
-
-To use [Tweenable] with [AnimationBuilder], you need a helper function `mergeTweenables` which you can pass the [Tweenable] which when changed the Widget will rebuild
-
-i.e
-```dart
-// initialization
-var x = 10.asTweenable();
-var x = 12.asTweenable();
-
-// Usage
-
-AnimatedBuilder(
-  animation: mergeTweenables([x,y])
-  child: ...
-  builder: ...
+width = withSequence(
+  [withTiming(20), withSpring(40)],
+  () => print("animation complete"),
 )
-// the widget will rebuild anytime the values of `x` and `y` changed
 ```
+
+### Arguments
+
+| name                  | default  | description                          |
+| --------------------- | -------- | ------------------------------------ |
+| `List` animations\*   | required | list of Animations                   |
+| `Function` onComplete | null     | calls when the animation is complete |
+
+## withRepeat
+
+Repeat an animation for some number of times
+
+**USAGE**
+
+```dart
+width = withRepeat(withSpring(20.0), reps:3);
+```
+
+### Arguments
+
+| name                  | default                            | description                                       |
+| --------------------- | ---------------------------------- | ------------------------------------------------- |
+| animation\*           | required                           | the animation function to repeat                  |
+| `int` reps            | 2                                  | number of times to repeat the animation           |
+| `bool` reverse        | false                              | where to reverse the animation on each repetition |
+| `double` from         | current value of the `SharedValue` | the start of the animation                        |
+| `Function` onComplete | null                               | calls when the animation is complete              |
 
 # Interpolation
-Maps an input value within a range to an output value within a range. Also supports different types of extrapolation for when the value falls outside the range and mapping to strings.
-Interpolation is made as an extension on `num` and `Tweenable`.
-```dart
-var val = 50;
-// or
-var val = 50.asTweenable(this);
-// usage
-var opacity = val.interpolate<double>(
-  [20, 100] // input range
-  [0,1] // output range
-  Extrapolate.EXTEND, // extrapolation
-  Extrapolate.EXTEND, // left Extrapolation
-);
 
-// COLOR INTERPOLATION
-var color = val.interpolate<Color>(
-  [20, 10],
-  [Colors.red, Colors.green],
-)
-// The extrapolation in Color interpolation is fixed to Extrapolate.CLAMP even if specified
+There are some helpful interpolation function to help interpolate between values and `Color`s
+
+## interpolate
+
+This is used to map a value from one range to the other.
+
+**USAGE**
+
+```dart
+var yOffset = interpolate(opacity, [0,1], [100,0])
 ```
-The third parameter is the is the `right` extrapolation and the last parameter is the `left` extrapolation. If the left extrapolation is the specified the right extrapolation is used for the left extrapolation, and if any of the extrapolations is not specified, the default `Extrapolate.EXTEND` is used for both the left and the right.
-In Color Interpolation the extrapolation is fixed to `Extrapolate.CLAMP` even if specified
 
+The code above implies that <br>
+When:
 
+| opacity | yOffset |
+| ------- | ------- |
+| 0       | 100     |
+| 0.5     | 50      |
+| 1       | 0       |
 
-# Helper nodes
+Read More About Interpolation on [Wikipedia](https://en.wikipedia.org/wiki/Interpolation)
+
+### Arguments
+
+| name             | default              | description                                                     |
+| ---------------- | -------------------- | --------------------------------------------------------------- |
+| value            | required             | the value to interpolate                                        |
+| inputRange       | required             | input range                                                     |
+| outputRange      | required             | output range                                                    |
+| extrapolate      | `Extrapolate.extend` | used as left extrapolation when rightExtrapolation is available |
+| rightExtrapolate | null                 | right extrapolation                                             |
+
+> NOTE: input range must be monotonically increasing
+
+### How extrapolation works
+
+Extrapolation determines how to estimate the output values when the value is out of the range provided but in the `inputRange`.
+If the `extrapolate` argument is passed it applies it to the left and right side.
+If the `rightExtrapolate` argument is provided the `extrapolate` argument will be applied to the left side the the `rightExtrapolate` is used fot the right side
+
+**Extrapolations**
+
+- `Extrapolate.clamp` clamps the value to the edge of the output range
+- `Extrapolate.extend` approximates the value even outside of the range
+- `Extrapolate.identity` returns the value that is being interpolated
+
+## interpolateColors
+
+This is used to map a value from range of number to range of colors.
+
+**USAGE**
 
 ```dart
- /// Takes two values, and when evaluated, returns their sum.
-  double add(dynamic a, dynamic b);
-//. Takes two values, and when evaluated, returns their product.
-  double multiply(dynamic a, dynamic b);
-
-  /// Takes two values, and when evaluated,  returns the result of dividing their values in the exact order.
-  double divide(dynamic a, dynamic b);
-
-  /// Takes two values, and when evaluated, returns the result of subtracting their values
-  double sub(dynamic a, dynamic b);
-
-  /// Takes two or more values, and when evaluated, returns the result of first node to the second node power.
-  double pow(dynamic a, dynamic b);
-  
-  /// returns the square root of the number
-  double sqrt(dynamic a);
-
-  /// Remainder after division of the first argument by the second one. modulo(a,0) will throw an error.
-  double modulo(dynamic a, dynamic b);
-
-  /// The same function as `math.log`
-  double log(dynamic a);
-
-  /// The same function as `math.sin`
-  double sin(dynamic a);
-
-  /// The same function as `math.tan`
-  double tan(dynamic a);
-
-  /// The same function as `math.asin`
-  double asin(dynamic a);
-
-  /// The same function as `math.exp`
-  double exp(dynamic a);
-
-  /// The same function as `num.round`
-  int round(dynamic a);
-
-  /// The same function as `num.floor`
-  int floor(dynamic a);
-
-  /// The same function as `num.ceil`
-  int ceil(dynamic a);
-
-  /// The same function as `math.atan`
-  double atan(dynamic a);
-
-  /// returns the minimum value
-  min<T extends num>(T a, T b);
-
-  /// returns the maximum value
-  T max<T extends num>(T a, T b);
-
-  /// returns the absolute value
-  num abs(dynamic a);
-
-  /// convert [a] in Degrees to Radian
-  double toRad(dynamic a);
-
-  /// convert [a] in Radian to Degrees
-  double toDeg(dynamic a);
-
-  /// Returns true if the given node evaluates to a "defined" value (that is to something that is non-null, non-undefined and non-NaN).
-  /// Returns false otherwise
-  bool defined(a);
-
-  bool or(bool a, bool b);
-
-  /// the if the value is valid
-  bool truthy(dynamic val);
-
-  /// If [condition] evaluates to "truthy" value the node evaluates [ifBlock] node and returns its value,
-  /// otherwise it evaluates [elseBlock] and returns its value. [elseBlock] is optional.
-  cond(bool condition, ifBlock, [elseBlock]);
-
-  /// less than `<` comparison
-  bool lessThan(a, b);
-
-  /// greater than `>` comparison
-  bool greaterThan(a, b);
-
-  /// checks if the two values are equal `==`
-  bool eq(a, b);
-
-  /// checks if the two values are `not` equal `!=`
-  bool neq(a, b);
-
-  /// less than or equal to `<=` comparison
-  bool lessOrEq(a, b);
-
-  /// greater than or equal to `>=` comparison
-  bool greaterOrEq(a, b);
-
-  /// Evaluates [Tweenable] and returns a difference between value returned
-  ///  at the last time it was evaluated and its value at the current time.
-  ///
-  /// When evaluating for the first time it returns the [Tweenable] value
-  double diff(_InternalShared tweenable, [double initial = 0.0]);
-
-  /// round a number [dec] (decimal)  specified
-  /// ```dart
-  /// decimalRound(1.34343, 2) // 1.34
-  /// ````
-  double decimalRound(dynamic a, dynamic dec);
-
-  /// generate a random number from [start] to [end]
-  ///
-  /// If [decimal] is is specified, a random number is generated
-  /// to the [decimal] specified
-  /// ```dart
-  /// random() // returns number from 0-1
-  /// random(5) // returns random number from 0 - 5
-  /// random(5,9) // returns random number from 5 to 9
-  /// random(5,10,2) //returns a random decimal from 5 to 10 to 2 decimal places
-  /// ```
-  double random([int start = 0, int end = 1, int decimal = 1]);
-
-  /// Generate a list integers
-  /// ```dart
-  /// range(3) // [0,1,2]
-  /// range(10, start: 5) // [5,6,7,8,9]
-  /// range(10, step: 2) // [0,2,4,6,8]
-  /// ```
-  range(int stop, {int start: 0, int step: 1});
+var color = interpolateColors(opacity, [0,1], [Colors.red, Colors.green])
 ```

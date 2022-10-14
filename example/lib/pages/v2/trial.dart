@@ -63,7 +63,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
                 withSpring(300),
                 withRepeat(
                   withSpring(300, damping: 10),
-                  numberOfReps: 3,
+                  reps: 3,
                   reverse: true,
                   from: 200,
                 ),
@@ -75,7 +75,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
                 withSpring(300),
                 withRepeat(
                   withSpring(300, damping: 10),
-                  numberOfReps: 3,
+                  reps: 3,
                   reverse: true,
                   from: 200,
                 ),

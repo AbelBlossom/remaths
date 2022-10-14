@@ -2,8 +2,9 @@ part of v2.core;
 
 Node repeatAnimation(
   Node animation, {
-  int numberOfReps = 2,
+  int reps = 2,
   bool reverse = false,
+  void Function()? onComplete,
   num? from,
 }) {
   return (node) {
@@ -13,6 +14,7 @@ Node repeatAnimation(
     animationLoop(int index) {
       if (index == 0) {
         node._lock.value = false;
+        if (onComplete != null) onComplete();
         return;
       }
 
@@ -40,6 +42,6 @@ Node repeatAnimation(
       animation(node);
     }
 
-    animationLoop(numberOfReps);
+    animationLoop(reps);
   };
 }

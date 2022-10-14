@@ -5,8 +5,7 @@ double _interpolate(
   List<dynamic> inputRange,
   List<dynamic> outputRange, {
   Extrapolate extrapolate = Extrapolate.extend,
-  Extrapolate? extrapolateLeft,
-  Extrapolate? extrapolateRight,
+  Extrapolate? rightExtrapolate,
 }) {
   var val = getValue(value);
   var input = inputRange.map((e) => getValue(e)).toList();
@@ -34,8 +33,8 @@ double _interpolate(
         inS == inE, cond(val_ <= inS, outS, outE), resultForNonZeroRange);
   }
 
-  var left = (defined(extrapolateLeft) ? extrapolateLeft : extrapolate)!;
-  var right = (defined(extrapolateRight) ? extrapolateRight : extrapolate)!;
+  var left = extrapolate;
+  var right = (defined(rightExtrapolate) ? rightExtrapolate : extrapolate)!;
 
   var index = 0;
   if (val < input.first) {

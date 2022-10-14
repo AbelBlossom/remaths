@@ -34,6 +34,61 @@ class SharedValue extends Shared {
 
   /// returns `true` if the value is animating
   bool get isAnimating => controller.isAnimating;
+
+  //TODO: docs
+  interpolate(List<dynamic> inputRange, List<dynamic> outputRange,
+          {Extrapolate extrapolate = Extrapolate.extend,
+          Extrapolate? rightExtrapolate}) =>
+      _interpolate(_val, inputRange, outputRange,
+          extrapolate: extrapolate, rightExtrapolate: rightExtrapolate);
+
+  //TODO: docs
+  interpolateColors(List<dynamic> inputRange, List<Color> outputRange) =>
+      _interpolateColor(_val, inputRange, outputRange);
+
+  //TODO: docs
+  withSpring(
+    double toValue, {
+    int duration = _kDuration,
+    double damping = _kDamping,
+    double stiffness = _kStiffness,
+    double mass = _kMass,
+    double velocity = _kVelocity,
+    void Function()? onComplete,
+    int? delay,
+  }) =>
+      value = springAnimation(
+        toValue,
+        damping: damping,
+        delay: delay,
+        duration: duration,
+        mass: mass,
+        onComplete: onComplete,
+        stiffness: stiffness,
+        velocity: velocity,
+      );
+
+  // TODO: doc
+  withTiming(
+    double toValue, {
+    int duration = _kDuration,
+    Curve curve = Curves.easeIn,
+    int? delay,
+    void Function()? onComplete,
+    num? from,
+  }) =>
+      value = timingAnimation(
+        toValue,
+        curve: curve,
+        delay: delay,
+        duration: duration,
+        from: from,
+        onComplete: onComplete,
+      );
+
+  //TODO: doc
+  withSequence(List<Node> animations, {void Function()? onComplete}) =>
+      sequenceAnimation(animations, onComplete: onComplete);
 }
 
 ///TODO: doc
