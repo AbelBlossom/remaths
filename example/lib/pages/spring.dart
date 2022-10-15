@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:remaths/_remaths.v1.dart';
+import 'package:remaths/remaths.dart';
 
 class SpringAnimation extends StatefulWidget {
   const SpringAnimation({Key? key}) : super(key: key);
@@ -11,15 +11,15 @@ class SpringAnimation extends StatefulWidget {
 
 class _SpringAnimationState extends State<SpringAnimation>
     with TickerProviderStateMixin {
-  late Tweenable x;
-  late Tweenable y;
+  late SharedValue x;
+  late SharedValue y;
   double dif = 0;
 
   @override
   void initState() {
     super.initState();
-    x = 100.asTweenable(this);
-    y = 30.asTweenable(this);
+    x = 100.asSharedValue(this);
+    y = 30.asSharedValue(this);
   }
 
   @override
@@ -31,7 +31,7 @@ class _SpringAnimationState extends State<SpringAnimation>
       body: Stack(
         children: [
           AnimatedBuilder(
-            animation: mergeTweenables([x, y]),
+            animation: x.mergeWith([y.animation]),
             builder: (context, child) {
               dif = diff(x);
               return Positioned(
@@ -45,10 +45,8 @@ class _SpringAnimationState extends State<SpringAnimation>
                   onPanEnd: (details) {
                     // x.withTiming(200.0, curve: Curves.easeInCubic);
                     // y.withTiming(30.0, curve: Curves.easeInCubic);
-                    runAllWithSpring(
-                      [x, y],
-                      [100, 30],
-                    );
+                    x.value = withSpring(100);
+                    y.value = withSpring(30);
                   },
                   child: Container(
                     width: 80,

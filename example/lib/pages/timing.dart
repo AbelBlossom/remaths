@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/_remaths.v1.dart';
+import 'package:remaths/remaths.dart';
 
 class TimingAnimation extends StatefulWidget {
   const TimingAnimation({Key? key}) : super(key: key);
@@ -10,14 +10,14 @@ class TimingAnimation extends StatefulWidget {
 
 class _TimingAnimationState extends State<TimingAnimation>
     with TickerProviderStateMixin {
-  late Tweenable x;
-  late Tweenable y;
+  late SharedValue x;
+  late SharedValue y;
 
   @override
   void initState() {
     super.initState();
-    x = Tweenable(100, vsync: this);
-    y = Tweenable(30, vsync: this);
+    x = SharedValue(100, vsync: this);
+    y = SharedValue(30, vsync: this);
   }
 
   @override
@@ -29,7 +29,7 @@ class _TimingAnimationState extends State<TimingAnimation>
       body: Stack(
         children: [
           AnimatedBuilder(
-            animation: mergeTweenables([x, y]),
+            animation: x.mergeWith([y.animation]),
             builder: (context, child) => Positioned(
               top: y.value,
               left: x.value,
@@ -39,13 +39,8 @@ class _TimingAnimationState extends State<TimingAnimation>
                   x.value += details.delta.dx;
                 },
                 onPanEnd: (details) {
-                  // x.withTiming(200.0, curve: Curves.easeInCubic);
-                  // y.withTiming(30.0, curve: Curves.easeInCubic);
-                  runAllWithTiming(
-                    [x, y],
-                    [100, 30],
-                    curve: Curves.linear,
-                  );
+                  x.withTiming(100, curve: Curves.bounceOut);
+                  y.withTiming(30, curve: Curves.bounceOut);
                 },
                 child: child,
               ),

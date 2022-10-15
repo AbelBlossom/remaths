@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:remaths/_remaths.v1.dart';
+import 'package:remaths/remaths.dart';
 
 class NodeTesting extends StatefulWidget {
   const NodeTesting({Key? key}) : super(key: key);
@@ -10,9 +10,9 @@ class NodeTesting extends StatefulWidget {
 
 class _NodeTestingState extends State<NodeTesting>
     with TickerProviderStateMixin {
-  late Tweenable x;
+  late SharedValue x;
   _NodeTestingState() {
-    x = 50.asTweenable(this);
+    x = 50.asSharedValue(this);
   }
   @override
   Widget build(BuildContext context) {

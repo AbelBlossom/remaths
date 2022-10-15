@@ -1,8 +1,8 @@
 library v2.core;
 
-import 'package:flutter/animation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter/widgets.dart';
 import '../utils/helpers.dart';
 part 'src/animation/config.dart';
 part 'src/shared/shared.dart';

@@ -183,6 +183,15 @@ width = withRepeat(withSpring(20.0), reps:3);
 | `double` from         | current value of the `SharedValue` | the start of the animation                        |
 | `Function` onComplete | null                               | calls when the animation is complete              |
 
+## withDelay
+
+Delay an animation before running
+
+```dart
+// this delays the animation for 300ms before running
+opacity.value = withDelay(withTiming(), 300)
+```
+
 # Interpolation
 
 There are some helpful interpolation function to help interpolate between values and `Color`s
@@ -232,14 +241,24 @@ If the `rightExtrapolate` argument is provided the `extrapolate` argument will b
 - `Extrapolate.extend` approximates the value even outside of the range
 - `Extrapolate.identity` returns the value that is being interpolated
 
-## interpolateColors
+## interpolateColor
 
 This is used to map a value from range of number to range of colors.
 
 **USAGE**
 
 ```dart
-var color = interpolateColors(opacity, [0,1], [Colors.red, Colors.green])
+Color color = interpolateColor(opacity, [0,1], [Colors.red, Colors.green])
+```
+
+## interpolateOffset
+
+This is used to map a value from range of Offsets to range of Offsets.
+
+**USAGE**
+
+```dart
+Offset pos = interpolateOffset(_offset_, List<Offset> inputRage, List<Offset> outputRange);
 ```
 
 # Helpers

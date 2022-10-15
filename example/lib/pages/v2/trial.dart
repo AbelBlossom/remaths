@@ -35,7 +35,7 @@ class _VersionTwoTrialState extends State<VersionTwoTrial>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnimatedBuilder(
-            animation: width.mergerWith([offset.animation]),
+            animation: width.mergeWith([offset.animation]),
             builder: (context, child) {
               return Transform.translate(
                 offset: Offset(offset.value, 0.0),

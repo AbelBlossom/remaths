@@ -8,13 +8,11 @@ Node springAnimation(
   double mass = _kMass,
   double velocity = _kVelocity,
   void Function()? onComplete,
-  int? delay,
 }) {
   //TODO: implement using the Default Flutter Simulation
   return timingAnimation(
     toValue,
     duration: duration,
-    delay: delay,
     onComplete: onComplete,
     curve: SpringCurve.custom(
       damping: damping,

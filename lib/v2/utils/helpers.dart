@@ -12,6 +12,8 @@ double getValue(dynamic data) {
   return data is SharedValue ? data.value : (data as num).toDouble();
 }
 
+/// add [a] to [b] <br>
+/// values
 double add(dynamic a, dynamic b) => (getValue(a) + getValue(b)).toDouble();
 
 double multiply(dynamic a, dynamic b) => (getValue(a) * getValue(b)).toDouble();

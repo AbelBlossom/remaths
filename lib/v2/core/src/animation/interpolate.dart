@@ -93,3 +93,18 @@ _interpolateColor(
     getValue(blues),
   );
 }
+
+Offset _interpolateOffset(
+  Offset value,
+  List<Offset> inputRange,
+  List<Offset> outputRange, {
+  Extrapolate extrapolate = Extrapolate.extend,
+  Extrapolate? rightExtrapolate,
+}) {
+  return Offset(
+    _interpolate(value.dx, inputRange.map((e) => e.dx).toList(),
+        outputRange.map((e) => e.dx).toList()),
+    _interpolate(value.dy, inputRange.map((e) => e.dy).toList(),
+        outputRange.map((e) => e.dy).toList()),
+  );
+}

@@ -3,8 +3,7 @@ part of v2.core;
 Node timingAnimation(
   double toValue, {
   int duration = _kDuration,
-  Curve curve = Curves.easeIn,
-  int? delay,
+  Curve curve = Curves.ease,
   void Function()? onComplete,
   num? from,
 }) {
@@ -23,12 +22,6 @@ Node timingAnimation(
         ),
         onComplete);
 
-    if (delay != null) {
-      Future.delayed(Duration(milliseconds: delay), () {
-        node.controller.forward();
-      });
-    } else {
-      node.controller.forward();
-    }
+    node.controller.forward();
   };
 }
