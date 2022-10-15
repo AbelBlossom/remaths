@@ -3,7 +3,7 @@
 - [Installation](#installation)
 - [Migrating from version 1.x.x](#migrating-from-v1)
 - [Basic USAGE](#basic-USAGE)
-- [SharedValues](#)
+- [SharedValues](#sharedvalues)
 - [Animation Functions](#animation-functions)
   - [withTiming](#withtiming)
   - [withSpring](#withsequence)
@@ -11,6 +11,7 @@
 - [Interpolation](#interpolation)
   - [interpolate](#interpolate)
   - [Color Interpolation](#interpolatecolors)
+- [Helpers](#helpers)
 
 ## Installation
 
@@ -30,17 +31,22 @@ dependencies:
 ## Migrating from v1
 
 - `Tweenable` are renamed to `SharedValues`
+
   **OLD**
+
   ```dart
   opacity = Tweenable(0.0, this);
   // OR
   opacity = 0.asTweenable(this)
   ```
+
   **NOW**
+
   ```dart
-  opacity = useSharedValue(0.0, this);
+  opacity = SharedValue(0.0, vsync:this);
   //OR
   opacity = 0.asSharedValue(this);
+  // OR
   ```
 
 ## Basic USAGE
@@ -66,7 +72,9 @@ initState() {
 
 # SharedValues
 
-### methods
+## methods
+
+These are some of the common method. For more go to the [API Reference](https://pub.dev/documentation/remaths/latest/remaths/remaths-library.html)
 
 ### `withTiming(double toValue)`
 
@@ -233,3 +241,176 @@ This is used to map a value from range of number to range of colors.
 ```dart
 var color = interpolateColors(opacity, [0,1], [Colors.red, Colors.green])
 ```
+
+# Helpers
+
+Remaths have some amazing helpful functions to put your animation to the next level.
+
+> **NB:** `SharedValue` can be passed directly to helper functions without getting `.value`
+
+Some of these helper functions are:
+
+## cond
+
+**syntax**
+
+```dart
+var isOPen = cond(bool condition, ifBlock, [elseBlock])
+```
+
+If `condition` evaluates to "truthy" value the node evaluates `ifBlock` node and returns its value, otherwise it evaluates `elseBlock` and returns its value. `elseBlock` is optional.
+
+> Note: `ifBlock` and `elseBlock` can be any value, but id a function is passed, the function is evaluated and return its results
+
+## range
+
+Create a range of numbers
+**Syntax**
+
+```dart
+List<int> numbers = range(stop, {start, step});
+```
+
+## random
+
+Generate a random Number. By default this function generate a number from 0 to 1
+**Syntax\***
+
+```dart
+List<double> rnd = random([int start = 0, int end=1, int decimal=1]);
+```
+
+The `decimal` argument determine the decimal places the the generated number <br>
+Example
+
+```dart
+random(1,2,2) // may be: 1.64
+random(1,2,5) // may be: 1.45345
+```
+
+> **NB** By default this function returns a `double`
+
+## clamp
+
+This function lock value to a min and a max value. This function ensures that the value is not less than the min value or greater than the max vale
+
+**Syntax**
+
+```dart
+double val = clamp(value,min,max);
+```
+
+## diff
+
+returns a difference between value returned at the last time a `SharedValue` was evaluated and its value at the current time. When evaluating for the first time it returns `0`.
+
+**Syntax**
+
+```dart
+double d = diff(opacity)
+```
+
+## toRad
+
+Convert a value to **radian**
+
+**Syntax**
+
+```dart
+var rad = toRad(val)
+```
+
+## toDeg
+
+Convert a value to **degrees**
+
+**Syntax**
+
+```dart
+var deg = toDeg(val)
+```
+
+## lessThan
+
+Check is a value is less than the other
+
+**syntax**
+
+```dart
+bool isYoung = lessThan(age, 10);
+```
+
+## greaterThan
+
+Check is a value is greater than the other
+
+**syntax**
+
+```dart
+bool canVote = greaterThan(age, 18);
+```
+
+## eq
+
+Check is two values are equal
+
+**syntax**
+
+```dart
+bool hasSameName = greaterThan(john.name, doe.name);
+```
+
+## neq
+
+Check is two values are **not** equal
+
+**syntax**
+
+```dart
+bool is = greaterThan(, doe.name);
+```
+
+## Other Functions
+
+### Logical Expressions
+
+- `lessThan`
+- `lessOrEq`
+- `greaterThan`
+- `greaterOrEq`
+- `neq`
+- `eq`
+- `or`
+- `and`
+- [cond](#cond)
+
+### Maths
+
+- `add`
+- `divide`
+- `subtract`
+- `multiply`
+- `modulo`
+- `floor`
+- `ceil`
+- `round`
+- `abs`
+- `exp`
+- `pow`
+- `sqrt`
+- `modulo`
+
+### Trigonometry
+
+- `log`
+- `sin`
+- `cos`
+- `tan`
+- `atan`
+- `acos`
+- `asin`
+
+### SharedValue Specific
+
+- `diff`
+- `diffClamp`
