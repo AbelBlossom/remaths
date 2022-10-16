@@ -12,6 +12,10 @@
   - [interpolate](#interpolate)
   - [Color Interpolation](#interpolatecolors)
 - [Helpers](#helpers)
+- [Other Helper Function](#other-functions)
+  - [Logical](#logical-expressions)
+  - [Maths](#maths)
+  - [`SharedValue` Specific](#sharedvalue-specific)
 
 ## Installation
 
