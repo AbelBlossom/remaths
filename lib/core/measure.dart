@@ -24,9 +24,9 @@ class _MeasureState extends State<_Measure> {
   void initState() {
     super.initState();
     _getMeasurements(true);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _getMeasurements();
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    _getMeasurements();
+    // });
   }
 
   //TODO: fix method calling several times when `measureOnce` is off

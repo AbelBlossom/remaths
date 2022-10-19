@@ -4,6 +4,7 @@ import 'package:example/pages/node.dart';
 import 'package:example/pages/offset_test.dart';
 import 'package:example/pages/spring.dart';
 import 'package:example/pages/timing.dart';
+import 'package:example/pages/v2/measure.dart';
 import 'package:example/pages/v2/trial.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         "/offset": (_) => const OffsetTest(),
         "/apple_bedtime": (_) => const AppleBedtime(),
         "/test": (_) => const VersionTwoTrial(),
+        "/measure": (_) => const V2MeasureTest(),
       },
     );
   }
@@ -52,7 +54,8 @@ class _HomePageState extends State<HomePage> {
       ['New Node API', '/node'],
       ["Offset Text", '/offset'],
       ["Apple Bedtime", '/apple_bedtime'],
-      ["Version 2 Test", "/test"]
+      ["Version 2 Test", "/test"],
+      ["Measure", "/measure"]
     ];
     return Scaffold(
       appBar: AppBar(

@@ -16,3 +16,4 @@ part 'src/shared/details.dart';
 part 'src/animation/interpolate.dart';
 part 'src/animation/stagger.dart';
 part 'src/shared_value.dart';
+part 'src/shared/measure.dart';
