@@ -29,10 +29,12 @@ Measurement? measure(GlobalKey key) => Measurement._getMeasurement(key);
 class MeasureWidget extends StatefulWidget {
   final Function(Measurement measurement) onMeasured;
   final Widget child;
+  final int index;
   const MeasureWidget({
     super.key,
     required this.onMeasured,
     required this.child,
+    required this.index,
   });
 
   @override
@@ -48,6 +50,12 @@ class _MeasureWidgetState extends State<MeasureWidget> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _getMeasurement();
     });
+  }
+
+  @override
+  void dispose() {
+    print("disposing ${widget.index}");
+    super.dispose();
   }
 
   _getMeasurement() {

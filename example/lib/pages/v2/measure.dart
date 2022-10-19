@@ -9,22 +9,28 @@ class V2MeasureTest extends StatefulWidget {
 }
 
 class _V2MeasureTestState extends State<V2MeasureTest> {
+  List<Widget> widgets = List.generate(30, (index) => Tile(index: index));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView.builder(
-        itemCount: 30,
-        itemBuilder: (context, index) {
-          return const Tile();
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: widgets,
+        ),
       ),
     );
   }
 }
 
 class Tile extends StatefulWidget {
-  const Tile({super.key});
+  final int index;
+  const Tile({
+    super.key,
+    required this.index,
+  });
 
   @override
   State<Tile> createState() => _TileState();
@@ -35,6 +41,7 @@ class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
     return MeasureWidget(
+      index: widget.index,
       onMeasured: (measurement) {
         print("measured");
         setState(() {
@@ -43,7 +50,7 @@ class _TileState extends State<Tile> {
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
-        width: 100,
+        width: MediaQuery.of(context).size.width,
         height: 50,
         color: Colors.blueAccent,
         child: Text(g != null ? "${g!.size}, y:${g!.y} x:${g!.x}" : "Not Yet"),
