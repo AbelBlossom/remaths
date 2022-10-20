@@ -8,7 +8,6 @@ double getValue(dynamic data) {
     data is SharedValue || data is num || data is double,
     "Value Must be a SharedValue or a number, got ${data.runtimeType}",
   );
-  // print(data is num);
   return data is SharedValue ? data.value : (data as num).toDouble();
 }
 

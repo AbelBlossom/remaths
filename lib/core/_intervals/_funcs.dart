@@ -36,7 +36,6 @@ abstract class _AnimationFunctions {
     void Function()? onComplete,
   }) async {
     assert(tweenables.length == destinations.length, '');
-    print("here");
 
     for (var i = 0; i < tweenables.length; i++) {
       tweenables[i].value = _AnimationFunctions._withSpring(
@@ -158,7 +157,6 @@ abstract class _AnimationFunctions {
             }
           });
         } else {
-          // print('finished $index');
           node.value = val;
           return runAnimation(index + 1);
         }

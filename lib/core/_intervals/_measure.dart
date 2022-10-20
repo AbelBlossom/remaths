@@ -1,6 +1,6 @@
 part of remaths.v1;
 
-typedef void OnSized(Measurement measurement);
+typedef OnSized = void Function(Measurement measurement);
 
 class Measurement {
   double pageX;

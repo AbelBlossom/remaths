@@ -2,7 +2,8 @@ part of remaths.v1;
 // import 'package:flutter/widgets.dart';
 // import 'package:remaths/remaths.dart';
 
-typedef void CallWith(_InternalShared node);
+// ignore: library_private_types_in_public_api
+typedef CallWith = void Function(_InternalShared node);
 
 const double _kDamping = 20;
 const double _kStiffness = 180;

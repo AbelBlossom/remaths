@@ -117,7 +117,6 @@ T _interpolateAll<T>(num value, List<num> inputRange, List<T> outputRange,
   }
 }
 
-//TODO: add Color Interpolation support to _interpolateOffset
 Offset _interpolateOffset(
     Offset value, List<Offset> inputRange, List<Offset> outputRange,
     [Extrapolate extrapolate = Extrapolate.EXTEND, Extrapolate? right]) {

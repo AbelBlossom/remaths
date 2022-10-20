@@ -31,9 +31,7 @@ class _MeasureState extends State<_Measure> {
 
   //TODO: fix method calling several times when `measureOnce` is off
   _getMeasurements([bool fromInit = false]) {
-    print("getting measurement");
     var context = _key.currentContext;
-    print("callback trigger");
     if (context != null) {
       var box = context.findRenderObject() as RenderBox;
       widget.onSizeChanged
