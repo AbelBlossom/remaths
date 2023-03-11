@@ -43,7 +43,8 @@ class SharedValue extends Shared {
   ///     ...
   ///   )
   /// ```
-  mergeWith(List<Listenable> animations) => Listenable.merge(animations);
+  merge(List<SharedValue> animations) =>
+      Listenable.merge([animation, ...animations.map((e) => e.animation)]);
 
   /// Whether the value is currently animating
   bool get isAnimating => controller.isAnimating;
@@ -101,12 +102,12 @@ class SharedValue extends Shared {
 
   /// run a list of animations sequentially on the current value <br>
   /// similar to [withSequence] helper function
-  withSequence(List<Node> animations, {void Function()? onComplete}) =>
+  withSequence(List<NodeFunc> animations, {void Function()? onComplete}) =>
       sequenceAnimation(animations, onComplete: onComplete);
 
   /// delay [animation] for some milliseconds before running <br>
   /// similar to [withDelay] helper function
-  withDelay(Node animation, int duration) =>
+  withDelay(NodeFunc animation, int duration) =>
       delayAnimation(animation, duration);
 }
 

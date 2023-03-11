@@ -1,6 +1,6 @@
 part of v2.core;
 
-typedef Node = void Function(Shared node);
+typedef NodeFunc = void Function(Shared node);
 
 typedef AnimationListener = void Function();
 
@@ -12,8 +12,6 @@ abstract class Shared {
   late AnimationController controller;
   final TickerProvider vsync;
   bool _sequenceLocked = false;
-
-  final ValueNotifier<bool> _lock = ValueNotifier(false);
 
   late _AnimationInfo _meta;
 
@@ -49,9 +47,7 @@ abstract class Shared {
         if (onComplete != null) {
           onComplete();
         }
-        if (_meta.hasCompleteLister) {
-          _meta.completeListener!();
-        }
+        _meta.callComplete();
       }
     });
     _meta.animation!.addListener(_meta.listener!);
@@ -75,7 +71,7 @@ abstract class Shared {
   AnimationStatus? get status => _status.value;
 
   set value(dynamic val) {
-    assert(val is Node || num.tryParse(val.toString()) != null);
+    assert(val is NodeFunc || num.tryParse(val.toString()) != null);
     if (_sequenceLocked) {
       _sequenceLocked = false;
     }
@@ -84,14 +80,14 @@ abstract class Shared {
     _meta.completeListener = null;
     _meta.stopDelayed();
 
-    val is Node ? val(this) : _setValue(val);
+    val is NodeFunc ? val(this) : _setValue(val);
   }
 
-  get diff {
+  double get diff {
     if (_prev != null) {
       return _val - _prev!;
     }
-    return 0;
+    return 0.0;
   }
 
   _setValue(double val) {

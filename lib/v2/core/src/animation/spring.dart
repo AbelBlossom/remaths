@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node springAnimation(
+NodeFunc springAnimation(
   double toValue, {
   int duration = _kDuration,
   double damping = _kDamping,

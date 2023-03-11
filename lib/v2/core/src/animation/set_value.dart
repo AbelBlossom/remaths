@@ -1,6 +1,6 @@
 part of v2.core;
 
-Node setValue(
+NodeFunc setValue(
   double value, {
   void Function()? onComplete,
 }) {

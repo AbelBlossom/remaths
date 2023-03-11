@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
+import 'package:remaths/v2/core/core.dart';
 
 class TimingAnimation extends HookWidget {
   const TimingAnimation({super.key});
@@ -14,8 +15,8 @@ class TimingAnimation extends HookWidget {
       ),
       body: Stack(
         children: [
-          AnimatedBuilder(
-            animation: x.mergeWith([y.animation]),
+          SharedAnimationBuilder(
+            values: [x, y],
             builder: (context, child) => Positioned(
               top: y.value,
               left: x.value,

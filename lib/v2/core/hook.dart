@@ -16,7 +16,8 @@ class _SharedHookState extends HookState<SharedValue, _SharedHook>
 
   @override
   SharedValue build(BuildContext context) {
-    return SharedValue(hook.value, vsync: this);
+    var shared = SharedValue(hook.value, vsync: this);
+    return shared;
   }
 
   @override
@@ -30,4 +31,25 @@ class _SharedHookState extends HookState<SharedValue, _SharedHook>
 
 SharedValue useSharedValue([double? value]) {
   return use(useMemoized(() => _SharedHook(value ?? 0.0), []));
+}
+
+class SharedAnimationBuilder extends StatelessWidget {
+  final Widget? child;
+  final List<SharedValue> values;
+  final Widget Function(BuildContext, Widget?) builder;
+  const SharedAnimationBuilder({
+    super.key,
+    required this.builder,
+    this.child,
+    this.values = const [],
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: Listenable.merge(values.map((e) => e.animation).toList()),
+      builder: builder,
+      child: child,
+    );
+  }
 }

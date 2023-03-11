@@ -1,7 +1,8 @@
 part of v2.core;
 
 //FIXME: withRepeat don't work with this
-Node sequenceAnimation(List<Node> animations, {void Function()? onComplete}) {
+NodeFunc sequenceAnimation(List<NodeFunc> animations,
+    {void Function()? onComplete}) {
   var anim = animations.reversed.toList();
   return (node) {
     animationLoop(int index) {
@@ -12,18 +13,18 @@ Node sequenceAnimation(List<Node> animations, {void Function()? onComplete}) {
         return;
       }
       anim[index](node);
-      if (node._lock.value) {
+      if (node._meta._lock.value) {
         print("locked");
         late void Function() listener;
-        listener = () {
-          print("added listener");
-          if (!node._lock.value) {
+        node._meta.lockListener = () {
+          print("called listener");
+          if (!node._meta._lock.value) {
             animationLoop(--index);
             node._meta.completeListener = () => animationLoop(index - 1);
+            node._meta.removeLockListener();
           }
         };
 
-        node._lock.addListener(listener);
         return;
       } else {
         print("else");

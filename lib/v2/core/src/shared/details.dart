@@ -1,5 +1,12 @@
 part of v2.core;
 
+enum _Tag {
+  delay,
+  timing,
+  sequence,
+  spring,
+}
+
 class _AnimationInfo {
   Curve curve;
   int duration;
@@ -9,6 +16,9 @@ class _AnimationInfo {
   AnimationListener? listener;
   AnimationListener? completeListener;
   StreamSubscription<dynamic>? _delaySub;
+  _Tag? tag;
+  ValueNotifier _lock = ValueNotifier(false);
+  Function()? _lockListener;
 
   _AnimationInfo({
     required this.curve,
@@ -34,11 +44,28 @@ class _AnimationInfo {
     }
   }
 
+  set lockListener(Function() func) {
+    _lockListener = func;
+    _lock.addListener(func);
+  }
+
+  removeLockListener() {
+    if (_lockListener != null) {
+      _lock.removeListener(_lockListener!);
+    }
+  }
+
   bool get hasAnimation => animation != null;
 
   bool get hasListener => listener != null;
 
   bool get hasCompleteLister => completeListener != null;
+
+  callComplete() {
+    if (completeListener != null) {
+      completeListener!();
+    }
+  }
 
   removeListener() {
     if (hasAnimation && hasListener) {
