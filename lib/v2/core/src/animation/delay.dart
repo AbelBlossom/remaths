@@ -1,9 +1,9 @@
 part of v2.core;
 
-Node delayAnimation(Node func, int delay) {
-  return (node) {
-    Future.delayed(Duration(milliseconds: delay), () {
-      func(node);
-    });
+Node delayAnimation(Node node, int delay) {
+  return (main) {
+    main._meta.setDelayed(() {
+      node(main);
+    }, delay);
   };
 }

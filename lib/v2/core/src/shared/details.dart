@@ -8,6 +8,7 @@ class _AnimationInfo {
   Animation? animation;
   AnimationListener? listener;
   AnimationListener? completeListener;
+  StreamSubscription<dynamic>? _delaySub;
 
   _AnimationInfo({
     required this.curve,
@@ -15,6 +16,23 @@ class _AnimationInfo {
     required this.from,
     required this.to,
   });
+
+  setDelayed(void Function() func, int delay) {
+    if (_delaySub != null) {
+      _delaySub!.cancel().then((_) {});
+    }
+    _delaySub = Future.delayed(Duration(milliseconds: delay)).asStream().listen(
+      (event) {
+        func();
+      },
+    );
+  }
+
+  stopDelayed() {
+    if (_delaySub != null) {
+      _delaySub!.cancel();
+    }
+  }
 
   bool get hasAnimation => animation != null;
 

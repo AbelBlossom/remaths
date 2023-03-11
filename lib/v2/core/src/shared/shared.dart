@@ -1,6 +1,7 @@
 part of v2.core;
 
 typedef Node = void Function(Shared node);
+
 typedef AnimationListener = void Function();
 
 abstract class Shared {
@@ -75,8 +76,13 @@ abstract class Shared {
 
   set value(dynamic val) {
     assert(val is Node || num.tryParse(val.toString()) != null);
-    if (_sequenceLocked) {}
-    _sequenceLocked = false;
+    if (_sequenceLocked) {
+      _sequenceLocked = false;
+    }
+
+    _stopCurrent();
+    _meta.completeListener = null;
+    _meta.stopDelayed();
 
     val is Node ? val(this) : _setValue(val);
   }

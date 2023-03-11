@@ -1,27 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:remaths/remaths.dart';
 
-class TimingAnimation extends StatefulWidget {
-  const TimingAnimation({Key? key}) : super(key: key);
-
-  @override
-  _TimingAnimationState createState() => _TimingAnimationState();
-}
-
-class _TimingAnimationState extends State<TimingAnimation>
-    with TickerProviderStateMixin {
-  late SharedValue x;
-  late SharedValue y;
-
-  @override
-  void initState() {
-    super.initState();
-    x = SharedValue(100, vsync: this);
-    y = SharedValue(30, vsync: this);
-  }
+class TimingAnimation extends HookWidget {
+  const TimingAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final y = useSharedValue(20);
+    final x = useSharedValue(100);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Timing Animation"),
@@ -39,8 +25,8 @@ class _TimingAnimationState extends State<TimingAnimation>
                   x.value += details.delta.dx;
                 },
                 onPanEnd: (details) {
-                  x.withTiming(100, curve: Curves.bounceOut);
-                  y.withTiming(30, curve: Curves.bounceOut);
+                  x.withSpring(100);
+                  y.withSpring(30);
                 },
                 child: child,
               ),

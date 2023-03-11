@@ -133,7 +133,7 @@ const withSequence = sequenceAnimation;
 
 /// Repeat an animation for some number of times <br>
 /// ```dart
-/// width = withRepeat(withSpring(20.0), reps:3, reverse: false);
+/// width = withRepeat(withSpring(20.0), reps:2, reverse: false);
 /// ```
 const withRepeat = repeatAnimation;
 

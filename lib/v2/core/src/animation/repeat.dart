@@ -12,9 +12,16 @@ Node repeatAnimation(
     var start = from == null ? node.value : from.toDouble();
     node._setValue(start);
     animationLoop(int index) {
+      print("index => $index");
       if (index == 0) {
+        node._meta.completeListener = null;
         node._lock.value = false;
-        if (onComplete != null) onComplete();
+        node.value = timingAnimation(start,
+            duration: node._meta.duration,
+            curve: node._meta.curve, onComplete: () {
+          node._lock.value = false;
+          if (onComplete != null) onComplete();
+        });
         return;
       }
 

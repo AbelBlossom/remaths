@@ -7,11 +7,13 @@ Node springAnimation(
   double stiffness = _kStiffness,
   double mass = _kMass,
   double velocity = _kVelocity,
+  double? from,
   void Function()? onComplete,
 }) {
   //TODO: implement using the Default Flutter Simulation
   return timingAnimation(
     toValue,
+    from: from,
     duration: duration,
     onComplete: onComplete,
     curve: SpringCurve.custom(
