@@ -1,6 +1,6 @@
 part of v2.core;
 
-/// animation value
+///TODO: doc
 class SharedValue extends Shared {
   SharedValue(super.val, {required super.vsync});
 

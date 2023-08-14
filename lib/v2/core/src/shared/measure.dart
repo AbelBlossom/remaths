@@ -54,6 +54,7 @@ class _MeasureWidgetState extends State<MeasureWidget> {
 
   @override
   void dispose() {
+    print("disposing ${widget.index}");
     super.dispose();
   }
 
