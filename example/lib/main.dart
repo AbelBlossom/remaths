@@ -1,10 +1,4 @@
-import 'package:example/pages/apple_bedtime.dart';
-import 'package:example/pages/measure_test.dart';
-import 'package:example/pages/node.dart';
-import 'package:example/pages/spring.dart';
-import 'package:example/pages/timing.dart';
-import 'package:example/pages/v2/measure.dart';
-import 'package:example/pages/v2/trial.dart';
+import 'package:example/page/basic.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,14 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(),
-      routes: {
-        "/spring": (_) => const SpringAnimation(),
-        "/timing": (_) => const TimingAnimation(),
-        "/node": (_) => const NodeTesting(),
-        "/apple_bedtime": (_) => const AppleBedtime(),
-        "/test": (_) => const VersionTwoTrial(),
-        "/measure": (_) => const V2MeasureTest(),
-      },
+      routes: {"/basic": (_) => const BasicAnimations()},
     );
   }
 }
@@ -46,13 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var screens = [
-      ["Carousel", "/carousel"],
-      ["Spring Animation", "/spring"],
-      ["Timing Animation", "/timing"],
-      ['New Node API', '/node'],
-      ["Apple Bedtime", '/apple_bedtime'],
-      ["Version 2 Test", "/test"],
-      ["Measure", "/measure"]
+      ["Basic", "/basic"],
     ];
     return Scaffold(
       appBar: AppBar(

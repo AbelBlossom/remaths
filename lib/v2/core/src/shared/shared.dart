@@ -93,7 +93,9 @@ abstract class Shared {
   _setValue(double val) {
     _prev = _val;
     _val = val;
-    _notifier.value = _val;
+    if (_prev != val) {
+      _notifier.value = _val;
+    }
   }
 
   ValueNotifier<double> get notifier => _notifier;
