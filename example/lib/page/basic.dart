@@ -36,20 +36,39 @@ class _BasicAnimationsState extends State<BasicAnimations>
               color: Colors.red,
             ),
             FilledButton(
-                onPressed: () {
-                  value.value = withSpring(
-                    MediaQuery.of(context).size.width / 1.5,
-                    duration: 1000,
-                    damping: 6,
-                    velocity: 5,
-                  );
-                },
-                child: const Text("Run")),
+              onPressed: () {
+                // value.value = withSpring(
+                //   MediaQuery.of(context).size.width / 1.5,
+                //   duration: 1000,
+                //   damping: 6,
+                //   velocity: 5,
+                // );
+
+                final to = MediaQuery.of(context).size.width / 1.5;
+                value.value = withSequence(
+                  [
+                    // withTiming(20),
+                    withTiming(to),
+                    withTiming(20),
+                    withTiming(to),
+                    withTiming(20),
+                    withTiming(to),
+                    withTiming(20),
+                    withTiming(to),
+                  ],
+                  onComplete: () => {
+                    print("Done"),
+                  },
+                );
+              },
+              child: const Text("Run"),
+            ),
             FilledButton(
-                onPressed: () {
-                  value.value = withTiming(20.0);
-                },
-                child: const Text("Reset"))
+              onPressed: () {
+                value.value = withTiming(20.0);
+              },
+              child: const Text("Reset"),
+            ),
           ],
         ),
       ),

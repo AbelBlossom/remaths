@@ -17,7 +17,7 @@ class _AnimationInfo {
   AnimationListener? completeListener;
   StreamSubscription<dynamic>? _delaySub;
   _Tag? tag;
-  ValueNotifier _lock = ValueNotifier(false);
+  final ValueNotifier _lock = ValueNotifier(false);
   Function()? _lockListener;
 
   _AnimationInfo({
