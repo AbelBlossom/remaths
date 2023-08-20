@@ -10,12 +10,12 @@ NodeFunc springAnimation(
   double? from,
   void Function()? onComplete,
 }) {
-  //TODO: implement using the Default Flutter Simulation
-  return timingAnimation(
+  return _animate(
     toValue,
     from: from,
     duration: duration,
     onComplete: onComplete,
+    tag: _Tag.spring,
     curve: SpringCurve.custom(
       damping: damping,
       mass: mass,

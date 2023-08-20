@@ -12,7 +12,7 @@ abstract class Shared {
   late AnimationController controller;
   final TickerProvider vsync;
   bool _sequenceLocked = false;
-
+  void Function()? _onComplete;
   late _AnimationInfo _meta;
 
   Shared(this._val, {required this.vsync}) {
@@ -37,19 +37,20 @@ abstract class Shared {
     );
   }
 
+  _statusListener(AnimationStatus status) {
+    _status.value = status;
+    if (status == AnimationStatus.completed) {
+      _onComplete?.call();
+      _meta.callComplete();
+    }
+  }
+
   _setAnimation(Animation<double> animation, [void Function()? onComplete]) {
     _meta.removeListener();
     _meta.animation = animation;
     _meta.listener = () => _setValue(animation.value);
-    _meta.animation?.addStatusListener((status) {
-      _status.value = status;
-      if (status == AnimationStatus.completed) {
-        if (onComplete != null) {
-          onComplete();
-        }
-        _meta.callComplete();
-      }
-    });
+    _onComplete = onComplete;
+    _meta.animation?.addStatusListener(_statusListener);
     _meta.animation!.addListener(_meta.listener!);
   }
 

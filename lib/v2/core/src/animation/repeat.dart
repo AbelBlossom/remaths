@@ -12,7 +12,6 @@ NodeFunc repeatAnimation(
     var start = from == null ? node.value : from.toDouble();
     node._setValue(start);
     animationLoop(int index) {
-      print("index => $index");
       if (index == 0) {
         node._meta.completeListener = null;
         node.value = timingAnimation(start,
@@ -44,7 +43,6 @@ NodeFunc repeatAnimation(
           animationLoop(index - 1);
         }
       };
-      // node._val = start;
       animation(node);
     }
 

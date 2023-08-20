@@ -3,7 +3,6 @@ part of v2.core;
 enum _Tag {
   delay,
   timing,
-  sequence,
   spring,
 }
 

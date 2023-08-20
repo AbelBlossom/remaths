@@ -74,4 +74,10 @@ class _BasicAnimationsState extends State<BasicAnimations>
       ),
     );
   }
+
+  @override
+  void dispose() {
+    value.dispose();
+    super.dispose();
+  }
 }

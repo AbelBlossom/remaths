@@ -4,9 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import '../utils/helpers.dart';
 part 'src/animation/config.dart';
 part 'src/shared/shared.dart';
